@@ -1,15 +1,2 @@
-﻿  j1App.cpp
-  Generando código...
-  Compilando...
-  j1Window.cpp
-  j1Textures.cpp
-  j1Scene.cpp
-  j1Render.cpp
-  j1Map.cpp
-c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1map.cpp(40): warning C4018: '<': no coinciden signed/unsigned
-c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1map.cpp(42): warning C4018: '<': no coinciden signed/unsigned
-  j1Main.cpp
-  j1Input.cpp
-  Generando código...
-  Motor2D.vcxproj -> C:\Users\ivan_\OneDrive\Documentos\GitHub\Platformer_DevelopmentClass\PlatformerGame\Debug\Motor 2D.exe
-  Motor2D.vcxproj -> C:\Users\ivan_\OneDrive\Documentos\GitHub\Platformer_DevelopmentClass\PlatformerGame\Debug\Motor 2D.pdb (Partial PDB)
+﻿  j1Scene.cpp
+  Motor2D.vcxproj -> C:\Users\Iván\Documents\GitHub\Platformer_DevelopmentClass\PlatformerGame\Debug\Motor 2D.exe

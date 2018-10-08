@@ -32,6 +32,12 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+public:
+	int LevelMap = 0;
+
+private:
+	bool faded = false;
+
 };
 
 #endif // __j1SCENE_H__
