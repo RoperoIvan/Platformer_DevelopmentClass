@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<game_state>
+	<input />
+	<window />
+	<textures />
+	<audio>
+		<music value="0" />
+	</audio>
+	<map />
+	<scene />
+	<player>
+		<map level="1" />
+	</player>
+	<fadeToBlack />
+	<renderer>
+		<camera x="-5" y="140" />
+	</renderer>
+</game_state>
