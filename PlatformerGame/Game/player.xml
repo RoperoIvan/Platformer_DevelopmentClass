@@ -47,8 +47,17 @@
   <animation name ="attack1" speed="0.05f" loop="false">
     <frame x="7" y="236" w="27" h="22"/>
     <frame x="58" y="238" w="26" h="20"/>
-    <frame x="128" y="462" w="34" h="36"/>
-    <frame x="190" y="463" w="36" h="49"/>
-    <frame x="252" y="461" w="36" h="51"/>
+    <frame x="115" y="222" w="34" h="36"/>
+    <frame x="165" y="222" w="27" h="36"/>
+    <frame x="215" y="226" w="19" h="32"/>
   </animation>
+  <animation name ="attack2" speed="0.05f" loop="false">
+    <frame x="265" y="232" w="18" h="26"/>
+    <frame x="315" y="231" w="18" h="27"/>
+    <frame x="13" y="268" w="20" h="27"/>
+    <frame x="60" y="266" w="38" h="29"/>
+    <frame x="102" y="274" w="32" h="21"/>
+    <frame x="152" y="273" w="31" h="22"/>
+  </animation>
+    
 </player>
