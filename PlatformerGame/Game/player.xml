@@ -1,51 +1,54 @@
 
 
 <player>
-  <folder path="textures/Sasuke_sprites.png" ></folder>
+  <folder path="character/adventurer-Sheet.png" ></folder>
   
    <animation name ="idle" speed="0.05f" loop="true">
-    <frame x="4" y="15" w="37" h="51"/>
-    <frame x="79" y="15" w="38" h="51"/>
-    <frame x="158" y="15" w="38" h="51"/>
-    <frame x="224" y="15" w="36" h="51"/>
+    <frame x="14" y="7" w="19" h="29"/>
+    <frame x="66" y="6" w="17" h="30"/>
+    <frame x="115" y="6" w="19" h="30"/>
+    <frame x="163" y="7" w="20" h="29"/>
    </animation>
-  <animation name ="idleBackwards" speed="0.05f" loop ="true">
-    <frame x="536" y="1254" w="37" h="51"/>
-    <frame x="460" y="1254" w="38" h="51"/>
-    <frame x="381" y="1254" w="38" h="51"/>
-    <frame x="317" y="1254" w="36" h="51"/>
+  <animation name ="crouching" speed="0.05f" loop ="true">
+    <frame x="216" y="15" w="19" h="21"/>
+    <frame x="265" y="14" w="20" h="22"/>
+    <frame x="315" y="15" w="19" h="21"/>
+    <frame x="17" y="52" w="17" h="21"/>
   </animation>
    <animation name ="run" speed="0.1f" loop="true">
-    <frame x="7" y="149" w="42" h="43"/>
-    <frame x="62" y="151" w="48" h="41"/>
-    <frame x="130" y="149" w="36" h="42"/>
-    <frame x="188" y="147" w="39" h="44"/>
-    <frame x="246" y="151" w="42" h="41"/>
-    <frame x="310" y="151" w="34" h="41"/>
+    <frame x="67" y="45" w="20" h="28"/>
+    <frame x="116" y="46" w="20" h="27"/>
+    <frame x="166" y="48" w="20" h="26"/>
+    <frame x="217" y="45" w="23" h="29"/>
+    <frame x="266" y="46" w="20" h="27"/>
+    <frame x="316" y="48" w="20" h="25"/>
    </animation>
-  <animation name ="runBackwards" speed="0.1f" loop ="true">
-    <frame x="528" y="1388" w="42" h="43"/>
-    <frame x="467" y="1390" w="48" h="41"/>
-    <frame x="411" y="1388" w="36" h="42"/>
-    <frame x="350" y="1386" w="39" h="44"/>
-    <frame x="289" y="1390" w="42" h="41"/>
-    <frame x="233" y="1390" w="34" h="41"/>
+  <animation name ="jump" speed="0.1f" loop ="true">
+    <frame x="15" y="86" w="21" h="24"/>
+    <frame x="65" y="88" w="20" h="22"/>
+    <frame x="117" y="81" w="19" h="27"/>
+    <frame x="164 " y="79" w="21" h="23"/>
+    <frame x="218" y="82" w="15" h="20"/>
+    <frame x="264" y="84" w="23" h="17"/>
+    <frame x="320" y="84" w="18" h="20"/>
+    <frame x="14" y="124" w="23" h="17"/>
+    <frame x="68" y="112" w="17" h="31"/>
+    <frame x="118" y="113" w="17" h="30"/>
+    <frame x="65" y="88" w="20" h="22"/>
+    <frame x="15" y="86" w="21" h="24"/>
     </animation>
-  <animation name ="teleport" speed="0.05f" loop ="false">
-    <frame x="6" y="804" w="32" h="54"/>
-    <frame x="92" y="802" w="37" h="55"/>
+  <animation name ="slide" speed="0.05f" loop ="false">
+    <frame x="155" y="132" w="34" h="15"/>
+    <frame x="205" y="132" w="34" h="15"/>
+    <frame x="255" y="131" w="34" h="16"/>
+    <frame x="309" y="130" w="30" h="17"/>
+    <frame x="15" y="167" w="22" h="17"/>
   </animation>
-  <animation name ="jutsu" speed="0.05f" loop="false">
-    <frame x="4" y="462" w="36" h="50"/>
-    <frame x="66" y="462" w="39" h="50"/>
-    <frame x="128" y="462" w="41" h="50"/>
+  <animation name ="attack1" speed="0.05f" loop="false">
+    <frame x="7" y="236" w="27" h="22"/>
+    <frame x="58" y="238" w="26" h="20"/>
+    <frame x="128" y="462" w="34" h="36"/>
     <frame x="190" y="463" w="36" h="49"/>
     <frame x="252" y="461" w="36" h="51"/>
-    <frame x="314" y="460" w="36" h="52"/>
-    <frame x="376" y="463" w="35" h="49"/>
-    <frame x="438" y="463" w="34" h="49"/>
-    <frame x="501" y="464" w="38" h="48"/>
-    <frame x="5" y="522" w="53" h="47"/>
-    <frame x="67" y="521" w="55" h="48"/>
   </animation>
 </player>
