@@ -13,8 +13,6 @@ class j1Textures;
 class j1Audio;
 class j1Scene;
 class j1Map;
-class j1FadeToBlack;
-
 class j1App
 {
 public:
@@ -89,7 +87,6 @@ public:
 	j1Audio*			audio;
 	j1Scene*			scene;
 	j1Map*				map;
-	j1FadeToBlack*      fade;
 
 private:
 

@@ -2,7 +2,6 @@
 
 #include "p2Defs.h"
 #include "p2Log.h"
-#include "j1FadeToBlack.h"
 #include "j1Window.h"
 #include "j1Input.h"
 #include "j1Render.h"
@@ -25,7 +24,6 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new j1Audio();
 	scene = new j1Scene();
 	map = new j1Map();
-	fade = new j1FadeToBlack();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -35,7 +33,6 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(map);
 	AddModule(scene);
-	AddModule(fade);
 
 	// render last to swap buffer
 	AddModule(render);
