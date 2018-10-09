@@ -15,6 +15,8 @@ class j1Scene;
 class j1Map;
 class j1FadeToBlack;
 class j1Collision;
+class j1Player;
+
 class j1App
 {
 public:
@@ -50,7 +52,6 @@ public:
 	void SaveGame() const;
 	void GetSaveGames(p2List<p2SString>& list_to_fill) const;
 
-	pugi::xml_node LoadPlayer(pugi::xml_document&) const;
 
 private:
 
@@ -91,6 +92,7 @@ public:
 	j1Map*				map;
 	j1FadeToBlack*      fade;
 	j1Collision*		collision;
+	j1Player*           player;
 
 private:
 

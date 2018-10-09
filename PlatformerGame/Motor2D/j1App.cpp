@@ -11,6 +11,7 @@
 #include "j1Map.h"
 #include "j1FadeToBlack.h"
 #include "j1Collision.h"
+#include "j1Player.h"
 #include "j1App.h"
 
 // Constructor
@@ -27,6 +28,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	scene = new j1Scene();
 	map = new j1Map();
 	fade = new j1FadeToBlack();
+	player = new j1Player();
 	collision = new j1Collision();
 
 	// Ordered for awake / Start / Update
@@ -38,6 +40,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(scene);
 	AddModule(fade);
+	AddModule(player);
 	AddModule(collision);
 	// render last to swap buffer
 	AddModule(render);
@@ -155,20 +158,6 @@ pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file) const
 
 	return ret;
 }
-
-pugi::xml_node j1App::LoadPlayer(pugi::xml_document& player_file) const
-{
-	pugi::xml_node ret;
-
-	pugi::xml_parse_result result = player_file.load_file("player.xml");
-	if (result == NULL)
-		LOG("Could not load map xml file config.xml. pugi error: %s", result.description());
-	else
-		ret = player_file.child("player");
-
-	return ret;
-}
-
 // ---------------------------------------------
 void j1App::PrepareUpdate()
 {
