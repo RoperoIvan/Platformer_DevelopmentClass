@@ -10,6 +10,7 @@
 #include "PugiXml\src\pugixml.hpp"
 
 class j1App;
+struct Collider;
 
 class j1Module
 {
@@ -91,6 +92,8 @@ public:
 		}
 	}
 
+	// Callbacks
+	virtual void OnCollision(Collider*, Collider*) {}
 public:
 
 	p2SString	name;
