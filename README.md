@@ -1,6 +1,6 @@
 # Platformer Game
 
-We had created a platformer game for the subject of development in our second year of our grade. The game has been programmed in C++ and the artwork has been exported from this links:
+We have created a platformer game for the subject of development in our second year of our grade. The game has been programmed in C++ and the artwork has been exported from this links:
 
 https://jesse-m.itch.io/jungle-pack  (tilesets)
 
