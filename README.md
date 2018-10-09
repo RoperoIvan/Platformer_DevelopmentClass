@@ -16,9 +16,9 @@ WASD = movement of the character.
 
 We are two students in CITM center of the UPC.
 
-- Ivan Ropero García (https://github.com/RoperoIvan)
-
 - Oscar Reguera Parera (https://github.com/oscarrep)
+
+- Ivan Ropero García (https://github.com/RoperoIvan)
 
 
 ## Repository
