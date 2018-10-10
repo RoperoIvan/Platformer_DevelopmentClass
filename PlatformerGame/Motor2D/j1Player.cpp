@@ -89,6 +89,46 @@ bool j1Player::Awake(pugi::xml_node& config)
 			jump.loop = animations.attribute("loop").as_bool();
 
 		}
+		if (types == "fall")
+		{
+			for (pugi::xml_node frames = animations.child("frame"); frames; frames = frames.next_sibling("frame"))
+			{
+				fall.PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("w").as_int(), frames.attribute("h").as_int() });
+			}
+			fall.speed = animations.attribute("speed").as_float();
+			fall.loop = animations.attribute("loop").as_bool();
+
+		}
+		if (types == "fallLeft")
+		{
+			for (pugi::xml_node frames = animations.child("frame"); frames; frames = frames.next_sibling("frame"))
+			{
+				fallLeft.PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("w").as_int(), frames.attribute("h").as_int() });
+			}
+			fallLeft.speed = animations.attribute("speed").as_float();
+			fallLeft.loop = animations.attribute("loop").as_bool();
+
+		}
+		if (types == "landing")
+		{
+			for (pugi::xml_node frames = animations.child("frame"); frames; frames = frames.next_sibling("frame"))
+			{
+				landing.PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("w").as_int(), frames.attribute("h").as_int() });
+			}
+			landing.speed = animations.attribute("speed").as_float();
+			landing.loop = animations.attribute("loop").as_bool();
+
+		}
+		if (types == "landingLeft")
+		{
+			for (pugi::xml_node frames = animations.child("frame"); frames; frames = frames.next_sibling("frame"))
+			{
+				landingLeft.PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("w").as_int(), frames.attribute("h").as_int() });
+			}
+			landingLeft.speed = animations.attribute("speed").as_float();
+			landingLeft.loop = animations.attribute("loop").as_bool();
+
+		}
 	}
 	currentAnimation = &idle;
 

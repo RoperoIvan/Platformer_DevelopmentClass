@@ -38,7 +38,11 @@ private:
 	Animation move;
 	Animation moveLeft;
 	Animation jump;
+	Animation fall;
 	Animation jumpLeft;
+	Animation fallLeft;
+	Animation landing;
+	Animation landingLeft;
 	Animation* currentAnimation = nullptr;
 	bool initialCamera = true;
 	bool left = false;
