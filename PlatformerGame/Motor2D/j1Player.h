@@ -30,19 +30,21 @@ public:
 private:
 
 	iPoint position;
-	iPoint speed;
-	int gravity;
+	iPoint speedPlayer;
 	p2SString path;
 	SDL_Texture* playerTexture;
 	Animation idle;
-	Animation idleleft;
+	Animation idleLeft;
 	Animation move;
-	Animation moveleft;
+	Animation moveLeft;
 	Animation jump;
-	Animation jumpleft;
+	Animation jumpLeft;
 	Animation* currentAnimation = nullptr;
 	bool initialCamera = true;
 	bool left = false;
+	int gravity;
+	float freeFall;
+	float heightFall;
 };
 
 

@@ -21,13 +21,18 @@ j1Player::~j1Player()
 
 bool j1Player::Awake(pugi::xml_node& config)
 {
-	position.x = 0;
-	position.y = 0;
-	speed.x = 1;
-	speed.y = 0;
 
+	//Important variables of the player
+	position.x = config.child("position").attribute("x").as_int();
+	position.y = config.child("position").attribute("y").as_int();;
+	speedPlayer.x = config.child("speedplayer").attribute("x").as_int();;
+	speedPlayer.y = config.child("speedplayer").attribute("y").as_int();;
 	gravity = config.child("gravity").attribute("value").as_int();
 	path = config.child("path").attribute("value").as_string();
+	heightFall = config.child("heightfall").attribute("value").as_int();
+	freeFall = -sqrt(gravity * heightFall * 2.0f);
+
+	//Loading of the animations
 
 	for (pugi::xml_node animations = config.child("animation"); animations; animations = animations.next_sibling("animation"))
 	{
@@ -48,11 +53,11 @@ bool j1Player::Awake(pugi::xml_node& config)
 		{
 			for (pugi::xml_node frames = animations.child("frame"); frames; frames = frames.next_sibling("frame"))
 			{
-				idleleft.PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("w").as_int(), frames.attribute("h").as_int() });
+				idleLeft.PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("w").as_int(), frames.attribute("h").as_int() });
 			}
 
-			idleleft.speed = animations.attribute("speed").as_float();
-			idleleft.loop = animations.attribute("loop").as_bool();
+			idleLeft.speed = animations.attribute("speed").as_float();
+			idleLeft.loop = animations.attribute("loop").as_bool();
 		}
 
 		if (types == "move")
@@ -68,22 +73,22 @@ bool j1Player::Awake(pugi::xml_node& config)
 		{
 			for (pugi::xml_node frames = animations.child("frame"); frames; frames = frames.next_sibling("frame"))
 			{
-				moveleft.PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("w").as_int(), frames.attribute("h").as_int() });
+				moveLeft.PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("w").as_int(), frames.attribute("h").as_int() });
 			}
-			moveleft.speed = animations.attribute("speed").as_float();
-			moveleft.loop = animations.attribute("loop").as_bool();
+			moveLeft.speed = animations.attribute("speed").as_float();
+			moveLeft.loop = animations.attribute("loop").as_bool();
 		}
 
-		/*if (types == "jump")
+		if (types == "jump")
 		{
-		frame.x = animations.attribute("x").as_int();
-		frame.y = animations.attribute("y").as_int();
-		frame.w = animations.attribute("w").as_int();
-		frame.h = animations.attribute("h").as_int();
-		jump.PushBack(frame);
-		jump.speed = 0.5f;
-		jump.loop = true;
-		}*/
+			for (pugi::xml_node frames = animations.child("frame"); frames; frames = frames.next_sibling("frame"))
+			{
+				jump.PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("w").as_int(), frames.attribute("h").as_int() });
+			}
+			jump.speed = animations.attribute("speed").as_float();
+			jump.loop = animations.attribute("loop").as_bool();
+
+		}
 	}
 	currentAnimation = &idle;
 
@@ -105,6 +110,8 @@ bool j1Player::PreUpdate()
 
 bool j1Player::Update(float dt)
 {
+	//Control of the orientation of the player animations
+
 	if (!left)
 	{
 		currentAnimation = &idle;
@@ -112,8 +119,12 @@ bool j1Player::Update(float dt)
 
 	if (left)
 	{
-		currentAnimation = &idleleft;
+		currentAnimation = &idleLeft;
 	}
+	///////////////////
+
+
+
 
 	if (initialCamera == true)
 	{
@@ -125,26 +136,27 @@ bool j1Player::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
-		position.x += speed.x;
+		position.x += speedPlayer.x;
 		currentAnimation = &move;
 		left = false;
 	}
-	/*if (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
-	{
-	position.x += speed.x;
-	walking = false;
 
-	}*/
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
-		position.x -= speed.x;
-		currentAnimation = &moveleft;
+		position.x -= speedPlayer.x;
+		currentAnimation = &moveLeft;
 		left = true;
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	{
+		position.y += freeFall * speedPlayer.y;
+		currentAnimation = &jump;
+		left = false;
+	}
 
-
+	//Drawing of the animations
 	App->render->Blit(playerTexture, position.x, position.y, &currentAnimation->GetCurrentFrame());
 
 	return true;

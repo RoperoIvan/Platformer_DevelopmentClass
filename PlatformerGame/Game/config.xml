@@ -30,13 +30,16 @@
   <player>
     <gravity value="50"/>
     <path value="character/adventurer-Sheet2.png"/>
-    <animation type ="idle" speed="0.035f" loop="true">
+    <position x="0" y="0"/>
+    <speedplayer x="1" y="0"/>
+    <heightfall value="3.2f"/>
+    <animation type ="idle" speed="0.1f" loop="true">
     <frame x="14" y="7" w="19" h="29"/>
     <frame x="66" y="6" w="17" h="30"/>
     <frame x="115" y="6" w="19" h="30"/>
     <frame x="163" y="7" w="20" h="29"/>
     </animation>
-    <animation type ="move" speed="0.05f" loop="true">
+    <animation type ="move" speed="0.1f" loop="true">
     <frame x="67" y="45" w="20" h="28"/>
     <frame x="116" y="46" w="20" h="27"/>
     <frame x="166" y="48" w="20" h="26"/>
@@ -44,7 +47,7 @@
     <frame x="266" y="46" w="20" h="27"/>
     <frame x="316" y="48" w="20" h="25"/>
    </animation>
-    <animation type ="jump">
+    <animation type ="jump" speed="0.1f" loop="true">
     <frame x="15" y="86" w="20" h="24"/>
     <frame x="65" y="88" w="20" h="22"/>
     <frame x="117" y="81" w="19" h="27"/>
@@ -58,13 +61,13 @@
     <frame x="65" y="88" w="20" h="22"/>
     <frame x="15" y="86" w="21" h="24"/>
     </animation>
-     <animation type ="idleleft" speed="0.035f" loop="true">
+     <animation type ="idleleft" speed="0.1f" loop="true">
     <frame x="667" y="8" w="19" h="29"/>
     <frame x="617" y="7" w="17" h="30"/>
     <frame x="566" y="7" w="19" h="30"/>
     <frame x="517" y="8" w="20" h="29"/>
     </animation>
-    <animation type ="moveleft" speed="0.05f" loop="true">
+    <animation type ="moveleft" speed="0.1f" loop="true">
     <frame x="613" y="46" w="20" h="28"/>
     <frame x="564" y="47" w="20" h="27"/>
     <frame x="514" y="49" w="20" h="25"/>
