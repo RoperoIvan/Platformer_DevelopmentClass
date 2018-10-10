@@ -1,4 +1,7 @@
 ﻿  j1Player.cpp
-c:\users\iván\documents\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(32): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-c:\users\iván\documents\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(154): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\iván\documents\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(179): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\iván\documents\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(197): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\iván\documents\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(200): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\iván\documents\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(215): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\iván\documents\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(223): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
   Motor2D.vcxproj -> C:\Users\Iván\Documents\GitHub\Platformer_DevelopmentClass\PlatformerGame\Debug\Motor 2D.exe

@@ -22,15 +22,20 @@ j1Player::~j1Player()
 bool j1Player::Awake(pugi::xml_node& config)
 {
 
-	//Important variables of the player
+	//Importing the values of the variables from the player in the XML config file
+
 	position.x = config.child("position").attribute("x").as_int();
-	position.y = config.child("position").attribute("y").as_int();;
-	speedPlayer.x = config.child("speedplayer").attribute("x").as_int();;
-	speedPlayer.y = config.child("speedplayer").attribute("y").as_int();;
-	gravity = config.child("gravity").attribute("value").as_int();
+	position.y = config.child("position").attribute("y").as_int();
+	jumpPower = config.child("jumpPower").attribute("value").as_int();
+	maxJumpHeight = config.child("maxjumpHeight").attribute("value").as_int();
+	speedPlayer.x = config.child("speedplayer").attribute("x").as_float();
+	speedPlayer.y = config.child("speedplayer").attribute("y").as_float();
+	gravity = config.child("gravity").attribute("value").as_float();
 	path = config.child("path").attribute("value").as_string();
-	heightFall = config.child("heightfall").attribute("value").as_int();
-	freeFall = -sqrt(gravity * heightFall * 2.0f);
+	initialCamera = config.child("initialcamera").attribute("value").as_bool();
+	left = config.child("left").attribute("value").as_bool();
+	solidGround = config.child("solidground").attribute("value").as_bool();
+	jumpAgain = config.child("jumpagain").attribute("value").as_bool();
 
 	//Loading of the animations
 
@@ -163,7 +168,38 @@ bool j1Player::Update(float dt)
 	}
 	///////////////////
 
+	//Logic of the jump movement of the player
 
+	if (solidGround)
+	{
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		{
+			if (jumpAgain)
+			{
+				speedPlayer.y = jumpPower;
+				jumpAgain = false;
+			}
+			solidGround = false;
+		}
+		else
+		{
+			jumpAgain = true;
+		}
+	}
+	if (!solidGround)
+	{
+		speedPlayer.y += gravity;
+	}
+
+
+	if (speedPlayer.y > maxJumpHeight)
+	{
+		speedPlayer.y = maxJumpHeight;
+	}
+
+	position.y += speedPlayer.y;
+
+	/////////////////////////////
 
 
 	if (initialCamera == true)
@@ -189,14 +225,7 @@ bool j1Player::Update(float dt)
 		left = true;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-	{
-		position.y += freeFall * speedPlayer.y;
-		currentAnimation = &jump;
-		left = false;
-	}
-
-	//Drawing of the animations
+	//Drawing the animations
 	App->render->Blit(playerTexture, position.x, position.y, &currentAnimation->GetCurrentFrame());
 
 	return true;

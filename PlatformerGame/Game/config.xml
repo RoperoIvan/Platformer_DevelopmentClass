@@ -28,11 +28,17 @@
     <folder>maps/</folder>
   </map>
   <player>
-    <gravity value="50"/>
+    <gravity value="0.5f"/>
     <path value="character/adventurer-Sheet2.png"/>
-    <position x="0" y="0"/>
-    <speedplayer x="1" y="0"/>
-    <heightfall value="3.2f"/>
+    <position x="50" y="230"/>
+    <speedplayer x="1.0f" y="0.0f"/>
+    <initialcamera value="true"/>
+    <left value="false"/>
+    <solidground value="true"/>
+    <jumpagain value="false"/>
+    <jumpPower value="-10"/>
+    <maxjumpHeight value="5"/>
+ 
     <animation type ="idle" speed="0.1f" loop="true">
     <frame x="14" y="7" w="19" h="29"/>
     <frame x="66" y="6" w="17" h="30"/>
