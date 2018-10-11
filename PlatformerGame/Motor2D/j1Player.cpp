@@ -4,6 +4,7 @@
 #include "j1Input.h"
 #include "j1Render.h"
 #include "j1Scene.h"
+#include "j1Map.h"
 #include "j1FadeToBlack.h"
 #include "j1Audio.h"
 #include "j1Textures.h"
@@ -209,16 +210,10 @@ bool j1Player::Update(float dt)
 
 	/////////////////////////////
 
+	
 
-	if (initialCamera == true)
-	{
-		//Initial position of the camera pointing at the player
 
-		App->render->camera.x = -position.x/* + (App->win->width / 2)*/;
-		App->render->camera.y = position.y - (App->win->height / 2);
-		initialCamera = false;
-	}
-
+	// Right and left player's movement logic
 
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
@@ -259,9 +254,14 @@ bool j1Player::CleanUp()
 	return true;
 }
 
-int j1Player::GetPositionX(int  positionx)
+int j1Player::GetPositionX()
 {
-	return position.x = positionx;
+	return position.x;
 }
+int j1Player::GetPositionY()
+{
+	return position.y;
+}
+
 
 

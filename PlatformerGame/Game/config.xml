@@ -8,6 +8,7 @@
 	
   <renderer>
     <vsync value="true"/>
+    <controllingCamera value="false"/>
   </renderer>
 
   <window>
@@ -26,6 +27,7 @@
 
   <map>
     <folder>maps/</folder>
+    <seeCollisions value="false"/>
   </map>
   <player>
     <gravity value="0.5f"/>

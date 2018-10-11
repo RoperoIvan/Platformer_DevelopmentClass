@@ -102,12 +102,13 @@ public:
 
 	MapData data;
 	uint GetGidPosition(int x, int y);
-
+	bool                seeCollisions;
 private:
 
 	pugi::xml_document	map_file;
 	p2SString			folder;
 	bool				map_loaded;
+	
 };
 
 #endif // __j1MAP_H__

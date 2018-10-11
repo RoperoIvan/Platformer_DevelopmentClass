@@ -65,6 +65,28 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x += 10;
 
+	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_REPEAT)
+	{
+		App->render->controllingCamera = true;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
+		counter++;
+		if (counter == 1)
+		{
+			App->map->seeCollisions = true;
+			
+		}
+		if (counter == 2)
+		{
+			App->map->seeCollisions = false;
+			counter = 0;
+		}
+		
+	}
+
+
 	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_REPEAT)
 	{
 		App->map->CleanUp();

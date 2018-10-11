@@ -22,7 +22,7 @@ bool j1Map::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 	folder.create(config.child("folder").child_value());
-
+	seeCollisions = config.child("seeCollisions").attribute("value").as_bool();
 	return ret;
 }
 
@@ -46,7 +46,7 @@ void j1Map::Draw()
 						SDL_Rect pattern1 = tilesets_items->data->GetTileRect(layers_items->data->GetPosition(i, j));
 						SDL_Rect pattern2 = tilesets_items->next->data->GetTileRect(layers_items->data->GetPosition(i, j));
 						iPoint pos = MapToWorld(i, j);
-						uint gid = GetGidPosition(pos.x, pos.y);
+						/*uint gid = */GetGidPosition(pos.x, pos.y);
 
 						if (layers_items->data->name == "Background1" )
 						{
@@ -75,6 +75,10 @@ void j1Map::Draw()
 						}
 
 						if (layers_items->data->name == "Movement")
+						{
+							App->render->Blit(tilesets_items->data->texture, pos.x, pos.y, &pattern1, 1.0f);
+						}
+						if (layers_items->data->name == "Collision" && seeCollisions)
 						{
 							App->render->Blit(tilesets_items->data->texture, pos.x, pos.y, &pattern1, 1.0f);
 						}
@@ -396,5 +400,6 @@ uint j1Map::GetGidPosition(int x, int y)
 
 	 return data[width*y + x];
 }
+
 
  

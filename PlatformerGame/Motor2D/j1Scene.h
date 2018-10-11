@@ -37,7 +37,7 @@ public:
 
 private:
 	bool faded = false;
-
+	int counter = 0;
 };
 
 #endif // __j1SCENE_H__
