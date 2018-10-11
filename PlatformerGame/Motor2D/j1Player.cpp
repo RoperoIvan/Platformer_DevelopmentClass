@@ -1,5 +1,6 @@
 #include "j1App.h"
 #include "j1Player.h"
+#include "p2Log.h"
 #include "j1Input.h"
 #include "j1Render.h"
 #include "j1Scene.h"
@@ -179,7 +180,13 @@ bool j1Player::Update(float dt)
 				speedPlayer.y = jumpPower;
 				jumpAgain = false;
 			}
-			solidGround = false;
+			currentAnimation = &jump;
+			
+			
+				solidGround = false;
+			
+			
+		
 		}
 		else
 		{
@@ -189,6 +196,7 @@ bool j1Player::Update(float dt)
 	if (!solidGround)
 	{
 		speedPlayer.y += gravity;
+		currentAnimation = &fall;
 	}
 
 
@@ -204,8 +212,10 @@ bool j1Player::Update(float dt)
 
 	if (initialCamera == true)
 	{
-		App->render->camera.x = -position.x + (App->win->width / 2);
-		App->render->camera.y = position.y + (App->win->height / 2);
+		//Initial position of the camera pointing at the player
+
+		App->render->camera.x = -position.x/* + (App->win->width / 2)*/;
+		App->render->camera.y = position.y - (App->win->height / 2);
 		initialCamera = false;
 	}
 
@@ -241,6 +251,7 @@ bool j1Player::PostUpdate()
 
 bool j1Player::CleanUp()
 {
+	LOG("Freeing player textures....");
 	App->tex->UnLoad(playerTexture);
 	playerTexture = nullptr;
 
@@ -248,5 +259,9 @@ bool j1Player::CleanUp()
 	return true;
 }
 
+int j1Player::GetPositionX(int  positionx)
+{
+	return position.x = positionx;
+}
 
 

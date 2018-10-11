@@ -24,12 +24,13 @@ public:
 	bool Update(float dt);
 	bool PostUpdate();
 	bool CleanUp();
+	int GetPositionX(int);
 	/*bool Save(pugi::xml_node&);
 	bool Load(pugi::xml_node&);*/
-
+	iPoint position;
 private:
 
-	iPoint position;
+	
 	fPoint speedPlayer;
 	p2SString path;
 	SDL_Texture* playerTexture;

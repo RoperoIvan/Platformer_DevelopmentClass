@@ -1,7 +1,7 @@
 #ifndef _j1COLLISION_
 #define _j1COLLISION_
 
-#define MAX_COLLIDERS 300
+#define MAX_COLLIDERS 50
 
 #include "j1Module.h"
 #include "SDL/include/SDL_rect.h"
