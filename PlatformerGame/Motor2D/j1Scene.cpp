@@ -50,7 +50,7 @@ bool j1Scene::Start()
 {
 	
 		App->map->Load("level1.tmx");
-		App->audio->PlayMusic("audio/Grasslands_Theme.ogg");	
+		App->audio->PlayMusic("audio/Grasslands_Theme.ogg");
 
 	return true;
 }
@@ -159,6 +159,7 @@ void j1Scene::LevelChange()
 		App->player->Start();
 		winCondition = { Wincon2.x,Wincon2.y,Width2,Height2 };
 		App->map->Load("level2.tmx");
+		App->audio->PlayMusic("audio/Desert_Theme.ogg");
 	}
 	levelSelector++;
 	if (levelSelector == 2)
@@ -170,6 +171,7 @@ void j1Scene::LevelChange()
 		App->player->Start();
 		winCondition = { Wincon1.x,Wincon1.y,Width1,Height1 };
 		App->map->Load("level1.tmx");
+		App->audio->PlayMusic("audio/Grasslands_Theme.ogg");
 		levelSelector = 0;
 	}
 

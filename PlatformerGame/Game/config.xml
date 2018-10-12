@@ -14,7 +14,7 @@
     <levelSelector value="0"/>
     <counter value="0"/>
     <firstLevelPosition x="200.0f" y="230.0f"/>
-    <secondLevelPosition x="100" y="331"/>
+    <secondLevelPosition x="100" y="150"/>
     <Width1 value="16"/>
     <Width2 value="16"/>
     <Height1 value="112"/>
@@ -32,7 +32,8 @@
     <fullscreen_window value="false"/>
   </window>
   <audio>
-    <path value ="audio/Grasslands_Theme.mp3"/>
+    <path value ="audio/Grasslands_Theme.ogg"/>
+    <path value ="audio/Desert_Theme.ogg"/>
   </audio>
   <file_system>
     <path>data.zip</path>
