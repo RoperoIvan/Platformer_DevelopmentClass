@@ -96,6 +96,16 @@ bool j1Player::Awake(pugi::xml_node& config)
 			jump.loop = animations.attribute("loop").as_bool();
 
 		}
+		if (types == "jumpLeft")
+		{
+			for (pugi::xml_node frames = animations.child("frame"); frames; frames = frames.next_sibling("frame"))
+			{
+				jumpLeft.PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("w").as_int(), frames.attribute("h").as_int() });
+			}
+			jumpLeft.speed = animations.attribute("speed").as_float();
+			jumpLeft.loop = animations.attribute("loop").as_bool();
+
+		}
 		if (types == "fall")
 		{
 			for (pugi::xml_node frames = animations.child("frame"); frames; frames = frames.next_sibling("frame"))
@@ -203,7 +213,11 @@ bool j1Player::Update(float dt)
 		}
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		{
-			currentAnimation = &fallLeft;
+			currentAnimation = &jumpLeft;
+			if (jumpLeft.Finished())
+			{
+				currentAnimation = &fallLeft;
+			}
 		}
 	}
 	if (speedPlayer.y > maxJumpHeight)
