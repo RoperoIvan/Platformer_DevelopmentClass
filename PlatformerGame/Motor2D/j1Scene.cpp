@@ -41,7 +41,7 @@ bool j1Scene::Start()
 {
 	
 		App->map->Load("level1.tmx");
-	
+		App->audio->PlayMusic("audio/Grasslands_Theme.ogg");	
 
 	return true;
 }

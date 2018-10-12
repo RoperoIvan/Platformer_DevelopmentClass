@@ -24,7 +24,7 @@
     <fullscreen_window value="false"/>
   </window>
   <audio>
-    <path value ="" />
+    <path value ="audio/Grasslands_Theme.mp3"/>
   </audio>
   <file_system>
     <path>data.zip</path>
