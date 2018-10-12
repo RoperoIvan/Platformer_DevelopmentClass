@@ -33,6 +33,15 @@ bool j1Scene::Awake(pugi::xml_node& config)
 	firstLevelPosition.y = config.child("firstLevelPosition").attribute("y").as_float();
 	secondLevelPosition.x = config.child("secondLevelPosition").attribute("x").as_float();
 	secondLevelPosition.y = config.child("secondLevelPosition").attribute("y").as_float();
+	Width1 = config.child("Width1").attribute("value").as_int();
+	Width2 = config.child("Width2").attribute("value").as_int();
+	Height1 = config.child("Height1").attribute("value").as_int();
+	Height2 = config.child("Height2").attribute("value").as_int();
+	Wincon1.x = config.child("Wincon1").attribute("x").as_int();
+	Wincon1.y = config.child("Wincon1").attribute("y").as_int();
+	Wincon2.x = config.child("Wincon2").attribute("x").as_int();
+	Wincon2.y = config.child("Wincon2").attribute("y").as_int();
+	winCondition = { Wincon1.x,Wincon1.y,Width1,Height1 };
 	return ret;
 }
 
@@ -56,7 +65,10 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 
-	
+	if (App->player->GetPosition().x == winCondition.x)
+	{
+		LevelChange();
+	}
 
 
 	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
@@ -145,6 +157,7 @@ void j1Scene::LevelChange()
 		App->fade->FadeTo();
 		App->player->SetPosition(secondLevelPosition);
 		App->player->Start();
+		winCondition = { Wincon2.x,Wincon2.y,Width2,Height2 };
 		App->map->Load("level2.tmx");
 	}
 	levelSelector++;
@@ -155,6 +168,7 @@ void j1Scene::LevelChange()
 		App->fade->FadeTo();
 		App->player->SetPosition(firstLevelPosition);
 		App->player->Start();
+		winCondition = { Wincon1.x,Wincon1.y,Width1,Height1 };
 		App->map->Load("level1.tmx");
 		levelSelector = 0;
 	}

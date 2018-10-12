@@ -40,7 +40,9 @@ private:
 	int levelSelector;
 	int counter;
 	fPoint firstLevelPosition, secondLevelPosition;
-
+	iPoint Wincon1, Wincon2;
+	int Width1, Width2, Height1, Height2;
+	SDL_Rect winCondition;
 	
 };
 

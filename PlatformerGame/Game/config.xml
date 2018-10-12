@@ -14,7 +14,15 @@
     <levelSelector value="0"/>
     <counter value="0"/>
     <firstLevelPosition x="200.0f" y="230.0f"/>
-    <secondLevelPosition x="100" y="150"/> 
+    <secondLevelPosition x="100" y="331"/>
+    <Width1 value="16"/>
+    <Width2 value="16"/>
+    <Height1 value="112"/>
+    <Height2 value="48"/>
+    <Wincon1 x="1328" y="240"/>
+    <Wincon2 x="16" y="331"/>
+
+
   </scene>
   <window>
     <resolution width="1024" height="768" scale="1"/>

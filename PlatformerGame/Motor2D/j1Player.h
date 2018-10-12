@@ -24,7 +24,7 @@ public:
 	bool Update(float dt);
 	bool PostUpdate();
 	bool CleanUp();
-	//fPoint GetPosition();
+	fPoint GetPosition();
 	fPoint SetPosition(fPoint playerPos);
 
 	/*bool Save(pugi::xml_node&);

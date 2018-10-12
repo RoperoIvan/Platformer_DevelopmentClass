@@ -4,6 +4,8 @@
 c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(233): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
 c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(234): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
 c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(265): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+  j1Collision.cpp
+  j1Audio.cpp
   j1App.cpp
   Generando código...
   LINK : no se encontró C:\Users\ivan_\OneDrive\Documentos\GitHub\Platformer_DevelopmentClass\PlatformerGame\Debug\Motor 2D.exe o no lo generó el último vínculo incremental; ejecutando vínculo completo
