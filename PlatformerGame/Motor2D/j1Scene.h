@@ -36,6 +36,8 @@ public:
 
 public:
 	bool controllingCamera;
+	//int Mix_VolumeMusic(int volume);
+
 private:
 	int levelSelector;
 	int counter;

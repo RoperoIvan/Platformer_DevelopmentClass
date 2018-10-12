@@ -109,12 +109,23 @@ bool j1Scene::Update(float dt)
 		
 	}
 
-
-	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_REPEAT)
 	{
-		LevelChange();
+		controllingCamera = true;
 	}
-	
+
+	if (App->input->GetKey(SDL_SCANCODE_7) == KEY_REPEAT /*&& MIX_MAX_VOLUME > 0*/)
+	{
+		Mix_VolumeMusic(MIX_MAX_VOLUME / 10);
+	}
+
+	/*if (App->input->GetKey(SDL_SCANCODE_8) == KEY_REPEAT && MIX_MAX_VOLUME < 128)
+	{
+		Mix_VolumeMusic(MIX_MAX_VOLUME * 10);
+	}*/
+
+
+
 	App->map->Draw();
 
 	// "Map:%dx%d Tiles:%dx%d Tilesets:%d"
@@ -161,7 +172,9 @@ void j1Scene::LevelChange()
 		App->map->Load("level2.tmx");
 		App->audio->PlayMusic("audio/Desert_Theme.ogg");
 	}
+
 	levelSelector++;
+
 	if (levelSelector == 2)
 	{
 		App->player->CleanUp();
@@ -174,6 +187,4 @@ void j1Scene::LevelChange()
 		App->audio->PlayMusic("audio/Grasslands_Theme.ogg");
 		levelSelector = 0;
 	}
-
-
 }
