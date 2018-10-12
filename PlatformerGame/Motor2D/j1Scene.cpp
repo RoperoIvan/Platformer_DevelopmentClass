@@ -8,6 +8,7 @@
 #include "j1Window.h"
 #include "j1Map.h"
 #include "j1FadeToBlack.h"
+#include "j1Player.h"
 #include "j1Scene.h"
 
 j1Scene::j1Scene() : j1Module()
@@ -20,10 +21,12 @@ j1Scene::~j1Scene()
 {}
 
 // Called before render is available
-bool j1Scene::Awake()
+bool j1Scene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 	bool ret = true;
+
+	controllingCamera = config.child("controllingCamera").attribute("value").as_bool();
 
 	return ret;
 }
@@ -48,6 +51,10 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+
+	
+
+
 	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 		App->LoadGame();
 
@@ -67,7 +74,7 @@ bool j1Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_REPEAT)
 	{
-		App->render->controllingCamera = true;
+		controllingCamera = true;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
@@ -87,21 +94,24 @@ bool j1Scene::Update(float dt)
 	}
 
 
-	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 	{
 		App->map->CleanUp();
-		App->fade->FadeTo(this, this, 1.0f);
+		App->fade->FadeTo();
 		App->map->Load("level1.tmx");
-		faded = true;
+		/*faded = true;*/
 
 	}
 
-	if ((App->input->GetKey(SDL_SCANCODE_O) == KEY_REPEAT))
+	if ((App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN))
 	{
 		App->map->CleanUp();
-		App->fade->FadeTo(this, this, 1.0f);
+		App->fade->FadeTo();
 		App->map->Load("level2.tmx");
-		faded = false;
+
+		
+	
+		/*faded = false;*/
 	}
 
 	App->map->Draw();

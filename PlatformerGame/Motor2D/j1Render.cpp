@@ -48,7 +48,7 @@ bool j1Render::Awake(pugi::xml_node& config)
 		camera.x = 0;
 		camera.y = 0;
 	}
-	controllingCamera = config.child("controllingCamera").attribute("value").as_bool();
+	
 
 
 	return ret;
@@ -72,11 +72,6 @@ bool j1Render::PreUpdate()
 
 bool j1Render::Update(float dt)
 {
-	if (!controllingCamera)
-	{
-		camera.x = -App->player->GetPositionX();
-		camera.y = -App->player->GetPositionY();
-	}
 	return true;
 }
 

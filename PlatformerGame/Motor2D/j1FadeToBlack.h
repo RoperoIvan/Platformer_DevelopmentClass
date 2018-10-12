@@ -15,7 +15,8 @@ public:
 	bool Start();
 	bool Update(float dt);
 	bool CleanUp();
-	bool FadeTo(j1Module* module_off, j1Module* module_on, float time = 2.0f);
+	bool FadeTo(float time = 1.0f);
+	bool FadeFrom(float time = 1.0f);
 	bool Fading() const;
 private:
 

@@ -53,6 +53,7 @@ private:
 	float gravity;
 	int jumpPower;
 	int maxJumpHeight;
+	bool initialPosCamera = true;
 };
 
 

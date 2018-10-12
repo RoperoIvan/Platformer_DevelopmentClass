@@ -15,7 +15,7 @@ public:
 	virtual ~j1Scene();
 
 	// Called before render is available
-	bool Awake();
+	bool Awake(pugi::xml_node& config);
 
 	// Called before the first frame
 	bool Start();
@@ -32,12 +32,15 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	
+
 public:
 	int LevelMap = 0;
-
+	bool controllingCamera;
 private:
 	bool faded = false;
 	int counter = 0;
+	
 };
 
 #endif // __j1SCENE_H__

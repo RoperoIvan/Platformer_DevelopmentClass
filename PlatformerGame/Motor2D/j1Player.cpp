@@ -210,8 +210,9 @@ bool j1Player::Update(float dt)
 
 	/////////////////////////////
 
+	App->render->camera.x = (-position.x * 3) + (App->win->width / 2);
+	App->render->camera.y = (-position.y * 3) + (App->win->height / 2);
 	
-
 
 	// Right and left player's movement logic
 
@@ -219,7 +220,9 @@ bool j1Player::Update(float dt)
 	{
 		position.x += speedPlayer.x;
 		currentAnimation = &move;
+		
 		left = false;
+
 	}
 
 

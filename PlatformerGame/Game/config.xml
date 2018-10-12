@@ -8,9 +8,14 @@
 	
   <renderer>
     <vsync value="true"/>
-    <controllingCamera value="false"/>
   </renderer>
-
+  <scene>
+    <controllingCamera value="false"/>
+      
+      
+      
+      
+  </scene>
   <window>
     <resolution width="1024" height="768" scale="1"/>
     <fullscreen value="false"/>
@@ -32,7 +37,7 @@
   <player>
     <gravity value="0.5f"/>
     <path value="character/adventurer-Sheet2.png"/>
-    <position x="50" y="230"/>
+    <position x="200" y="230"/>
     <speedplayer x="2.0f" y="0.0f"/>
     <initialcamera value="true"/>
     <left value="false"/>

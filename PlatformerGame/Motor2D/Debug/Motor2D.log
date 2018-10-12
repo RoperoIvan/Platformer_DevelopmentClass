@@ -1,10 +1,8 @@
-﻿  j1Map.cpp
-c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1map.cpp(40): warning C4018: '<': no coinciden signed/unsigned
-c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1map.cpp(42): warning C4018: '<': no coinciden signed/unsigned
-  Generando código...
-  Omitiendo... (no se detectaron cambios relevantes)
-  j1Scene.cpp
-  j1Player.cpp
-  j1App.cpp
+﻿  j1Player.cpp
+c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(181): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(206): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(209): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(221): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(231): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
   Motor2D.vcxproj -> C:\Users\ivan_\OneDrive\Documentos\GitHub\Platformer_DevelopmentClass\PlatformerGame\Debug\Motor 2D.exe
   Motor2D.vcxproj -> C:\Users\ivan_\OneDrive\Documentos\GitHub\Platformer_DevelopmentClass\PlatformerGame\Debug\Motor 2D.pdb (Partial PDB)
