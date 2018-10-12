@@ -11,10 +11,10 @@
   </renderer>
   <scene>
     <controllingCamera value="false"/>
-      
-      
-      
-      
+    <levelSelector value="0"/>
+    <counter value="0"/>
+    <firstLevelPosition x="200.0f" y="230.0f"/>
+    <secondLevelPosition x="100" y="150"/> 
   </scene>
   <window>
     <resolution width="1024" height="768" scale="1"/>

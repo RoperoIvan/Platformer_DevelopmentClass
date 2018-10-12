@@ -1,13 +1,11 @@
-﻿  j1Player.cpp
-c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(219): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
-c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(220): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
-c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(251): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
-c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(271): warning C4244: 'return': conversión de 'float' a 'int'; posible pérdida de datos
-c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(275): warning C4244: 'return': conversión de 'float' a 'int'; posible pérdida de datos
-  Generando código...
-  Omitiendo... (no se detectaron cambios relevantes)
-  j1Scene.cpp
+﻿  j1Scene.cpp
   j1Render.cpp
+  j1Player.cpp
+c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(233): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(234): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(265): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
   j1App.cpp
+  Generando código...
+  LINK : no se encontró C:\Users\ivan_\OneDrive\Documentos\GitHub\Platformer_DevelopmentClass\PlatformerGame\Debug\Motor 2D.exe o no lo generó el último vínculo incremental; ejecutando vínculo completo
   Motor2D.vcxproj -> C:\Users\ivan_\OneDrive\Documentos\GitHub\Platformer_DevelopmentClass\PlatformerGame\Debug\Motor 2D.exe
   Motor2D.vcxproj -> C:\Users\ivan_\OneDrive\Documentos\GitHub\Platformer_DevelopmentClass\PlatformerGame\Debug\Motor 2D.pdb (Partial PDB)

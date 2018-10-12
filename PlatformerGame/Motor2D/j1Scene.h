@@ -32,14 +32,15 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	
+	void LevelChange();
 
 public:
-	int LevelMap = 0;
 	bool controllingCamera;
 private:
-	bool faded = false;
-	int counter = 0;
+	int levelSelector;
+	int counter;
+	fPoint firstLevelPosition, secondLevelPosition;
+
 	
 };
 

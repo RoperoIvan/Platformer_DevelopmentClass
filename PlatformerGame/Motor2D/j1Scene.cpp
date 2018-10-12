@@ -27,17 +27,21 @@ bool j1Scene::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 	controllingCamera = config.child("controllingCamera").attribute("value").as_bool();
-
+	counter = config.child("counter").attribute("value").as_int();
+	levelSelector = config.child("levelSelector").attribute("value").as_int();
+	firstLevelPosition.x = config.child("firstLevelPosition").attribute("x").as_float();
+	firstLevelPosition.y = config.child("firstLevelPosition").attribute("y").as_float();
+	secondLevelPosition.x = config.child("secondLevelPosition").attribute("x").as_float();
+	secondLevelPosition.y = config.child("secondLevelPosition").attribute("y").as_float();
 	return ret;
 }
 
 // Called before the first frame
 bool j1Scene::Start()
 {
-	if (!faded)
-	{
+	
 		App->map->Load("level1.tmx");
-	}
+	
 
 	return true;
 }
@@ -96,24 +100,9 @@ bool j1Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 	{
-		App->map->CleanUp();
-		App->fade->FadeTo();
-		App->map->Load("level1.tmx");
-		/*faded = true;*/
-
+		LevelChange();
 	}
-
-	if ((App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN))
-	{
-		App->map->CleanUp();
-		App->fade->FadeTo();
-		App->map->Load("level2.tmx");
-
-		
 	
-		/*faded = false;*/
-	}
-
 	App->map->Draw();
 
 	// "Map:%dx%d Tiles:%dx%d Tilesets:%d"
@@ -145,3 +134,30 @@ bool j1Scene::CleanUp()
 	return true;
 }
 
+
+void j1Scene::LevelChange()
+{
+
+	if (levelSelector == 0)
+	{
+		App->player->CleanUp();
+		App->map->CleanUp();
+		App->fade->FadeTo();
+		App->player->SetPosition(secondLevelPosition);
+		App->player->Start();
+		App->map->Load("level2.tmx");
+	}
+	levelSelector++;
+	if (levelSelector == 2)
+	{
+		App->player->CleanUp();
+		App->map->CleanUp();
+		App->fade->FadeTo();
+		App->player->SetPosition(firstLevelPosition);
+		App->player->Start();
+		App->map->Load("level1.tmx");
+		levelSelector = 0;
+	}
+
+
+}

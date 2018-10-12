@@ -280,13 +280,17 @@ bool j1Player::CleanUp()
 	return true;
 }
 
-int j1Player::GetPositionX()
+//
+//fPoint j1Player::GetPosition()
+//{
+//	return position;
+//}
+
+fPoint j1Player::SetPosition(fPoint playerPos)
 {
-	return position.x;
-}
-int j1Player::GetPositionY()
-{
-	return position.y;
+	position.x = playerPos.x;
+	position.y = playerPos.y;
+	return position;
 }
 
 
