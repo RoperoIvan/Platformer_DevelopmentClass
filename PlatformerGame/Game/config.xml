@@ -37,14 +37,14 @@
   <player>
     <gravity value="0.5f"/>
     <path value="character/adventurer-Sheet2.png"/>
-    <position x="200" y="230"/>
+    <position x="200.0f" y="230.0f"/>
     <speedplayer x="2.0f" y="0.0f"/>
     <initialcamera value="true"/>
     <left value="false"/>
     <solidground value="true"/>
     <jumpagain value="false"/>
-    <jumpPower value="-10"/>
-    <maxjumpHeight value="5"/>
+    <jumpPower value="-8.5f"/>
+    <maxjumpHeight value="5.0f"/>
  
     <animation type ="idle" speed="0.1f" loop="true">
     <frame x="14" y="7" w="19" h="29"/>
@@ -60,7 +60,7 @@
     <frame x="266" y="46" w="20" h="27"/>
     <frame x="316" y="48" w="20" h="25"/>
     </animation>
-    <animation type ="jump" speed="1.0f" loop="true">
+    <animation type ="jump" speed="0.5f" loop="false">
     <frame x="15" y="86" w="20" h="24"/>
     <frame x="65" y="88" w="20" h="22"/>
     <frame x="117" y="81" w="19" h="27"/>
@@ -103,9 +103,9 @@
     <frame x="663" y="125" w="23" h="17"/>
     <frame x="615" y="113" w="17" h="31"/>
     </animation>
-    <animation type ="fallLeft" speed="0.1f" loop="true">
-    <frame x="565" y="113" w="17" h="30"/>
-    <frame x="615" y="89" w="20" h="22"/>
+    <animation type ="fallLeft" speed="0.1f" loop="false">
+      <frame x="615" y="89" w="20" h="22"/>
+      <frame x="565" y="113" w="17" h="30"/>
     </animation>
     <animation type="landingLeft" speed="0.1f" loop="true">
     <frame x="665" y="87" w="20" h="24"/>

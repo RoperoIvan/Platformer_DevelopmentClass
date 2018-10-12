@@ -26,10 +26,10 @@ bool j1Player::Awake(pugi::xml_node& config)
 
 	//Importing the values of the variables from the player in the XML config file
 
-	position.x = config.child("position").attribute("x").as_int();
-	position.y = config.child("position").attribute("y").as_int();
-	jumpPower = config.child("jumpPower").attribute("value").as_int();
-	maxJumpHeight = config.child("maxjumpHeight").attribute("value").as_int();
+	position.x = config.child("position").attribute("x").as_float();
+	position.y = config.child("position").attribute("y").as_float();
+	jumpPower = config.child("jumpPower").attribute("value").as_float();
+	maxJumpHeight = config.child("maxjumpHeight").attribute("value").as_float();
 	speedPlayer.x = config.child("speedplayer").attribute("x").as_float();
 	speedPlayer.y = config.child("speedplayer").attribute("y").as_float();
 	gravity = config.child("gravity").attribute("value").as_float();
@@ -159,12 +159,12 @@ bool j1Player::Update(float dt)
 {
 	//Control of the orientation of the player animations
 
-	if (!left)
+	if (!left && solidGround)
 	{
 		currentAnimation = &idle;
 	}
 
-	if (left)
+	if (left && solidGround)
 	{
 		currentAnimation = &idleLeft;
 	}
@@ -182,12 +182,7 @@ bool j1Player::Update(float dt)
 				jumpAgain = false;
 			}
 			currentAnimation = &jump;
-			
-			
-				solidGround = false;
-			
-			
-		
+			solidGround = false;
 		}
 		else
 		{
@@ -197,10 +192,20 @@ bool j1Player::Update(float dt)
 	if (!solidGround)
 	{
 		speedPlayer.y += gravity;
-		currentAnimation = &fall;
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+		{
+			currentAnimation = &jump;
+			if (jump.Finished())
+			{
+				currentAnimation = &fall;
+			}
+			
+		}
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+		{
+			currentAnimation = &fallLeft;
+		}
 	}
-
-
 	if (speedPlayer.y > maxJumpHeight)
 	{
 		speedPlayer.y = maxJumpHeight;
@@ -208,7 +213,8 @@ bool j1Player::Update(float dt)
 
 	position.y += speedPlayer.y;
 
-	/////////////////////////////
+	
+	//Camera Movement
 
 	App->render->camera.x = (-position.x * 3) + (App->win->width / 2);
 	App->render->camera.y = (-position.y * 3) + (App->win->height / 2);
@@ -219,20 +225,28 @@ bool j1Player::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
 		position.x += speedPlayer.x;
-		currentAnimation = &move;
-		
+		if (solidGround)
+		{
+			currentAnimation = &move;
+		}
 		left = false;
-
 	}
 
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		position.x -= speedPlayer.x;
-		currentAnimation = &moveLeft;
+		if (solidGround)
+		{
+			currentAnimation = &moveLeft;
+		}
 		left = true;
 	}
-
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	{
+			currentAnimation = &idle;
+	}
+	
 	//Drawing the animations
 	App->render->Blit(playerTexture, position.x, position.y, &currentAnimation->GetCurrentFrame());
 
@@ -241,9 +255,6 @@ bool j1Player::Update(float dt)
 
 bool j1Player::PostUpdate()
 {
-
-
-
 	return true;
 }
 
@@ -252,8 +263,6 @@ bool j1Player::CleanUp()
 	LOG("Freeing player textures....");
 	App->tex->UnLoad(playerTexture);
 	playerTexture = nullptr;
-
-
 	return true;
 }
 

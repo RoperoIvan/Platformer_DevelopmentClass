@@ -31,7 +31,7 @@ public:
 	
 private:
 
-	iPoint position;
+	fPoint position;
 	fPoint speedPlayer;
 	p2SString path;
 	SDL_Texture* playerTexture;
@@ -51,8 +51,8 @@ private:
 	bool solidGround;
 	bool jumpAgain;
 	float gravity;
-	int jumpPower;
-	int maxJumpHeight;
+	float jumpPower;
+	float maxJumpHeight;
 	bool initialPosCamera = true;
 };
 

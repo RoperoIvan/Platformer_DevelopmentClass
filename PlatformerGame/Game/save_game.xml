@@ -12,6 +12,6 @@
 	<player />
 	<:anonymous />
 	<renderer>
-		<camera x="-302" y="-230" />
+		<camera x="-1642" y="-306" />
 	</renderer>
 </game_state>
