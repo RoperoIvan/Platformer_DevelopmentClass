@@ -17,7 +17,7 @@
     <secondLevelPosition x="100" y="150"/>
     <Width1 value="16"/>
     <Width2 value="16"/>
-    <Height1 value="112"/>
+    <Height1 value="50"/>
     <Height2 value="48"/>
     <Wincon1 x="1328" y="240"/>
     <Wincon2 x="16" y="331"/>
@@ -47,10 +47,10 @@
     <seeCollisions value="false"/>
   </map>
   <player>
-    <gravity value="0.5f"/>
+    <gravity value="5.0f"/>
     <path value="character/adventurer-Sheet2.png"/>
-    <position x="200.0f" y="225.0f"/>
-    <speedplayer x="2.0f" y="0.0f"/>
+    <position x="200.0f" y="180.0f"/>
+    <speedplayer x="2.0f" y="5.0f"/>
     <dashSpeed x="70.0f" y="0.0f"/>
     <initialcamera value="true"/>
     <left value="false"/>
@@ -66,7 +66,7 @@
       <frame x="163" y="7" w="20" h="29"/>
     </animation>
     <animation type ="move" speed="0.2f" loop="true">
-      <frame x="67" y="45" w="20" h="28"/>
+<frame x="67" y="45" w="20" h="28"/>
       <frame x="116" y="46" w="20" h="27"/>
       <frame x="166" y="48" w="20" h="26"/>
       <frame x="217" y="45" w="23" h="29"/>
@@ -147,7 +147,7 @@
       <frame x="467" y="352" w="14" h="17"/>
       <frame x="417" y="351" w="17" h="18"/>
     </animation>
-    <animation name ="dash" speed="0.05f" loop="false">
+    <animation name ="casa" speed="0.5f" loop="false">
       <frame x="219" y="269" w="20" h="26"/>
       <frame x="270" y="269" w="20" h="26"/>
       <frame x="302" y="272" w="48" h="23"/>

@@ -43,7 +43,12 @@ bool j1Player::Awake(pugi::xml_node& config)
 	sizePlayer.x = config.child("idle").attribute("w").as_int();
 	sizePlayer.y = config.child("idle").attribute("h").as_int();
 	//Loading of the animations
-
+	dash.PushBack({ 219,269, 20,26});
+	dash.PushBack({270, 269, 20,26});
+	dash.PushBack({302,272,48,23});
+	dash.PushBack({3,313,31,19});
+	dash.PushBack({50,312,34,20});
+	dash.PushBack({100, 312,34,20});
 	for (pugi::xml_node animations = config.child("animation"); animations; animations = animations.next_sibling("animation"))
 	{
 
@@ -51,144 +56,72 @@ bool j1Player::Awake(pugi::xml_node& config)
 
 		if (types == "idle")
 		{
-			for (pugi::xml_node frames = animations.child("frame"); frames; frames = frames.next_sibling("frame"))
-			{
-				idle.PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("w").as_int(), frames.attribute("h").as_int() });
-			}
-
-			idle.speed = animations.attribute("speed").as_float();
-			idle.loop = animations.attribute("loop").as_bool();
+			ChargingAnimations(animations, &idle);
 		}
 		if (types == "idleleft")
 		{
-			for (pugi::xml_node frames = animations.child("frame"); frames; frames = frames.next_sibling("frame"))
-			{
-				idleLeft.PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("w").as_int(), frames.attribute("h").as_int() });
-			}
-
-			idleLeft.speed = animations.attribute("speed").as_float();
-			idleLeft.loop = animations.attribute("loop").as_bool();
+			ChargingAnimations(animations, &idleLeft);
 		}
 
 		if (types == "move")
 		{
-			for (pugi::xml_node frames = animations.child("frame"); frames; frames = frames.next_sibling("frame"))
-			{
-				move.PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("w").as_int(), frames.attribute("h").as_int() });
-			}
-			move.speed = animations.attribute("speed").as_float();
-			move.loop = animations.attribute("loop").as_bool();
+			ChargingAnimations(animations, &move);
 		}
 		if (types == "moveleft")
 		{
-			for (pugi::xml_node frames = animations.child("frame"); frames; frames = frames.next_sibling("frame"))
-			{
-				moveLeft.PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("w").as_int(), frames.attribute("h").as_int() });
-			}
-			moveLeft.speed = animations.attribute("speed").as_float();
-			moveLeft.loop = animations.attribute("loop").as_bool();
+			ChargingAnimations(animations, &moveLeft);
 		}
 
 		if (types == "jump")
 		{
-			for (pugi::xml_node frames = animations.child("frame"); frames; frames = frames.next_sibling("frame"))
-			{
-				jump.PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("w").as_int(), frames.attribute("h").as_int() });
-			}
-			jump.speed = animations.attribute("speed").as_float();
-			jump.loop = animations.attribute("loop").as_bool();
+			ChargingAnimations(animations, &jump);
 
 		}
 		if (types == "jumpLeft")
 		{
-			for (pugi::xml_node frames = animations.child("frame"); frames; frames = frames.next_sibling("frame"))
-			{
-				jumpLeft.PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("w").as_int(), frames.attribute("h").as_int() });
-			}
-			jumpLeft.speed = animations.attribute("speed").as_float();
-			jumpLeft.loop = animations.attribute("loop").as_bool();
+			ChargingAnimations(animations, &jumpLeft);
 
 		}
 		if (types == "fall")
 		{
-			for (pugi::xml_node frames = animations.child("frame"); frames; frames = frames.next_sibling("frame"))
-			{
-				fall.PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("w").as_int(), frames.attribute("h").as_int() });
-			}
-			fall.speed = animations.attribute("speed").as_float();
-			fall.loop = animations.attribute("loop").as_bool();
+			ChargingAnimations(animations, &fall);
 
 		}
 		if (types == "fallLeft")
 		{
-			for (pugi::xml_node frames = animations.child("frame"); frames; frames = frames.next_sibling("frame"))
-			{
-				fallLeft.PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("w").as_int(), frames.attribute("h").as_int() });
-			}
-			fallLeft.speed = animations.attribute("speed").as_float();
-			fallLeft.loop = animations.attribute("loop").as_bool();
+			ChargingAnimations(animations, &fallLeft);
 
 		}
 		if (types == "landing")
 		{
-			for (pugi::xml_node frames = animations.child("frame"); frames; frames = frames.next_sibling("frame"))
-			{
-				landing.PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("w").as_int(), frames.attribute("h").as_int() });
-			}
-			landing.speed = animations.attribute("speed").as_float();
-			landing.loop = animations.attribute("loop").as_bool();
+			ChargingAnimations(animations, &landing);
 
 		}
 		if (types == "landingLeft")
 		{
-			for (pugi::xml_node frames = animations.child("frame"); frames; frames = frames.next_sibling("frame"))
-			{
-				landingLeft.PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("w").as_int(), frames.attribute("h").as_int() });
-			}
-			landingLeft.speed = animations.attribute("speed").as_float();
-			landingLeft.loop = animations.attribute("loop").as_bool();
+			ChargingAnimations(animations, &landingLeft);
 
 		}
 		if (types == "death")
 		{
-			for (pugi::xml_node frames = animations.child("frame"); frames; frames = frames.next_sibling("frame"))
-			{
-				death.PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("w").as_int(), frames.attribute("h").as_int() });
-			}
-			death.speed = animations.attribute("speed").as_float();
-			death.loop = animations.attribute("loop").as_bool();
-
+			ChargingAnimations(animations, &death);
 		}
 		if (types == "deathLeft")
 		{
-			for (pugi::xml_node frames = animations.child("frame"); frames; frames = frames.next_sibling("frame"))
-			{
-				deathLeft.PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("w").as_int(), frames.attribute("h").as_int() });
-			}
-			deathLeft.speed = animations.attribute("speed").as_float();
-			deathLeft.loop = animations.attribute("loop").as_bool();
+			ChargingAnimations(animations, &deathLeft);
 
 		}
-		if (types == "dash")
+		/*if (types == "dash")
 		{
-			for (pugi::xml_node frames = animations.child("frame"); frames; frames = frames.next_sibling("frame"))
-			{
-				dash.PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("w").as_int(), frames.attribute("h").as_int() });
-			}
-			dash.speed = animations.attribute("speed").as_float();
-			dash.loop = animations.attribute("loop").as_bool();
+			ChargingAnimations(animations, &dash);
 
-		}
+		}*/
 		if (types == "dashLeft")
 		{
-			for (pugi::xml_node frames = animations.child("frame"); frames; frames = frames.next_sibling("frame"))
-			{
-				dashLeft.PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("w").as_int(), frames.attribute("h").as_int() });
-			}
-			dashLeft.speed = animations.attribute("speed").as_float();
-			dashLeft.loop = animations.attribute("loop").as_bool();
+			ChargingAnimations(animations, &dashLeft);
 
 		}
+		
 	}
 	currentAnimation = &idle;
 
@@ -198,12 +131,6 @@ bool j1Player::Awake(pugi::xml_node& config)
 bool j1Player::Start()
 {
 	playerTexture = App->tex->Load(path.GetString());
-	collider_player_down = App->collision->AddCollider({ position.x + 2, position.y + sizePlayer.y, sizePlayer.x - 2, 2 }, COLLIDER_PLAYER_DOWN, this);
-	collider_player_up = App->collision->AddCollider({ position.x + 2,position.y - 3,sizePlayer.x - 2, 2 }, COLLIDER_PLAYER_UP, this);
-	collider_player_left = App->collision->AddCollider({ position.x,position.y - 3, 2 , sizePlayer.y }, COLLIDER_PLAYER_LEFT, this);
-	collider_player_right = App->collision->AddCollider({ position.x + sizePlayer.x,position.y - 3, 2 , sizePlayer.y }, COLLIDER_PLAYER_RIGHT, this);
-
-
 	return true;
 }
 
@@ -229,11 +156,16 @@ bool j1Player::Update(float dt)
 	}
 	///////////////////
 
+	gid = App->map->GetGidPosition(position.x, position.y+30);
+	App->render->DrawQuad({ position.x, position.y + 30,16,16 }, 0, 255, 0, 255);
+
+	if (App->map->data.mapLayers.end->data->data[gid+1] != 50 && App->map->data.mapLayers.end->data->data[gid] != 50)
+	{
+		position.y += speedPlayer.y;
+	}
 	//Logic of the jump movement of the player
 
-	if (solidGround)
-	{
-		speedPlayer.y = 0;
+	
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		{
 			if (jumpAgain)
@@ -248,10 +180,10 @@ bool j1Player::Update(float dt)
 		{
 			jumpAgain = true;
 		}
-	}
+	
 	if (!solidGround)
 	{
-		speedPlayer.y += gravity;
+		
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 		{
 			currentAnimation = &jump;
@@ -275,7 +207,7 @@ bool j1Player::Update(float dt)
 		speedPlayer.y = maxJumpHeight;
 	}
 
-	position.y += speedPlayer.y;
+	//
 
 	
 	//Camera Movement
@@ -302,7 +234,7 @@ bool j1Player::Update(float dt)
 		position.x -= speedPlayer.x;
 		if (solidGround)
 		{
-			currentAnimation = &moveLeft;
+			currentAnimation = &dash;
 		}
 		left = true;
 	}
@@ -323,36 +255,6 @@ bool j1Player::Update(float dt)
 		left = false;
 	}
 
-	//check if player is in a platform
-	Collider* c2;
-
-	for (uint k = 0; k < MAX_COLLIDERS; ++k)
-	{
-		// skip empty colliders
-		if (App->collision->colliders[k] == nullptr)
-			continue;
-
-		c2 = App->collision->colliders[k];
-
-		if (collider_player_down->CheckCollision(c2->rect) == false)
-		{
-			solidGround = false;
-		}
-	}
-
-
-	if (position.x > App->map->data.tile_width * App->map->data.width - 7 * App->map->data.tile_width)
-		position.x = 7 * App->map->data.tile_width;
-
-	else if (position.x < 7 * App->map->data.tile_width)
-		position.x = App->map->data.tile_width * App->map->data.width - 7 * App->map->data.tile_width;
-
-
-	//colliders player
-	collider_player_up->SetPos(position.x + 2, position.y - 3);
-	collider_player_down->SetPos(position.x + 2, position.y + sizePlayer.y);
-	collider_player_left->SetPos(position.x, position.y);
-	collider_player_right->SetPos(position.x + sizePlayer.x, position.y);
 
 	//Drawing the animations
 	App->render->Blit(playerTexture, position.x, position.y, &currentAnimation->GetCurrentFrame());
@@ -386,27 +288,17 @@ iPoint j1Player::SetPosition(iPoint playerPos)
 	return position;
 }
 
-void j1Player::OnCollision(Collider* c1, Collider* c2)
+
+void j1Player::ChargingAnimations(pugi::xml_node& animation, Animation* anime)
 {
-	if (c1->type == COLLIDER_PLAYER_LEFT && c2->type == COLLIDER_GROUND)
+	for (pugi::xml_node frames = animation.child("frame"); frames; frames = frames.next_sibling("frame"))
 	{
-		position.x += speedPlayer.x;
+		anime->PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("w").as_int(), frames.attribute("h").as_int() });
 	}
-	else if (c1->type == COLLIDER_PLAYER_RIGHT && c2->type == COLLIDER_GROUND)
-	{
-		position.x -= speedPlayer.x;
-	}
-	else if (c1->type == COLLIDER_PLAYER_DOWN && c2->type == COLLIDER_GROUND)
-	{
-		solidGround = true;
-	}
-	else if (c1->type == COLLIDER_PLAYER_UP && c2->type == COLLIDER_GROUND)
-	{
-		/*top_jump = true;*/
-	}
+	anime->speed = animation.attribute("speed").as_float();
+	anime->loop = animation.attribute("loop").as_bool();
+
 }
-
-
 
 
 bool j1Player::Save(pugi::xml_node& data)const

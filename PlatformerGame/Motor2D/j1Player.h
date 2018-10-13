@@ -10,7 +10,6 @@
 
 struct SDL_Texture;
 struct SDL_Rect;
-struct Collider;
 
 class j1Player : public j1Module
 {
@@ -31,13 +30,7 @@ public:
 	bool Save(pugi::xml_node&)const;
 
 	bool Load(pugi::xml_node&);
-
-	void OnCollision(Collider* c1, Collider* c2);
-	Collider* collider_player_down = nullptr;
-	Collider* collider_player_right = nullptr;
-	Collider* collider_player_up = nullptr;
-	Collider* collider_player_left = nullptr;
-
+	void ChargingAnimations(pugi::xml_node&, Animation*);
 
 private:
 	iPoint sizePlayer;
@@ -70,6 +63,7 @@ private:
 	float jumpPower;
 	float maxJumpHeight;
 	bool initialPosCamera = true;
+	int gid;
 };
 
 

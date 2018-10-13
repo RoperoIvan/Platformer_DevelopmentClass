@@ -5,7 +5,6 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "j1Module.h"
-#include "j1Collision.h"
 
 // TODO 1: Create a struct for the map layer
 // ----------------------------------------------------
@@ -45,15 +44,6 @@ struct TileSet
 	int					offset_y;
 };
 
-struct MapObject
-{
-	p2SString name;
-	Collider* col[MAX_COLLIDERS] = { nullptr };
-	uint id = 0u;
-};
-
-
-
 enum MapTypes
 {
 	MAPTYPE_UNKNOWN = 0,
@@ -72,7 +62,6 @@ struct MapData
 	MapTypes			type;
 	p2List<TileSet*>	tileSets;
 	p2List<MapLayer*>	mapLayers;
-	p2List<MapObject*>	objects;
 	// TODO 2: Add a list/array of layers to the map!
 };
 
@@ -108,12 +97,13 @@ private:
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	// TODO 3: Create a method that loads a single laye
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
-	bool LoadObjects(pugi::xml_node& node, MapObject* object);
+	TileSet* GetTilesetFromTileId(int id) const;
 public:
 
 	MapData data;
 	uint GetGidPosition(int x, int y);
 	bool                seeCollisions;
+	iPoint spawn;
 private:
 
 	pugi::xml_document	map_file;

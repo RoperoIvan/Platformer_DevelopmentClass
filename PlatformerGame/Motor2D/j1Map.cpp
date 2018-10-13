@@ -31,64 +31,109 @@ void j1Map::Draw()
 	if(map_loaded == false)
 		return;
 
-	p2List_item<TileSet*>* tilesets_items = data.tileSets.start;
-	p2List_item<MapLayer*>* layers_items = data.mapLayers.start;
-	while (tilesets_items != NULL)
+	//p2List_item<TileSet*>* tilesets_items = data.tileSets.start;
+	//p2List_item<MapLayer*>* layers_items = data.mapLayers.start;
+	//while (tilesets_items != NULL)
+	//{
+	//	while (layers_items != NULL)
+	//	{
+	//		for (int i = 0; i < layers_items->data->width; i++)
+	//		{
+	//			for (int j = 0; j < layers_items->data->height; j++)
+	//			{
+	//				if (layers_items->data->GetPosition(i, j) != 0)
+	//				{
+	//					SDL_Rect pattern1 = tilesets_items->data->GetTileRect(layers_items->data->GetPosition(i, j));
+	//					SDL_Rect pattern2 = tilesets_items->next->data->GetTileRect(layers_items->data->GetPosition(i, j));
+	//					iPoint pos = MapToWorld(i, j);
+	//					/*uint gid = */GetGidPosition(pos.x, pos.y);
+
+	//					if (layers_items->data->name == "Background1" )
+	//					{
+	//						App->render->Blit(tilesets_items->next->data->texture, pos.x, pos.y, &pattern2, 0.6f);
+	//					}
+	//					if (layers_items->data->name == "Background2")
+	//					{
+	//						App->render->Blit(tilesets_items->next->data->texture, pos.x, pos.y, &pattern2, 0.7f);
+	//					}
+	//					if (layers_items->data->name == "Background3")
+	//					{
+	//						App->render->Blit(tilesets_items->next->data->texture, pos.x, pos.y, &pattern2, 0.8f);
+	//					}
+	//					if (layers_items->data->name == "Background4")
+	//					{
+	//						App->render->Blit(tilesets_items->next->data->texture, pos.x, pos.y, &pattern2, 0.9f);
+	//					}
+	//					if (layers_items->data->name == "Background5")
+	//					{
+	//						App->render->Blit(tilesets_items->next->data->texture, pos.x, pos.y, &pattern2, 1.0f);
+	//					}
+
+	//					if (layers_items->data->name == "Background6")
+	//					{
+	//						App->render->Blit(tilesets_items->data->texture, pos.x, pos.y, &pattern1, 1.0f);
+	//					}
+
+	//					if (layers_items->data->name == "Movement")
+	//					{
+	//						App->render->Blit(tilesets_items->data->texture, pos.x, pos.y, &pattern1, 1.0f);
+	//					}
+	//					if (layers_items->data->name == "Collision" && seeCollisions)
+	//					{
+	//						App->render->Blit(tilesets_items->data->texture, pos.x, pos.y, &pattern1, 1.0f);
+	//					}
+	//				}
+	//				
+	//			}
+	//		}
+	//		layers_items = layers_items->next;
+	//	}
+	//	tilesets_items = tilesets_items->next;
+	//}
+
+	p2List_item<MapLayer*>* layers_list = this->data.mapLayers.start;
+
+	while (layers_list != NULL)
 	{
-		while (layers_items != NULL)
+		for (int i = 0; i < layers_list->data->width; i++)
 		{
-			for (int i = 0; i < layers_items->data->width; i++)
+			for (int j = 0; j < layers_list->data->height; j++)
 			{
-				for (int j = 0; j < layers_items->data->height; j++)
+				int tile_id = layers_list->data->GetPosition(i, j);
+				if (tile_id > 0)
 				{
-					if (layers_items->data->GetPosition(i, j) != 0)
+
+					TileSet* tileset = GetTilesetFromTileId(tile_id);
+					if (tileset != nullptr)
 					{
-						SDL_Rect pattern1 = tilesets_items->data->GetTileRect(layers_items->data->GetPosition(i, j));
-						SDL_Rect pattern2 = tilesets_items->next->data->GetTileRect(layers_items->data->GetPosition(i, j));
-						iPoint pos = MapToWorld(i, j);
-						/*uint gid = */GetGidPosition(pos.x, pos.y);
 
-						if (layers_items->data->name == "Background1" )
+						if (layers_list->data->GetPosition(i, j) != 0)
 						{
-							App->render->Blit(tilesets_items->next->data->texture, pos.x, pos.y, &pattern2, 0.6f);
-						}
-						if (layers_items->data->name == "Background2")
-						{
-							App->render->Blit(tilesets_items->next->data->texture, pos.x, pos.y, &pattern2, 0.7f);
-						}
-						if (layers_items->data->name == "Background3")
-						{
-							App->render->Blit(tilesets_items->next->data->texture, pos.x, pos.y, &pattern2, 0.8f);
-						}
-						if (layers_items->data->name == "Background4")
-						{
-							App->render->Blit(tilesets_items->next->data->texture, pos.x, pos.y, &pattern2, 0.9f);
-						}
-						if (layers_items->data->name == "Background5")
-						{
-							App->render->Blit(tilesets_items->next->data->texture, pos.x, pos.y, &pattern2, 1.0f);
+							SDL_Rect tile = tileset->GetTileRect(tile_id);
+							iPoint coords = MapToWorld(i, j);
+							uint gid = GetGidPosition(coords.x, coords.y);
+
+
+							/*if (layers_list->data->name != "Logic")
+								App->render->Blit(tileset->texture, coords.x, coords.y, &tile, 1.0f);*/
+
+							/*else if (App->scene->collision_debug)
+							{*/
+								App->render->Blit(tileset->texture, coords.x, coords.y, &tile, 1.0f);
+							/*}*/
+							if (App->map->data.mapLayers.end->data->data[gid] == 49) {
+								spawn.x = coords.x;
+								spawn.y = coords.y;
+
+							}
+
 						}
 
-						if (layers_items->data->name == "Background6")
-						{
-							App->render->Blit(tilesets_items->data->texture, pos.x, pos.y, &pattern1, 1.0f);
-						}
-
-						if (layers_items->data->name == "Movement")
-						{
-							App->render->Blit(tilesets_items->data->texture, pos.x, pos.y, &pattern1, 1.0f);
-						}
-						if (layers_items->data->name == "Collision" && seeCollisions)
-						{
-							App->render->Blit(tilesets_items->data->texture, pos.x, pos.y, &pattern1, 1.0f);
-						}
 					}
-					
 				}
 			}
-			layers_items = layers_items->next;
 		}
-		tilesets_items = tilesets_items->next;
+		layers_list = layers_list->next;
 	}
 	// TODO 5: Prepare the loop to draw all tilesets + Blit
 		// TODO 9: Complete the draw function
@@ -103,6 +148,19 @@ iPoint j1Map::MapToWorld(int x, int y) const
 	ret.y = y * data.tile_height;
 
 	return ret;
+}
+
+TileSet* j1Map::GetTilesetFromTileId(int id) const
+{
+	p2List_item<TileSet*>* item = data.tileSets.start;
+
+	for (item; item != NULL; item = item->next)
+	{
+		if (item->next == nullptr || item->next->data->firstgid > id)
+			return item->data;
+	}
+
+	return data.tileSets.start->data;
 }
 
 SDL_Rect TileSet::GetTileRect(int id) const
@@ -145,16 +203,6 @@ bool j1Map::CleanUp()
 	data.mapLayers.clear();
 
 	// Clean up the pugui tree
-
-	p2List_item<MapObject*>* object_item;
-	object_item = data.objects.start;
-
-	while (object_item != NULL)
-	{
-		RELEASE(object_item->data);
-		object_item = object_item->next;
-	}
-	data.objects.clear();
 
 	map_file.reset();
 
@@ -214,18 +262,7 @@ bool j1Map::Load(const char* file_name)
 		data.mapLayers.add(set);
 	}
 
-	pugi::xml_node object_iterator;
-	for (object_iterator = map_file.child("map").child("objectgroup"); object_iterator && ret; object_iterator = object_iterator.next_sibling("objectgroup"))
-	{
-		MapObject* obj = new MapObject;
-
-		if (ret == true)
-		{
-			LoadObjects(object_iterator, obj);
-		}
-
-		data.objects.add(obj);
-	}
+	
 
 	if(ret == true)
 	{
@@ -423,35 +460,6 @@ uint j1Map::GetGidPosition(int x, int y)
 
 	 return data[width*y + x];
 }
-
- bool j1Map::LoadObjects(pugi::xml_node & node, MapObject * object)
- {
-	 bool ret = true;
-	 object->name = node.attribute("name").as_string();
-	 object->id = node.attribute("id").as_uint();
-	 pugi::xml_node col_object = node.child("object");
-	 if (node == NULL)
-	 {
-		 LOG("Error parsing map xml file: Cannot find 'object/data' tag.");
-		 ret = false;
-		 RELEASE(object);
-	 }
-	 else
-	 {
-		 object = new MapObject;
-		 int i = 0;
-		 for (col_object; col_object; col_object = col_object.next_sibling("object"))
-		 {
-			 object->col[i] = new Collider({ col_object.attribute("x").as_int(0),col_object.attribute("y").as_int(0),col_object.attribute("width").as_int(0),col_object.attribute("height").as_int(0) }, COLLIDER_GROUND);
-			 App->collision->AddCollider(object->col[i]->rect, object->col[i]->type);
-			 i++;
-		 }
-
-	 }
-
-	 return ret;
- }
-
 
 
  
