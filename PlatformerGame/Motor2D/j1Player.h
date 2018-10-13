@@ -10,6 +10,7 @@
 
 struct SDL_Texture;
 struct SDL_Rect;
+struct Collider;
 
 class j1Player : public j1Module
 {
@@ -24,16 +25,23 @@ public:
 	bool Update(float dt);
 	bool PostUpdate();
 	bool CleanUp();
-	fPoint GetPosition();
-	fPoint SetPosition(fPoint playerPos);
+	iPoint GetPosition();
+	iPoint SetPosition(iPoint playerPos);
 
 	bool Save(pugi::xml_node&)const;
 
 	bool Load(pugi::xml_node&);
-	
-private:
 
-	fPoint position;
+	void OnCollision(Collider* c1, Collider* c2);
+	Collider* collider_player_down = nullptr;
+	Collider* collider_player_right = nullptr;
+	Collider* collider_player_up = nullptr;
+	Collider* collider_player_left = nullptr;
+
+
+private:
+	iPoint sizePlayer;
+	iPoint position;
 	fPoint speedPlayer;
 	p2SString path;
 	SDL_Texture* playerTexture;

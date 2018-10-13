@@ -8,8 +8,35 @@ j1Collision::j1Collision()
 {
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 		colliders[i] = nullptr;
-	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
-	matrix[COLLIDER_PLAYER][COLLIDER_GROUND] = true;
+	matrix[COLLIDER_GROUND][COLLIDER_GROUND] = false;
+	matrix[COLLIDER_GROUND][COLLIDER_PLAYER_UP] = true;
+	matrix[COLLIDER_GROUND][COLLIDER_PLAYER_DOWN] = true;
+	matrix[COLLIDER_GROUND][COLLIDER_PLAYER_LEFT] = true;
+	matrix[COLLIDER_GROUND][COLLIDER_PLAYER_RIGHT] = true;
+
+	matrix[COLLIDER_PLAYER_UP][COLLIDER_GROUND] = true;
+	matrix[COLLIDER_PLAYER_UP][COLLIDER_PLAYER_UP] = false;
+	matrix[COLLIDER_PLAYER_UP][COLLIDER_PLAYER_DOWN] = false;
+	matrix[COLLIDER_PLAYER_UP][COLLIDER_PLAYER_LEFT] = false;
+	matrix[COLLIDER_PLAYER_UP][COLLIDER_PLAYER_RIGHT] = false;
+
+	matrix[COLLIDER_PLAYER_DOWN][COLLIDER_GROUND] = true;
+	matrix[COLLIDER_PLAYER_DOWN][COLLIDER_PLAYER_UP] = false;
+	matrix[COLLIDER_PLAYER_DOWN][COLLIDER_PLAYER_DOWN] = false;
+	matrix[COLLIDER_PLAYER_DOWN][COLLIDER_PLAYER_LEFT] = false;
+	matrix[COLLIDER_PLAYER_DOWN][COLLIDER_PLAYER_RIGHT] = false;
+
+	matrix[COLLIDER_PLAYER_RIGHT][COLLIDER_GROUND] = true;
+	matrix[COLLIDER_PLAYER_RIGHT][COLLIDER_PLAYER_UP] = false;
+	matrix[COLLIDER_PLAYER_RIGHT][COLLIDER_PLAYER_DOWN] = false;
+	matrix[COLLIDER_PLAYER_RIGHT][COLLIDER_PLAYER_LEFT] = false;
+	matrix[COLLIDER_PLAYER_RIGHT][COLLIDER_PLAYER_RIGHT] = false;
+
+	matrix[COLLIDER_PLAYER_LEFT][COLLIDER_GROUND] = true;
+	matrix[COLLIDER_PLAYER_LEFT][COLLIDER_PLAYER_UP] = false;
+	matrix[COLLIDER_PLAYER_LEFT][COLLIDER_PLAYER_DOWN] = false;
+	matrix[COLLIDER_PLAYER_LEFT][COLLIDER_PLAYER_LEFT] = false;
+	matrix[COLLIDER_PLAYER_LEFT][COLLIDER_PLAYER_RIGHT] = false;
 }
 
 //destructor
@@ -88,7 +115,7 @@ bool j1Collision::Update(float dt)
 // Called before render is available
 void j1Collision::DebugDraw()
 {
-	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
 		debug = !debug;
 
 	if (debug == false)
@@ -108,7 +135,16 @@ void j1Collision::DebugDraw()
 		case COLLIDER_GROUND: // blue
 			App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
 			break;
-		case COLLIDER_PLAYER: // green
+		case COLLIDER_PLAYER_UP: // green
+			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
+			break;
+		case COLLIDER_PLAYER_DOWN: // green
+			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
+			break;
+		case COLLIDER_PLAYER_LEFT: // green
+			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
+			break;
+		case COLLIDER_PLAYER_RIGHT: // green
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
 			break;
 		}

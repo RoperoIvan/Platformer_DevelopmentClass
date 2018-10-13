@@ -6,16 +6,16 @@
 	<audio />
 	<map />
 	<scene>
-		<musicvolume value="0" />
+		<musicvolume value="25" />
 		<levelSelector value="1" />
-		<Logic value="true" />
+		<Logic value="false" />
 	</scene>
 	<player>
-		<position x="200" y="230" />
+		<position x="498" y="230" />
 	</player>
 	<:anonymous />
 	<FadeToBlack />
 	<renderer>
-		<camera x="-88" y="-306" />
+		<camera x="-982" y="-306" />
 	</renderer>
 </game_state>
