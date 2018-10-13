@@ -114,17 +114,21 @@ bool j1Scene::Update(float dt)
 		controllingCamera = true;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_7) == KEY_REPEAT /*&& MIX_MAX_VOLUME > 0*/)
+	if (App->input->GetKey(SDL_SCANCODE_7) == KEY_REPEAT )
 	{
-		Mix_VolumeMusic(MIX_MAX_VOLUME / 10);
+			if (volume < 200)
+			{
+				Mix_VolumeMusic(volume += 5);
+			}	
 	}
 
-	/*if (App->input->GetKey(SDL_SCANCODE_8) == KEY_REPEAT && MIX_MAX_VOLUME < 128)
+   if (App->input->GetKey(SDL_SCANCODE_8) == KEY_REPEAT)
 	{
-		Mix_VolumeMusic(MIX_MAX_VOLUME * 10);
-	}*/
-
-
+	    if (volume > 0)
+		   {
+			   Mix_VolumeMusic(volume -= 5);
+		   }  
+	}
 
 	App->map->Draw();
 

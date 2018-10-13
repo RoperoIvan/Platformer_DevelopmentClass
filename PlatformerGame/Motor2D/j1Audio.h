@@ -37,10 +37,6 @@ public:
 	bool Save(pugi::xml_node&)const;
 	bool Load(pugi::xml_node&);
 
-	void StartVolume(int);
-
-	void ChangeMusic(bool);
-
 private:
 
 	_Mix_Music*			music;

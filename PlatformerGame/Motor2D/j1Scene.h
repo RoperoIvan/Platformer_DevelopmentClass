@@ -45,7 +45,7 @@ private:
 	iPoint Wincon1, Wincon2;
 	int Width1, Width2, Height1, Height2;
 	SDL_Rect winCondition;
-	
+	int volume = 0;
 };
 
 #endif // __j1SCENE_H__
