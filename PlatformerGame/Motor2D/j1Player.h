@@ -47,6 +47,8 @@ private:
 	Animation fallLeft;
 	Animation landing;
 	Animation landingLeft;
+	Animation death;
+	Animation deathLeft;
 	Animation* currentAnimation = nullptr;
 	bool initialCamera;
 	bool left;

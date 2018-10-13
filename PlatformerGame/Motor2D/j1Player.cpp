@@ -146,6 +146,26 @@ bool j1Player::Awake(pugi::xml_node& config)
 			landingLeft.loop = animations.attribute("loop").as_bool();
 
 		}
+		if (types == "death")
+		{
+			for (pugi::xml_node frames = animations.child("frame"); frames; frames = frames.next_sibling("frame"))
+			{
+				death.PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("w").as_int(), frames.attribute("h").as_int() });
+			}
+			death.speed = animations.attribute("speed").as_float();
+			death.loop = animations.attribute("loop").as_bool();
+
+		}
+		if (types == "deathLeft")
+		{
+			for (pugi::xml_node frames = animations.child("frame"); frames; frames = frames.next_sibling("frame"))
+			{
+				deathLeft.PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("w").as_int(), frames.attribute("h").as_int() });
+			}
+			deathLeft.speed = animations.attribute("speed").as_float();
+			deathLeft.loop = animations.attribute("loop").as_bool();
+
+		}
 	}
 	currentAnimation = &idle;
 
@@ -259,6 +279,11 @@ bool j1Player::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 			currentAnimation = &idle;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
+	{
+		currentAnimation = &death;
 	}
 	
 	//Drawing the animations
