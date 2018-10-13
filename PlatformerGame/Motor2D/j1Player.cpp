@@ -42,6 +42,12 @@ bool j1Player::Awake(pugi::xml_node& config)
 	jumpAgain = config.child("jumpagain").attribute("value").as_bool();
 	sizePlayer.x = config.child("idle").attribute("w").as_int();
 	sizePlayer.y = config.child("idle").attribute("h").as_int();
+	//hasDashed = config.child("hasDashed").attribute("value").as_bool();
+	//dashAgain = config.child("dashagain").attribute("value").as_bool();
+	//dashLength = config.child("dashLength").attribute("value").as_float();
+	//dashPower = config.child("dashPower").attribute("value").as_float();
+
+
 	//Loading of the animations
 
 	for (pugi::xml_node animations = config.child("animation"); animations; animations = animations.next_sibling("animation"))
@@ -318,10 +324,58 @@ bool j1Player::Update(float dt)
 	
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN)
 	{
-		position.x += (dashSpeed.x + speedPlayer.x);
+		//position.x += (dashSpeed.x + speedPlayer.x);
+		position.x += speedPlayer.x;
 		currentAnimation = &dash;
 		left = false;
 	}
+
+	//if (hasDashed)
+	//{
+	//	speedPlayer.x = 0;
+	//	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN)
+	//	{
+	//		if (dashAgain)
+	//		{
+	//			speedPlayer.x = dashPower;
+	//			dashAgain = true;
+	//		}
+	//		currentAnimation = &dash;
+	//		hasDashed = true;
+	//	}
+	//	else
+	//	{
+	//		dashAgain = true;
+	//	}
+	//}
+
+	//if (!hasDashed)
+	//{
+	//	//speedPlayer.x;
+	//	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	//	{
+	//		currentAnimation = &dash;
+	//		if (dash.Finished())
+	//		{
+	//			currentAnimation = &idle;
+	//		}
+
+	//	}
+	//	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	//	{
+	//		currentAnimation = &dashLeft;
+	//		if (dashLeft.Finished())
+	//		{
+	//			currentAnimation = &idleLeft;
+	//		}
+	//	}
+	//}
+	//if (speedPlayer.x > dashLength)
+	//{
+	//	speedPlayer.x = dashLength;
+	//}
+
+	//position.x += speedPlayer.x;
 
 	//check if player is in a platform
 	Collider* c2;
@@ -339,14 +393,6 @@ bool j1Player::Update(float dt)
 			solidGround = false;
 		}
 	}
-
-
-	if (position.x > App->map->data.tile_width * App->map->data.width - 7 * App->map->data.tile_width)
-		position.x = 7 * App->map->data.tile_width;
-
-	else if (position.x < 7 * App->map->data.tile_width)
-		position.x = App->map->data.tile_width * App->map->data.width - 7 * App->map->data.tile_width;
-
 
 	//colliders player
 	collider_player_up->SetPos(position.x + 2, position.y - 3);

@@ -25,7 +25,7 @@
     <level2Path value="level2.tmx"/>
     <song1Path value="audio/Grasslands_Theme.ogg"/>
     <song2Path value="audio/Desert_Theme.ogg"/>
-    <volume value="70"/>
+    <volume value="50"/>
   </scene>
   <window>
     <resolution width="1024" height="768" scale="1"/>
@@ -58,7 +58,11 @@
     <jumpagain value="false"/>
     <jumpPower value="-8.5f"/>
     <maxjumpHeight value="5.0f"/>
- 
+    <!--<dashLength value="50.0f"/>-->
+    <!--<hasDashed value="true"/>-->
+    <!--<dashPower value="50.0f"/>-->
+    <!--<dashagain value="false"/>-->
+
     <animation type ="idle" speed="0.1f" loop="true">
       <frame x="14" y="7" w="19" h="29"/>
       <frame x="66" y="6" w="17" h="30"/>
@@ -73,7 +77,7 @@
       <frame x="266" y="46" w="20" h="27"/>
       <frame x="316" y="48" w="20" h="25"/>
     </animation>
-    <animation type ="jump" speed="0.2f" loop="false">
+    <animation type ="jump" speed="0.2f" loop="true">
       <frame x="15" y="86" w="20" h="24"/>
       <frame x="65" y="88" w="20" h="22"/>
       <frame x="117" y="81" w="19" h="27"/>
@@ -92,10 +96,10 @@
       <frame x="15" y="86" w="21" h="24"/>
     </animation>
     <animation type ="idleleft" speed="0.1f" loop="true">
-      <frame x="667" y="8" w="19" h="29"/>
-      <frame x="617" y="7" w="17" h="30"/>
-      <frame x="566" y="7" w="19" h="30"/>
-      <frame x="517" y="8" w="20" h="29"/>
+      <frame x="669" y="6" w="20" h="30"/>
+      <frame x="619" y="6" w="20" h="30"/>
+      <frame x="569" y="6" w="20" h="30"/>
+      <frame x="519" y="6" w="20" h="30"/>
     </animation>
     <animation type ="moveleft" speed="0.2f" loop="true">
       <frame x="613" y="46" w="20" h="28"/>
@@ -105,7 +109,7 @@
       <frame x="414" y="47" w="20" h="27"/>
       <frame x="364" y="49" w="20" h="25"/>
     </animation>
-    <animation type ="jumpLeft" speed="0.2f" loop="false">
+    <animation type ="jumpLeft" speed="0.2f" loop="true">
       <frame x="665" y="87" w="20" h="24"/>
       <frame x="615" y="89" w="20" h="22"/>
       <frame x="564" y="82" w="19" h="27"/>
