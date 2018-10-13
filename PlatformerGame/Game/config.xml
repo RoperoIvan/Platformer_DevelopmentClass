@@ -63,11 +63,11 @@
     <!--<dashPower value="50.0f"/>-->
     <!--<dashagain value="false"/>-->
 
-    <animation type ="idle" speed="0.1f" loop="true">
-      <frame x="14" y="7" w="19" h="29"/>
-      <frame x="66" y="6" w="17" h="30"/>
-      <frame x="115" y="6" w="19" h="30"/>
-      <frame x="163" y="7" w="20" h="29"/>
+    <animation type ="idle" speed="0.01f" loop="true">
+      <frame x="15" y="7" w="19" h="30"/>
+      <frame x="66" y="6" w="19" h="30"/>
+      <frame x="116" y="6" w="19" h="30"/>
+      <frame x="163" y="7" w="22" h="30"/>
     </animation>
     <animation type ="move" speed="0.2f" loop="true">
       <frame x="67" y="45" w="20" h="28"/>
@@ -102,12 +102,12 @@
       <frame x="519" y="6" w="20" h="30"/>
     </animation>
     <animation type ="moveleft" speed="0.2f" loop="true">
-      <frame x="613" y="46" w="20" h="28"/>
-      <frame x="564" y="47" w="20" h="27"/>
-      <frame x="514" y="49" w="20" h="25"/>
-      <frame x="460" y="46" w="23" h="28"/>
-      <frame x="414" y="47" w="20" h="27"/>
-      <frame x="364" y="49" w="20" h="25"/>
+      <frame x="615" y="45" w="20" h="28"/>
+      <frame x="566" y="46" w="20" h="27"/>
+      <frame x="516" y="48" w="20" h="25"/>
+      <frame x="465" y="45" w="20" h="28"/>
+      <frame x="416" y="46" w="20" h="27"/>
+      <frame x="366" y="48" w="20" h="25"/>
     </animation>
     <animation type ="jumpLeft" speed="0.2f" loop="true">
       <frame x="665" y="87" w="20" h="24"/>
