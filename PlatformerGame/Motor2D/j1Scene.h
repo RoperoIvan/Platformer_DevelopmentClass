@@ -34,9 +34,12 @@ public:
 
 	void LevelChange();
 
+	bool Save(pugi::xml_node&)const;
+
+	bool Load(pugi::xml_node&);
+
 public:
 	bool controllingCamera;
-	//int Mix_VolumeMusic(int volume);
 
 private:
 	int levelSelector;

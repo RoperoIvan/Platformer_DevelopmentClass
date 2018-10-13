@@ -174,16 +174,10 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 
 bool j1Audio::Load(pugi::xml_node& data)
 {
-	volume = Mix_VolumeMusic(data.child("music").attribute("value").as_int());
-	LOG("%d", volume);
-
 	return true;
 }
 
 bool j1Audio::Save(pugi::xml_node& data)const
 {
-	pugi::xml_node cam = data.append_child("music");
-	cam.append_attribute("value") = volume;
-
 	return true;
 }

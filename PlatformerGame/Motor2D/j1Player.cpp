@@ -293,5 +293,22 @@ fPoint j1Player::SetPosition(fPoint playerPos)
 	return position;
 }
 
+bool j1Player::Save(pugi::xml_node& data)const
+{
+	
+	data.append_child("position").append_attribute("x") = position.x;
+	data.child("position").append_attribute("y") = position.y;
 
+	return true;
+}
+
+bool j1Player::Load(pugi::xml_node& data)
+{
+	position.x = data.child("position").attribute("x").as_int();
+	position.y = data.child("position").attribute("y").as_int();
+	LOG("%f", position.x);
+	LOG("%f", position.y);
+
+	return true;
+}
 

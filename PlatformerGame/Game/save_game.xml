@@ -3,15 +3,19 @@
 	<input />
 	<window />
 	<textures />
-	<audio>
-		<music value="0" />
-	</audio>
+	<audio />
 	<map />
-	<scene />
-	<FadeToBlack />
-	<player />
+	<scene>
+		<musicvolume value="0" />
+		<levelSelector value="1" />
+		<Logic value="true" />
+	</scene>
+	<player>
+		<position x="200" y="230" />
+	</player>
 	<:anonymous />
+	<FadeToBlack />
 	<renderer>
-		<camera x="-1642" y="-306" />
+		<camera x="-88" y="-306" />
 	</renderer>
 </game_state>

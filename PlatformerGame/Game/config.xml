@@ -11,7 +11,7 @@
   </renderer>
   <scene>
     <controllingCamera value="false"/>
-    <levelSelector value="0"/>
+    <levelSelector value="1"/>
     <counter value="0"/>
     <firstLevelPosition x="200.0f" y="230.0f"/>
     <secondLevelPosition x="100" y="150"/>

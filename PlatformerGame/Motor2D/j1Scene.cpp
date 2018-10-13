@@ -67,15 +67,19 @@ bool j1Scene::Update(float dt)
 
 	if (App->player->GetPosition().x == winCondition.x)
 	{
-		LevelChange();
+		if (levelSelector == 1)
+		{
+			levelSelector = 2;
+			LevelChange();
+		}
+		else if (levelSelector == 2)
+		{
+			levelSelector = 1;
+			LevelChange();
+		}
+		
 	}
 
-
-	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
-		App->LoadGame();
-
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
-		App->SaveGame();
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		App->render->camera.y -= 10;
 
@@ -93,27 +97,7 @@ bool j1Scene::Update(float dt)
 		controllingCamera = true;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-	{
-		counter++;
-		if (counter == 1)
-		{
-			App->map->seeCollisions = true;
-			
-		}
-		if (counter == 2)
-		{
-			App->map->seeCollisions = false;
-			counter = 0;
-		}
-		
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_REPEAT)
-	{
-		controllingCamera = true;
-	}
-
+	//Control of the music volume
 	if (App->input->GetKey(SDL_SCANCODE_7) == KEY_REPEAT )
 	{
 			if (volume < 200)
@@ -129,6 +113,50 @@ bool j1Scene::Update(float dt)
 			   Mix_VolumeMusic(volume -= 5);
 		   }  
 	}
+
+
+
+   //Debug Functionalities
+
+   if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+   {
+	   levelSelector = 1;
+	   LevelChange();	  
+   }
+   if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+   {
+	   LevelChange();	  
+   }
+   if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+   {
+	   levelSelector = 2;
+	   LevelChange();
+   }
+
+   if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+	   App->LoadGame();
+
+   if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+	   App->SaveGame();
+
+
+   if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+   {
+	   counter++;
+	   if (counter == 1)
+	   {
+		   App->map->seeCollisions = true;
+
+	   }
+	   if (counter == 2)
+	   {
+		   App->map->seeCollisions = false;
+		   counter = 0;
+	   }
+
+   }
+
+   //////////
 
 	App->map->Draw();
 
@@ -165,7 +193,7 @@ bool j1Scene::CleanUp()
 void j1Scene::LevelChange()
 {
 
-	if (levelSelector == 0)
+	if (levelSelector == 2)
 	{
 		App->player->CleanUp();
 		App->map->CleanUp();
@@ -177,9 +205,7 @@ void j1Scene::LevelChange()
 		App->audio->PlayMusic("audio/Desert_Theme.ogg");
 	}
 
-	levelSelector++;
-
-	if (levelSelector == 2)
+	if (levelSelector == 1)
 	{
 		App->player->CleanUp();
 		App->map->CleanUp();
@@ -189,6 +215,23 @@ void j1Scene::LevelChange()
 		winCondition = { Wincon1.x,Wincon1.y,Width1,Height1 };
 		App->map->Load("level1.tmx");
 		App->audio->PlayMusic("audio/Grasslands_Theme.ogg");
-		levelSelector = 0;
 	}
+}
+
+
+bool j1Scene::Save(pugi::xml_node& data)const
+{
+	data.append_child("musicvolume").append_attribute("value") = volume;
+	data.append_child("levelSelector").append_attribute("value") = levelSelector;
+	data.append_child("Logic").append_attribute("value") = App->map->seeCollisions;
+	return true;
+}
+bool j1Scene::Load(pugi::xml_node& data)
+{
+	volume = Mix_VolumeMusic(data.child("musicvolume").attribute("value").as_int());
+	levelSelector = data.child("levelSelector").attribute("value").as_int();
+	App->map->seeCollisions = data.child("Logic").attribute("value").as_bool();
+	LevelChange();
+	LOG("%d", volume);
+	return true;
 }

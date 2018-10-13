@@ -43,7 +43,6 @@ private:
 	p2List<Mix_Chunk*>	fx;
 
 public:
-	int volume = 0;
 	p2SString  path;
 };
 
