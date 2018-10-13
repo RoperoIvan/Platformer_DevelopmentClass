@@ -1,16 +1,20 @@
 #ifndef _j1COLLISION_
 #define _j1COLLISION_
 
-#define MAX_COLLIDERS 50
+#define MAX_COLLIDERS 200
 
 #include "j1Module.h"
-#include "SDL/include/SDL_rect.h"
+
 
 enum COLLIDER_TYPE
 {
 	COLLIDER_NONE = -1,
 	COLLIDER_GROUND,
 	COLLIDER_PLAYER,
+	COLLIDER_PLAYER_LEFT,
+	COLLIDER_PLAYER_RIGHT,
+	COLLIDER_PLAYER_DOWN,
+	COLLIDER_PLAYER_UP,
 	COLLIDER_MAX,
 };
 
@@ -57,10 +61,10 @@ public:
 	void GodMode();
 	bool godMode = false, 
 		godMode_used = false;
-
+	Collider * colliders[MAX_COLLIDERS] = { nullptr };
 private:
 
-	Collider * colliders[MAX_COLLIDERS] = { nullptr };
+	
 	bool matrix[COLLIDER_MAX][COLLIDER_MAX];
 	bool debug = false;
 };

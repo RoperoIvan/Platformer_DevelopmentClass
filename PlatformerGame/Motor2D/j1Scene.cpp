@@ -42,6 +42,12 @@ bool j1Scene::Awake(pugi::xml_node& config)
 	Wincon2.x = config.child("Wincon2").attribute("x").as_int();
 	Wincon2.y = config.child("Wincon2").attribute("y").as_int();
 	winCondition = { Wincon1.x,Wincon1.y,Width1,Height1 };
+	level1Path = config.child("level1Path").attribute("value").as_string();
+	level2Path = config.child("level2Path").attribute("value").as_string();
+	song1Path = config.child("song1Path").attribute("value").as_string();
+	song2Path = config.child("song2Path").attribute("value").as_string();
+	volume = config.child("volume").attribute("value").as_int();
+
 	return ret;
 }
 
@@ -49,8 +55,8 @@ bool j1Scene::Awake(pugi::xml_node& config)
 bool j1Scene::Start()
 {
 	
-		App->map->Load("level1.tmx");
-		App->audio->PlayMusic("audio/Grasslands_Theme.ogg");
+	App->map->Load(level1Path.GetString());
+	App->audio->PlayMusic(song1Path.GetString());
 
 	return true;
 }
@@ -201,8 +207,8 @@ void j1Scene::LevelChange()
 		App->player->SetPosition(secondLevelPosition);
 		App->player->Start();
 		winCondition = { Wincon2.x,Wincon2.y,Width2,Height2 };
-		App->map->Load("level2.tmx");
-		App->audio->PlayMusic("audio/Desert_Theme.ogg");
+		App->audio->PlayMusic(song2Path.GetString());
+		App->map->Load(level2Path.GetString());
 	}
 
 	if (levelSelector == 1)
@@ -213,8 +219,8 @@ void j1Scene::LevelChange()
 		App->player->SetPosition(firstLevelPosition);
 		App->player->Start();
 		winCondition = { Wincon1.x,Wincon1.y,Width1,Height1 };
-		App->map->Load("level1.tmx");
-		App->audio->PlayMusic("audio/Grasslands_Theme.ogg");
+		App->audio->PlayMusic(song1Path.GetString());
+		App->map->Load(level1Path.GetString());
 	}
 }
 
@@ -233,5 +239,6 @@ bool j1Scene::Load(pugi::xml_node& data)
 	App->map->seeCollisions = data.child("Logic").attribute("value").as_bool();
 	LevelChange();
 	LOG("%d", volume);
+	LOG("%i", levelSelector);
 	return true;
 }

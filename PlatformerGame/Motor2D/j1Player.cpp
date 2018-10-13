@@ -26,8 +26,8 @@ bool j1Player::Awake(pugi::xml_node& config)
 
 	//Importing the values of the variables from the player in the XML config file
 
-	position.x = config.child("position").attribute("x").as_float();
-	position.y = config.child("position").attribute("y").as_float();
+	position.x = config.child("position").attribute("x").as_int();
+	position.y = config.child("position").attribute("y").as_int();
 	jumpPower = config.child("jumpPower").attribute("value").as_float();
 	maxJumpHeight = config.child("maxjumpHeight").attribute("value").as_float();
 	speedPlayer.x = config.child("speedplayer").attribute("x").as_float();
@@ -40,7 +40,8 @@ bool j1Player::Awake(pugi::xml_node& config)
 	left = config.child("left").attribute("value").as_bool();
 	solidGround = config.child("solidground").attribute("value").as_bool();
 	jumpAgain = config.child("jumpagain").attribute("value").as_bool();
-
+	sizePlayer.x = config.child("idle").attribute("w").as_int();
+	sizePlayer.y = config.child("idle").attribute("h").as_int();
 	//Loading of the animations
 
 	for (pugi::xml_node animations = config.child("animation"); animations; animations = animations.next_sibling("animation"))
@@ -197,6 +198,12 @@ bool j1Player::Awake(pugi::xml_node& config)
 bool j1Player::Start()
 {
 	playerTexture = App->tex->Load(path.GetString());
+	collider_player_down = App->collision->AddCollider({ position.x + 2, position.y + sizePlayer.y, sizePlayer.x - 2, 2 }, COLLIDER_PLAYER_DOWN, this);
+	collider_player_up = App->collision->AddCollider({ position.x + 2,position.y - 3,sizePlayer.x - 2, 2 }, COLLIDER_PLAYER_UP, this);
+	collider_player_left = App->collision->AddCollider({ position.x,position.y - 3, 2 , sizePlayer.y }, COLLIDER_PLAYER_LEFT, this);
+	collider_player_right = App->collision->AddCollider({ position.x + sizePlayer.x,position.y - 3, 2 , sizePlayer.y }, COLLIDER_PLAYER_RIGHT, this);
+
+
 	return true;
 }
 
@@ -226,6 +233,7 @@ bool j1Player::Update(float dt)
 
 	if (solidGround)
 	{
+		speedPlayer.y = 0;
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		{
 			if (jumpAgain)
@@ -315,6 +323,37 @@ bool j1Player::Update(float dt)
 		left = false;
 	}
 
+	//check if player is in a platform
+	Collider* c2;
+
+	for (uint k = 0; k < MAX_COLLIDERS; ++k)
+	{
+		// skip empty colliders
+		if (App->collision->colliders[k] == nullptr)
+			continue;
+
+		c2 = App->collision->colliders[k];
+
+		if (collider_player_down->CheckCollision(c2->rect) == false)
+		{
+			solidGround = false;
+		}
+	}
+
+
+	if (position.x > App->map->data.tile_width * App->map->data.width - 7 * App->map->data.tile_width)
+		position.x = 7 * App->map->data.tile_width;
+
+	else if (position.x < 7 * App->map->data.tile_width)
+		position.x = App->map->data.tile_width * App->map->data.width - 7 * App->map->data.tile_width;
+
+
+	//colliders player
+	collider_player_up->SetPos(position.x + 2, position.y - 3);
+	collider_player_down->SetPos(position.x + 2, position.y + sizePlayer.y);
+	collider_player_left->SetPos(position.x, position.y);
+	collider_player_right->SetPos(position.x + sizePlayer.x, position.y);
+
 	//Drawing the animations
 	App->render->Blit(playerTexture, position.x, position.y, &currentAnimation->GetCurrentFrame());
 
@@ -335,17 +374,40 @@ bool j1Player::CleanUp()
 }
 
 
-fPoint j1Player::GetPosition()
+iPoint j1Player::GetPosition()
 {
 	return position;
 }
 
-fPoint j1Player::SetPosition(fPoint playerPos)
+iPoint j1Player::SetPosition(iPoint playerPos)
 {
 	position.x = playerPos.x;
 	position.y = playerPos.y;
 	return position;
 }
+
+void j1Player::OnCollision(Collider* c1, Collider* c2)
+{
+	if (c1->type == COLLIDER_PLAYER_LEFT && c2->type == COLLIDER_GROUND)
+	{
+		position.x += speedPlayer.x;
+	}
+	else if (c1->type == COLLIDER_PLAYER_RIGHT && c2->type == COLLIDER_GROUND)
+	{
+		position.x -= speedPlayer.x;
+	}
+	else if (c1->type == COLLIDER_PLAYER_DOWN && c2->type == COLLIDER_GROUND)
+	{
+		solidGround = true;
+	}
+	else if (c1->type == COLLIDER_PLAYER_UP && c2->type == COLLIDER_GROUND)
+	{
+		/*top_jump = true;*/
+	}
+}
+
+
+
 
 bool j1Player::Save(pugi::xml_node& data)const
 {

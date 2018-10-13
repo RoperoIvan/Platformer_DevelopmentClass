@@ -21,6 +21,11 @@
     <Height2 value="48"/>
     <Wincon1 x="1328" y="240"/>
     <Wincon2 x="16" y="331"/>
+    <level1Path value="level1.tmx"/>
+    <level2Path value="level2.tmx"/>
+    <song1Path value="audio/Grasslands_Theme.ogg"/>
+    <song2Path value="audio/Desert_Theme.ogg"/>
+    <volume value="70"/>
   </scene>
   <window>
     <resolution width="1024" height="768" scale="1"/>
@@ -44,7 +49,7 @@
   <player>
     <gravity value="0.5f"/>
     <path value="character/adventurer-Sheet2.png"/>
-    <position x="200.0f" y="230.0f"/>
+    <position x="200.0f" y="225.0f"/>
     <speedplayer x="2.0f" y="0.0f"/>
     <dashSpeed x="70.0f" y="0.0f"/>
     <initialcamera value="true"/>

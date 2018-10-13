@@ -145,6 +145,17 @@ bool j1Map::CleanUp()
 	data.mapLayers.clear();
 
 	// Clean up the pugui tree
+
+	p2List_item<MapObject*>* object_item;
+	object_item = data.objects.start;
+
+	while (object_item != NULL)
+	{
+		RELEASE(object_item->data);
+		object_item = object_item->next;
+	}
+	data.objects.clear();
+
 	map_file.reset();
 
 	return true;
@@ -203,6 +214,18 @@ bool j1Map::Load(const char* file_name)
 		data.mapLayers.add(set);
 	}
 
+	pugi::xml_node object_iterator;
+	for (object_iterator = map_file.child("map").child("objectgroup"); object_iterator && ret; object_iterator = object_iterator.next_sibling("objectgroup"))
+	{
+		MapObject* obj = new MapObject;
+
+		if (ret == true)
+		{
+			LoadObjects(object_iterator, obj);
+		}
+
+		data.objects.add(obj);
+	}
 
 	if(ret == true)
 	{
@@ -400,6 +423,34 @@ uint j1Map::GetGidPosition(int x, int y)
 
 	 return data[width*y + x];
 }
+
+ bool j1Map::LoadObjects(pugi::xml_node & node, MapObject * object)
+ {
+	 bool ret = true;
+	 object->name = node.attribute("name").as_string();
+	 object->id = node.attribute("id").as_uint();
+	 pugi::xml_node col_object = node.child("object");
+	 if (node == NULL)
+	 {
+		 LOG("Error parsing map xml file: Cannot find 'object/data' tag.");
+		 ret = false;
+		 RELEASE(object);
+	 }
+	 else
+	 {
+		 object = new MapObject;
+		 int i = 0;
+		 for (col_object; col_object; col_object = col_object.next_sibling("object"))
+		 {
+			 object->col[i] = new Collider({ col_object.attribute("x").as_int(0),col_object.attribute("y").as_int(0),col_object.attribute("width").as_int(0),col_object.attribute("height").as_int(0) }, COLLIDER_GROUND);
+			 App->collision->AddCollider(object->col[i]->rect, object->col[i]->type);
+			 i++;
+		 }
+
+	 }
+
+	 return ret;
+ }
 
 
 
