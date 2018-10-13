@@ -35,6 +35,7 @@ private:
 
 	fPoint position;
 	fPoint speedPlayer;
+	fPoint dashSpeed;
 	p2SString path;
 	SDL_Texture* playerTexture;
 	Animation idle;
@@ -49,6 +50,9 @@ private:
 	Animation landingLeft;
 	Animation death;
 	Animation deathLeft;
+	Animation dash;
+	Animation dashLeft;
+	Animation slide;
 	Animation* currentAnimation = nullptr;
 	bool initialCamera;
 	bool left;

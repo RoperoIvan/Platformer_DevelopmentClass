@@ -32,6 +32,8 @@ bool j1Player::Awake(pugi::xml_node& config)
 	maxJumpHeight = config.child("maxjumpHeight").attribute("value").as_float();
 	speedPlayer.x = config.child("speedplayer").attribute("x").as_float();
 	speedPlayer.y = config.child("speedplayer").attribute("y").as_float();
+	dashSpeed.x = config.child("dashSpeed").attribute("x").as_float();
+	dashSpeed.y = config.child("dashSpeed").attribute("y").as_float();
 	gravity = config.child("gravity").attribute("value").as_float();
 	path = config.child("path").attribute("value").as_string();
 	initialCamera = config.child("initialcamera").attribute("value").as_bool();
@@ -166,6 +168,26 @@ bool j1Player::Awake(pugi::xml_node& config)
 			deathLeft.loop = animations.attribute("loop").as_bool();
 
 		}
+		if (types == "dash")
+		{
+			for (pugi::xml_node frames = animations.child("frame"); frames; frames = frames.next_sibling("frame"))
+			{
+				dash.PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("w").as_int(), frames.attribute("h").as_int() });
+			}
+			dash.speed = animations.attribute("speed").as_float();
+			dash.loop = animations.attribute("loop").as_bool();
+
+		}
+		if (types == "dashLeft")
+		{
+			for (pugi::xml_node frames = animations.child("frame"); frames; frames = frames.next_sibling("frame"))
+			{
+				dashLeft.PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("w").as_int(), frames.attribute("h").as_int() });
+			}
+			dashLeft.speed = animations.attribute("speed").as_float();
+			dashLeft.loop = animations.attribute("loop").as_bool();
+
+		}
 	}
 	currentAnimation = &idle;
 
@@ -286,6 +308,13 @@ bool j1Player::Update(float dt)
 		currentAnimation = &death;
 	}
 	
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN)
+	{
+		position.x += (dashSpeed.x + speedPlayer.x);
+		currentAnimation = &dash;
+		left = false;
+	}
+
 	//Drawing the animations
 	App->render->Blit(playerTexture, position.x, position.y, &currentAnimation->GetCurrentFrame());
 

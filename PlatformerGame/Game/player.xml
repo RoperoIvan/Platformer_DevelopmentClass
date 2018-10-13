@@ -2,7 +2,6 @@
 
 <player>
   <folder path="character/adventurer-Sheet.png" ></folder>
-  
    <animation name ="idle" speed="0.05f" loop="true">
     <frame x="14" y="7" w="19" h="29"/>
     <frame x="66" y="6" w="17" h="30"/>
@@ -59,12 +58,20 @@
     <frame x="102" y="274" w="32" h="21"/>
     <frame x="152" y="273" w="31" h="22"/>
   </animation>
-  <animation name ="attack3" speed="0.05f" loop="false">
+  <animation name ="dash" speed="0.05f" loop="false">
     <frame x="219" y="269" w="20" h="26"/>
     <frame x="270" y="269" w="20" h="26"/>
     <frame x="302" y="272" w="48" h="23"/>
     <frame x="3" y="313" w="31" h="19"/>
     <frame x="50" y="312" w="34" h="20"/>
     <frame x="100" y="312" w="34" h="20"/>
-  </animation>    
+  </animation>
+  <animation name ="dashLeft" speed="0.05f" loop="false">
+    <frame x="463" y="269" w="20" h="26"/>
+    <frame x="412" y="269" w="20" h="26"/>
+    <frame x="362" y="272" w="48" h="23"/>
+    <frame x="668" y="313" w="31" h="19"/>
+    <frame x="618" y="312" w="34" h="20"/>
+    <frame x="568" y="312" w="34" h="20"/>
+  </animation>
 </player>
