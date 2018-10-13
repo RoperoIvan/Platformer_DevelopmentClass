@@ -58,10 +58,14 @@ private:
 	bool initialCamera;
 	bool left;
 	bool solidGround;
+	//bool hasDashed;
 	bool jumpAgain;
+	//bool dashAgain;
 	float gravity;
 	float jumpPower;
+	//float dashPower;
 	float maxJumpHeight;
+	//float dashLength;
 	bool initialPosCamera = true;
 	int gid;
 };
