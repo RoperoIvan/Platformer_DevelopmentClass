@@ -30,17 +30,14 @@ public:
 	bool Save(pugi::xml_node&)const;
 
 	bool Load(pugi::xml_node&);
-	void ChargingAnimations(pugi::xml_node&, Animation*);
 
 public:
 	bool godMode;
-	int feetCollider, leftCollider, rightCollider, headCollider, doublejump = 0;
+	int feetCollider, leftCollider, rightCollider, headCollider, doubleJump;
 
 private:
-	iPoint sizePlayer;
 	iPoint position;
 	fPoint speedPlayer;
-	fPoint dashSpeed;
 	p2SString path;
 	SDL_Texture* playerTexture;
 	Animation idle;
@@ -53,31 +50,18 @@ private:
 	Animation fallLeft;
 	Animation landing;
 	Animation landingLeft;
-	Animation death;
-	Animation deathLeft;
-	Animation dash;
-	Animation dashLeft;
-	Animation slide;
 	Animation* currentAnimation = nullptr;
-	bool initialCamera;
 	bool left;
 	bool jumping;
-	bool inAir = false;
-	bool cantgoleft = false;
-	bool cantgoright = false;
-	bool dontFly = false;
-	bool cantjump = false;
-	bool hasJumped = false;
-	//bool hasDashed;
+	bool inAir;
+	bool cantGoLeft;
+	bool cantGoRight;
+	bool dontFly;
+	bool cantJump;
 	bool jumpAgain;
-	//bool dashAgain;
 	float gravity;
 	float jumpPower;
-	//float dashPower;
 	float maxJumpHeight;
-	//float dashLength;
-	bool initialPosCamera = true;
-	
 };
 
 
@@ -85,3 +69,9 @@ private:
 
 
 #endif
+
+
+
+
+
+

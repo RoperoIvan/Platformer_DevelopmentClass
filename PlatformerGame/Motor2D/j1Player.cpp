@@ -32,105 +32,99 @@ bool j1Player::Awake(pugi::xml_node& config)
 	maxJumpHeight = config.child("maxjumpHeight").attribute("value").as_float();
 	speedPlayer.x = config.child("speedplayer").attribute("x").as_float();
 	speedPlayer.y = config.child("speedplayer").attribute("y").as_float();
-	dashSpeed.x = config.child("dashSpeed").attribute("x").as_float();
-	dashSpeed.y = config.child("dashSpeed").attribute("y").as_float();
 	gravity = config.child("gravity").attribute("value").as_float();
 	path = config.child("path").attribute("value").as_string();
-	initialCamera = config.child("initialcamera").attribute("value").as_bool();
 	left = config.child("left").attribute("value").as_bool();
 	jumping = config.child("solidground").attribute("value").as_bool();
 	jumpAgain = config.child("jumpagain").attribute("value").as_bool();
-	sizePlayer.x = config.child("idle").attribute("w").as_int();
-	sizePlayer.y = config.child("idle").attribute("h").as_int();
-	cantjump = config.child("cantjump").attribute("value").as_bool();
 	godMode = config.child("godMode").attribute("value").as_bool();
-	//hasDashed = config.child("hasDashed").attribute("value").as_bool();
-	//dashAgain = config.child("dashagain").attribute("value").as_bool();
-	//dashLength = config.child("dashLength").attribute("value").as_float();
-	//dashPower = config.child("dashPower").attribute("value").as_float();
-
-
+	inAir = config.child("inAir").attribute("value").as_bool();
+	cantGoLeft = config.child("cantGoLeft").attribute("value").as_bool();
+	cantGoRight = config.child("cantGoRight").attribute("value").as_bool();
+	dontFly = config.child("dontFly").attribute("value").as_bool();
+	cantJump = config.child("cantJump").attribute("value").as_bool();
+	doubleJump = config.child("doubleJump").attribute("value").as_int();
+	jumpAgain = config.child("jumpAgain").attribute("value").as_bool();
 	//Loading of the animations
-	dash.PushBack({ 219,269, 20,26});
-	dash.PushBack({270, 269, 20,26});
-	dash.PushBack({302,272,48,23});
-	dash.PushBack({3,313,31,19});
-	dash.PushBack({50,312,34,20});
-	dash.PushBack({100, 312,34,20});
-	for (pugi::xml_node animations = config.child("animation"); animations; animations = animations.next_sibling("animation"))
-	{
 
-		p2SString types = animations.attribute("type").as_string();
+	//Idle animations
+	idle.PushBack({ 15,7, 19,30 });
+	idle.PushBack({ 66,6, 19,30 });
+	idle.PushBack({ 116,6, 19,30 });
+	idle.PushBack({ 163,7, 22,30 });
+	idle.speed = 0.1f;
+	idle.loop = true;
 
-		if (types == "idle")
-		{
-			ChargingAnimations(animations, &idle);
-		}
-		if (types == "idleleft")
-		{
-			ChargingAnimations(animations, &idleLeft);
-		}
+	idleLeft.PushBack({ 669,6, 20,30 });
+	idleLeft.PushBack({ 619,6, 20,30 });
+	idleLeft.PushBack({ 569,6, 20,30 });
+	idleLeft.PushBack({ 519,6, 20,30 });
+	idleLeft.speed = 0.1f;
+	idleLeft.loop = true;
 
-		if (types == "move")
-		{
-			ChargingAnimations(animations, &move);
-		}
-		if (types == "moveleft")
-		{
-			ChargingAnimations(animations, &moveLeft);
-		}
+	//Movement animations
+	move.PushBack({ 67,45, 20,28 });
+	move.PushBack({ 116,46, 20,27 });
+	move.PushBack({ 166,48, 20,26 });
+	move.PushBack({ 217,45, 23,29 });
+	move.PushBack({ 266,46, 20,27 });
+	move.PushBack({ 316,48, 20,25 });
+	move.speed = 0.2f;
+	move.loop = true;
 
-		if (types == "jump")
-		{
-			ChargingAnimations(animations, &jump);
+	moveLeft.PushBack({ 615,45, 20,28 });
+	moveLeft.PushBack({ 566,46, 20,27 });
+	moveLeft.PushBack({ 516,48, 20,26 });
+	moveLeft.PushBack({ 465,45, 23,29 });
+	moveLeft.PushBack({ 416,46, 20,27 });
+	moveLeft.PushBack({ 366,48, 20,25 });
+	moveLeft.speed = 0.2f;
+	moveLeft.loop = true;
 
-		}
-		if (types == "jumpLeft")
-		{
-			ChargingAnimations(animations, &jumpLeft);
+	//Jump animations
+	jump.PushBack({ 15,86, 20,24 });
+	jump.PushBack({ 65,88, 20,22 });
+	jump.PushBack({ 117,81, 19,27 });
+	jump.PushBack({ 164,79, 21,23 });
+	jump.PushBack({ 218,82, 15,20 });
+	jump.PushBack({ 264,84, 23,17 });
+	jump.PushBack({ 320,84, 18,20 });
+	jump.PushBack({ 14,124, 23,17 });
+	jump.PushBack({ 68,112, 17,31 });
+	jump.speed = 0.2f;
+	jump.loop = true;
 
-		}
-		if (types == "fall")
-		{
-			ChargingAnimations(animations, &fall);
+	jumpLeft.PushBack({ 665,87, 20,24 });
+	jumpLeft.PushBack({ 615,89, 20,22 });
+	jumpLeft.PushBack({ 564,82, 19,27 });
+	jumpLeft.PushBack({ 515,80, 21,23 });
+	jumpLeft.PushBack({ 467,83, 15,20 });
+	jumpLeft.PushBack({ 413,85, 23,17 });
+	jumpLeft.PushBack({ 362,85, 18,20 });
+	jumpLeft.PushBack({ 663,125, 23,17 });
+	jumpLeft.PushBack({ 615,113, 17,31 });
+	jumpLeft.speed = 0.2f;
+	jumpLeft.loop = true;
 
-		}
-		if (types == "fallLeft")
-		{
-			ChargingAnimations(animations, &fallLeft);
+	//Falling animations
+	fall.PushBack({ 65,88, 20,22 });
+	fall.PushBack({ 118,113, 17,30 });
+	fall.speed = 0.1f;
+	fall.loop = false;
 
-		}
-		if (types == "landing")
-		{
-			ChargingAnimations(animations, &landing);
+	fallLeft.PushBack({ 615,89, 20,22 });
+	fallLeft.PushBack({ 565,113, 17,30 });
+	fallLeft.speed = 0.1f;
+	fallLeft.loop = false;
 
-		}
-		if (types == "landingLeft")
-		{
-			ChargingAnimations(animations, &landingLeft);
+	landing.PushBack({ 15,86, 21,24 });
+	landing.speed = 0.1f;
+	landing.loop = false;
 
-		}
-		if (types == "death")
-		{
-			ChargingAnimations(animations, &death);
-		}
-		if (types == "deathLeft")
-		{
-			ChargingAnimations(animations, &deathLeft);
+	landingLeft.PushBack({ 665,87, 20,24 });
+	landingLeft.speed = 0.1f;
+	landingLeft.loop = false;
 
-		}
-		/*if (types == "dash")
-		{
-			ChargingAnimations(animations, &dash);
-
-		}*/
-		if (types == "dashLeft")
-		{
-			ChargingAnimations(animations, &dashLeft);
-
-		}
-		
-	}
 	currentAnimation = &idle;
 
 	return true;
@@ -164,48 +158,58 @@ bool j1Player::Update(float dt)
 	}
 	///////////////////
 
-	feetCollider = App->map->GetGidPosition(position.x, position.y+30);
+	//Player death
+	if (App->map->data.mapLayers.end->data->data[feetCollider] == 53)
+	{
+
+		App->scene->LevelChange();
+	}
+
+	//Collision between player's colliders and the ground
+
+	feetCollider = App->map->GetGidPosition(position.x, position.y + 30);
 	App->render->DrawQuad({ position.x, position.y + 30,16,16 }, 0, 255, 0, 255);
-	leftCollider = App->map->GetGidPosition(position.x - 10, position.y+5);
-	App->render->DrawQuad({ position.x - 10, position.y+5,16,16 }, 0, 255, 0, 255);
-	rightCollider = App->map->GetGidPosition(position.x + 10, position.y+5);
-	App->render->DrawQuad({ position.x + 10, position.y+5,16,16 }, 0, 255, 0, 255);
+	leftCollider = App->map->GetGidPosition(position.x - 10, position.y + 5);
+	App->render->DrawQuad({ position.x - 10, position.y + 5,16,16 }, 0, 255, 0, 255);
+	rightCollider = App->map->GetGidPosition(position.x + 10, position.y + 5);
+	App->render->DrawQuad({ position.x + 10, position.y + 5,16,16 }, 0, 255, 0, 255);
 	headCollider = App->map->GetGidPosition(position.x, position.y - 5);
 	App->render->DrawQuad({ position.x, position.y - 5,16,16 }, 0, 255, 0, 255);
-	
+
 	if (App->map->data.mapLayers.end->data->data[feetCollider] != 50 && !godMode)
 	{
-		//cantjump = true;
 		position.y += 3;
 		inAir = true;
 
-		if (doublejump == 2)
+		if (doubleJump == 2)
 		{
-			cantjump = true;
-			doublejump = 0;
+			cantJump = true;
+			doubleJump = 0;
 		}
 	}
 	else
 	{
-		cantjump = false;
+		cantJump = false;
 		inAir = false;
 	}
 	if (App->map->data.mapLayers.end->data->data[leftCollider] == 51)
 	{
-		cantgoleft = true;
+		cantGoLeft = true;
 	}
 	else
 	{
-		cantgoleft = false;
+		cantGoLeft = false;
 	}
 	if (App->map->data.mapLayers.end->data->data[rightCollider] == 54)
 	{
-		cantgoright = true;
+		cantGoRight = true;
 	}
 	else
 	{
-		cantgoright = false;
+		cantGoRight = false;
 	}
+
+
 	//Logic of the jump movement of the player
 	if (App->map->data.mapLayers.end->data->data[headCollider] == 89)
 	{
@@ -217,29 +221,21 @@ bool j1Player::Update(float dt)
 	}
 	if (!jumping)
 	{
-		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !cantjump)
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !cantJump)
 		{
 
-			doublejump++;
+			doubleJump++;
 
-			if (doublejump == 2)
+			if (doubleJump == 2)
 			{
-				cantjump = true;
-				doublejump = 0;
+				cantJump = true;
+				doubleJump = 0;
 			}
 			jumping = true;
 			currentAnimation = &jump;
 		}
 	}
-	
-	//Player death
-	if (App->map->data.mapLayers.end->data->data[feetCollider] == 53)
-	{
 
-		App->scene->LevelChange();
-	}
-
-	//JUMP
 	if (maxJumpHeight == 0.0f)
 	{
 		jumpPower = -1 * position.y;
@@ -259,35 +255,37 @@ bool j1Player::Update(float dt)
 		}
 
 	}
-	
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && inAir && !cantgoright)
-		{
-			position.x += speedPlayer.x;
-			currentAnimation = &fall;
-		}
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && inAir && !cantgoleft)
-		{
-			position.x -= speedPlayer.x;
-			currentAnimation = &fallLeft;
-			left = true;
-		}
-		if (inAir && !left)
-		{
-			currentAnimation = &fall;
-		}
-		if (inAir && left)
-		{
-			currentAnimation = &fallLeft;
-		}
+
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && inAir && !cantGoRight)
+	{
+		position.x += speedPlayer.x;
+		currentAnimation = &fall;
+		left = false;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && inAir && !cantGoLeft)
+	{
+		position.x -= speedPlayer.x;
+		currentAnimation = &fallLeft;
+		left = true;
+	}
+	if (inAir && !left)
+	{
+		currentAnimation = &fall;
+	}
+	if (inAir && left)
+	{
+		currentAnimation = &fallLeft;
+	}
+
 	//Camera Movement
 
 	App->render->camera.x = (-position.x * 3) + (App->win->width / 2);
 	App->render->camera.y = (-position.y * 3) + (App->win->height / 2);
-	
+
 
 	// Right and left player's movement logic
 
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !inAir && !cantgoright)
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !inAir && !cantGoRight)
 	{
 		position.x += speedPlayer.x;
 		if (!jumping)
@@ -298,7 +296,7 @@ bool j1Player::Update(float dt)
 	}
 
 
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !inAir && !cantgoleft)
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !inAir && !cantGoLeft)
 	{
 		position.x -= speedPlayer.x;
 		if (!jumping)
@@ -309,20 +307,15 @@ bool j1Player::Update(float dt)
 	}
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
+		if (left)
+		{
+			currentAnimation = &idleLeft;
+		}
+		if (!left)
+		{
 			currentAnimation = &idle;
-	}
+		}
 
-	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
-	{
-		currentAnimation = &death;
-	}
-	
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN)
-	{
-		//position.x += (dashSpeed.x + speedPlayer.x);
-		position.x += speedPlayer.x;
-		currentAnimation = &dash;
-		left = false;
 	}
 
 	//Drawing the animations
@@ -357,22 +350,9 @@ iPoint j1Player::SetPosition(iPoint playerPos)
 	return position;
 }
 
-
-void j1Player::ChargingAnimations(pugi::xml_node& animation, Animation* anime)
-{
-	for (pugi::xml_node frames = animation.child("frame"); frames; frames = frames.next_sibling("frame"))
-	{
-		anime->PushBack({ frames.attribute("x").as_int(), frames.attribute("y").as_int(), frames.attribute("w").as_int(), frames.attribute("h").as_int() });
-	}
-	anime->speed = animation.attribute("speed").as_float();
-	anime->loop = animation.attribute("loop").as_bool();
-
-}
-
-
 bool j1Player::Save(pugi::xml_node& data)const
 {
-	
+
 	data.append_child("position").append_attribute("x") = position.x;
 	data.child("position").append_attribute("y") = position.y;
 
@@ -388,4 +368,8 @@ bool j1Player::Load(pugi::xml_node& data)
 
 	return true;
 }
+
+
+
+
 
