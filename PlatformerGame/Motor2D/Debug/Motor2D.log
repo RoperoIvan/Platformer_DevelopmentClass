@@ -3,5 +3,20 @@ c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformer
 c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1scene.cpp(34): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
 c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1scene.cpp(35): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
 c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1scene.cpp(36): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+  j1Render.cpp
+  j1Player.cpp
+c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(219): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(225): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(239): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(244): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(266): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(277): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(297): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
+  j1Map.cpp
+c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1map.cpp(40): warning C4018: '<': no coinciden signed/unsigned
+c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1map.cpp(42): warning C4018: '<': no coinciden signed/unsigned
+  j1App.cpp
+  Generando código...
+  LINK : no se encontró C:\Users\ivan_\OneDrive\Documentos\GitHub\Platformer_DevelopmentClass\PlatformerGame\Debug\Motor 2D.exe o no lo generó el último vínculo incremental; ejecutando vínculo completo
   Motor2D.vcxproj -> C:\Users\ivan_\OneDrive\Documentos\GitHub\Platformer_DevelopmentClass\PlatformerGame\Debug\Motor 2D.exe
   Motor2D.vcxproj -> C:\Users\ivan_\OneDrive\Documentos\GitHub\Platformer_DevelopmentClass\PlatformerGame\Debug\Motor 2D.pdb (Partial PDB)

@@ -165,7 +165,10 @@ bool j1Player::Update(float dt)
 
 	gid = App->map->GetGidPosition(position.x, position.y+30);
 	App->render->DrawQuad({ position.x, position.y + 30,16,16 }, 0, 255, 0, 255);
-
+	gid2 = App->map->GetGidPosition(position.x - 10, position.y);
+	App->render->DrawQuad({ position.x - 10, position.y,16,16 }, 0, 255, 0, 255);
+	gid3 = App->map->GetGidPosition(position.x + 10, position.y);
+	App->render->DrawQuad({ position.x + 10, position.y,16,16 }, 0, 255, 0, 255);
 	if (App->map->data.mapLayers.end->data->data[gid] != 50 && !godMode)
 	{
 		position.y += 3;
@@ -174,6 +177,22 @@ bool j1Player::Update(float dt)
 	else
 	{
 		inAir = false;
+	}
+	if (App->map->data.mapLayers.end->data->data[gid2] == 51)
+	{
+		cantgoleft = true;
+	}
+	else
+	{
+		cantgoleft = false;
+	}
+	if (App->map->data.mapLayers.end->data->data[gid3] == 54)
+	{
+		cantgoright = true;
+	}
+	else
+	{
+		cantgoright = false;
 	}
 	//Logic of the jump movement of the player
 
@@ -215,12 +234,12 @@ bool j1Player::Update(float dt)
 
 	}
 	
-		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && inAir)
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && inAir && !cantgoright)
 		{
 			position.x += speedPlayer.x;
 			currentAnimation = &fall;
 		}
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && inAir)
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && inAir && !cantgoleft)
 		{
 			position.x -= speedPlayer.x;
 			currentAnimation = &fallLeft;
@@ -242,7 +261,7 @@ bool j1Player::Update(float dt)
 
 	// Right and left player's movement logic
 
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !inAir)
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !inAir && !cantgoright)
 	{
 		position.x += speedPlayer.x;
 		if (!jumping)
@@ -253,7 +272,7 @@ bool j1Player::Update(float dt)
 	}
 
 
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !inAir)
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !inAir && !cantgoleft)
 	{
 		position.x -= speedPlayer.x;
 		if (!jumping)

@@ -34,7 +34,7 @@ public:
 
 public:
 	bool godMode;
-	int gid;
+	int gid, gid2, gid3;
 private:
 	iPoint sizePlayer;
 	iPoint position;
@@ -62,7 +62,9 @@ private:
 	bool left;
 	bool jumping;
 	bool inAir = false;
-	
+	bool cantgoleft = false;
+	bool cantgoright = false;
+
 	//bool hasDashed;
 	bool jumpAgain;
 	//bool dashAgain;
