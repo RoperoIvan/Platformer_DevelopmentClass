@@ -188,15 +188,11 @@ bool j1Player::Update(float dt)
 	}
 	
 	//Player death
-	//if (App->map->data.mapLayers.end->data->data[gid + 1] == 52 && App->map->data.mapLayers.end->data->data[gid] != 52)
-	//{
-	if (position.y == 39 * 16)
+	if (App->map->data.mapLayers.end->data->data[gid + 1] == 53)
 	{
-		currentAnimation = &death;
+
 		App->scene->LevelChange();
 	}
-
-	//}
 
 	//JUMP
 	if (maxJumpHeight == 0.0f)

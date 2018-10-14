@@ -269,6 +269,7 @@ void j1Scene::Limits()
 {
 	if (levelSelector == 1)
 	{
+		//int death1 = 400;
 		if (App->player->GetPosition().x == firstLimit.x || App->player->GetPosition().y == firstLimit.y)
 		{
 			LevelChange();
@@ -278,6 +279,7 @@ void j1Scene::Limits()
 		
 		if (levelSelector == 2)
 		{
+			
 
 			if (App->player->GetPosition().x == secondLimit.x || App->player->GetPosition().y == secondLimit.y)
 			{
