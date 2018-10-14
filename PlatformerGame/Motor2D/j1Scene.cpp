@@ -26,32 +26,40 @@ bool j1Scene::Awake(pugi::xml_node& config)
 	LOG("Loading Scene");
 	bool ret = true;
 
+	///// bool
 	controllingCamera = config.child("controllingCamera").attribute("value").as_bool();
-	counter = config.child("counter").attribute("value").as_int();
-	levelSelector = config.child("levelSelector").attribute("value").as_int();
-	godSelector = config.child("godSelector").attribute("value").as_int();
+
+	////// float
 	firstLevelPosition.x = config.child("firstLevelPosition").attribute("x").as_float();
 	firstLevelPosition.y = config.child("firstLevelPosition").attribute("y").as_float();
 	secondLevelPosition.x = config.child("secondLevelPosition").attribute("x").as_float();
 	secondLevelPosition.y = config.child("secondLevelPosition").attribute("y").as_float();
-	Width1 = config.child("Width1").attribute("value").as_int();
-	Width2 = config.child("Width2").attribute("value").as_int();
-	Height1 = config.child("Height1").attribute("value").as_int();
-	Height2 = config.child("Height2").attribute("value").as_int();
-	Wincon1.x = config.child("Wincon1").attribute("x").as_int();
-	Wincon1.y = config.child("Wincon1").attribute("y").as_int();
-	Wincon2.x = config.child("Wincon2").attribute("x").as_int();
-	Wincon2.y = config.child("Wincon2").attribute("y").as_int();
-	winCondition = { Wincon1.x,Wincon1.y,Width1,Height1 };
+
+	///// string
 	level1Path = config.child("level1Path").attribute("value").as_string();
 	level2Path = config.child("level2Path").attribute("value").as_string();
 	song1Path = config.child("song1Path").attribute("value").as_string();
 	song2Path = config.child("song2Path").attribute("value").as_string();
+
+	////// int
+	collisionCounter = config.child("collisionCounter").attribute("value").as_int();
+	levelSelector = config.child("levelSelector").attribute("value").as_int();
+	godSelector = config.child("godSelector").attribute("value").as_int();
+	Width1 = config.child("Width1").attribute("value").as_int();
+	Width2 = config.child("Width2").attribute("value").as_int();
+	Height1 = config.child("Height1").attribute("value").as_int();
+	Height2 = config.child("Height2").attribute("value").as_int();
 	volume = config.child("volume").attribute("value").as_int();
 	firstLimit.x = config.child("firstLimit").attribute("x").as_int();
 	firstLimit.y = config.child("firstLimit").attribute("y").as_int();
 	secondLimit.x = config.child("secondLimit").attribute("x").as_int();
 	secondLimit.y = config.child("secondLimit").attribute("y").as_int();
+	Wincon1.x = config.child("Wincon1").attribute("x").as_int();
+	Wincon1.y = config.child("Wincon1").attribute("y").as_int();
+	Wincon2.x = config.child("Wincon2").attribute("x").as_int();
+	Wincon2.y = config.child("Wincon2").attribute("y").as_int();
+	winCondition = { Wincon1.x,Wincon1.y,Width1,Height1 };
+
 	return ret;
 }
 
@@ -74,7 +82,6 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-
 	if (App->map->data.mapLayers.end->data->data[App->player->feetCollider] == 52)
 	{
 		if (levelSelector == 1)
@@ -86,48 +93,10 @@ bool j1Scene::Update(float dt)
 		{
 			levelSelector = 1;
 			LevelChange();
-		}
-		
+		}	
 	}
 	Limits();
 	
-
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		App->render->camera.y -= 10;
-
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		App->render->camera.y += 10;
-
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->render->camera.x -= 10;
-
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x += 10;
-
-	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_REPEAT)
-	{
-		controllingCamera = true;
-	}
-
-	//Control of the music volume
-	if (App->input->GetKey(SDL_SCANCODE_7) == KEY_REPEAT )
-	{
-			if (volume < 200)
-			{
-				Mix_VolumeMusic(volume += 5);
-			}	
-	}
-
-   if (App->input->GetKey(SDL_SCANCODE_8) == KEY_REPEAT)
-	{
-	    if (volume > 0)
-		   {
-			   Mix_VolumeMusic(volume -= 5);
-		   }  
-	}
-
-
-
    //Debug Functionalities
 
    if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
@@ -135,10 +104,12 @@ bool j1Scene::Update(float dt)
 	   levelSelector = 1;
 	   LevelChange();	  
    }
+
    if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
    {
 	   LevelChange();	  
    }
+
    if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
    {
 	   levelSelector = 2;
@@ -146,46 +117,69 @@ bool j1Scene::Update(float dt)
    }
 
    if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+   {
 	   App->LoadGame();
+   }
 
    if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+   {
 	   App->SaveGame();
-
+   }
 
    if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
    {
-	   counter++;
-	   if (counter == 1)
+	   collisionCounter++;
+
+	   if (collisionCounter == 1)
 	   {
 		   App->map->seeCollisions = true;
-
 	   }
-	   if (counter == 2)
+
+	   if (collisionCounter == 2)
 	   {
 		   App->map->seeCollisions = false;
-		   counter = 0;
+		   collisionCounter = 0;
 	   }
-
    }
+
    if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
    {
 	   godSelector++;
+
 	   if (godSelector == 1)
 	   {
 		   App->player->godMode = true;
 	   }
+
 	   if (godSelector == 2)
 	   {
 		   App->player->godMode = false;
 		   godSelector = 0;
 	   }
-
    }
-   //////////
+
+   //Control of the music volume
+   if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_REPEAT)
+   {
+	   if (volume < 200)
+	   {
+		   Mix_VolumeMusic(volume += 5);
+	   }
+   }
+
+   if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_REPEAT)
+   {
+	   if (volume > 0)
+	   {
+		   Mix_VolumeMusic(volume -= 5);
+	   }
+   }
+
+
+	///// Map drawing
 
 	App->map->Draw();
 
-	// "Map:%dx%d Tiles:%dx%d Tilesets:%d"
 	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
 		App->map->data.width, App->map->data.height,
 		App->map->data.tile_width, App->map->data.tile_height,
@@ -217,7 +211,6 @@ bool j1Scene::CleanUp()
 
 void j1Scene::LevelChange()
 {
-
 	if (levelSelector == 2)
 	{
 		App->player->CleanUp();
@@ -244,6 +237,7 @@ void j1Scene::LevelChange()
 }
 
 
+///// Save & Load
 bool j1Scene::Save(pugi::xml_node& data)const
 {
 	data.append_child("musicvolume").append_attribute("value") = volume;
@@ -252,6 +246,7 @@ bool j1Scene::Save(pugi::xml_node& data)const
 
 	return true;
 }
+
 bool j1Scene::Load(pugi::xml_node& data)
 {
 	volume = Mix_VolumeMusic(data.child("musicvolume").attribute("value").as_int());
@@ -269,23 +264,18 @@ void j1Scene::Limits()
 {
 	if (levelSelector == 1)
 	{
-		//int death1 = 400;
+		
 		if (App->player->GetPosition().x == firstLimit.x || App->player->GetPosition().y == firstLimit.y)
 		{
-			LevelChange();
-			
+			LevelChange();	
 		}
 	}
 		
-		if (levelSelector == 2)
+	if (levelSelector == 2)
+	{
+		if (App->player->GetPosition().x == secondLimit.x || App->player->GetPosition().y == secondLimit.y)
 		{
-			
-
-			if (App->player->GetPosition().x == secondLimit.x || App->player->GetPosition().y == secondLimit.y)
-			{
-				LevelChange();
+			LevelChange();
 			}
-		}
-		
+	}
 }
-	

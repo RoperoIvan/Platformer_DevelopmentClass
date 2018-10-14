@@ -43,7 +43,7 @@ public:
 
 private:
 	int levelSelector, godSelector;
-	int counter;
+	int collisionCounter;
 	iPoint firstLevelPosition, secondLevelPosition, firstLimit, secondLimit;
 	iPoint Wincon1, Wincon2;
 	int Width1, Width2, Height1, Height2;

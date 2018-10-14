@@ -13,7 +13,7 @@
     <controllingCamera value="false"/>
     <levelSelector value="1"/>
     <godSelector value="0"/>
-    <counter value="0"/>
+    <collisionCounter value="0"/>
     <firstLevelPosition x="200.0f" y="230.0f"/>
     <secondLevelPosition x="100" y="150"/>
     <Width1 value="16"/>
