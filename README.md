@@ -9,20 +9,20 @@ https://rvros.itch.io/animated-pixel-hero (player)
 
 ## Controls
 
-A = left movement
-D = right movement
-SPACE BAR = jump
-Shift + A or D = dash
+- A = left movement
+- D = right movement
+- SPACE BAR = jump
+- Shift + A or D = dash
 
 Debug Keys:
 
-F1 = go to the first level
-F2 = start from the beginning of the current level
-F3 = go to the second level
-F5 = save your progress
-F6 = load your saved game
-F9 = see the colliders
-F10 = god mode
+- F1 = go to the first level
+- F2 = start from the beginning of the current level
+- F3 = go to the second level
+- F5 = save your progress
+- F6 = load your saved game
+- F9 = see the colliders
+- F10 = god mode
 
 ## About us
 
