@@ -38,7 +38,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 	path = config.child("path").attribute("value").as_string();
 	initialCamera = config.child("initialcamera").attribute("value").as_bool();
 	left = config.child("left").attribute("value").as_bool();
-	solidGround = config.child("solidground").attribute("value").as_bool();
+	jumping = config.child("solidground").attribute("value").as_bool();
 	jumpAgain = config.child("jumpagain").attribute("value").as_bool();
 	sizePlayer.x = config.child("idle").attribute("w").as_int();
 	sizePlayer.y = config.child("idle").attribute("h").as_int();
@@ -151,12 +151,12 @@ bool j1Player::Update(float dt)
 {
 	//Control of the orientation of the player animations
 
-	if (!left && solidGround)
+	if (!left && !jumping)
 	{
 		currentAnimation = &idle;
 	}
 
-	if (left && solidGround)
+	if (left && !jumping)
 	{
 		currentAnimation = &idleLeft;
 	}
@@ -167,55 +167,66 @@ bool j1Player::Update(float dt)
 
 	if (App->map->data.mapLayers.end->data->data[gid+1] != 50 && App->map->data.mapLayers.end->data->data[gid] != 50)
 	{
-		position.y += speedPlayer.y;
+		position.y += 3;
+		inAir = true;
+	}
+	else
+	{
+		inAir = false;
 	}
 	//Logic of the jump movement of the player
 
-	
+	if (!jumping)
+	{
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		{
-			if (jumpAgain)
-			{
-				speedPlayer.y = jumpPower;
-				jumpAgain = false;
-			}
-			currentAnimation = &jump;
-			solidGround = false;
+				jumping = true;
+				currentAnimation = &jump;
 		}
-		else
-		{
-			jumpAgain = true;
-		}
-	
-	if (!solidGround)
-	{
 		
-		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-		{
-			currentAnimation = &jump;
-			if (jump.Finished())
-			{
-				currentAnimation = &fall;
-			}
-			
-		}
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-		{
-			currentAnimation = &jumpLeft;
-			if (jumpLeft.Finished())
-			{
-				currentAnimation = &fallLeft;
-			}
-		}
 	}
-	if (speedPlayer.y > maxJumpHeight)
-	{
-		speedPlayer.y = maxJumpHeight;
-	}
-
-	//
-
 	
+
+	//JUMP
+	if (maxJumpHeight == 0.0f)
+	{
+		jumpPower = -1 * position.y;
+	}
+	if (jumping)
+	{
+		maxJumpHeight += 0.1f;
+
+		position.y -= gravity;
+
+		if (position.y > jumpPower && maxJumpHeight >= 1.0f)
+		{
+			position.y += 10;
+			maxJumpHeight = 0.0f;
+			jumping = false;
+			inAir = true;
+		}
+
+	}
+	
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && inAir)
+		{
+			position.x += speedPlayer.x;
+			currentAnimation = &fall;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && inAir)
+		{
+			position.x -= speedPlayer.x;
+			currentAnimation = &fallLeft;
+			left = true;
+		}
+		if (inAir && !left)
+		{
+			currentAnimation = &fall;
+		}
+		if (inAir && left)
+		{
+			currentAnimation = &fallLeft;
+		}
 	//Camera Movement
 
 	App->render->camera.x = (-position.x * 3) + (App->win->width / 2);
@@ -224,10 +235,10 @@ bool j1Player::Update(float dt)
 
 	// Right and left player's movement logic
 
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !inAir)
 	{
 		position.x += speedPlayer.x;
-		if (solidGround)
+		if (!jumping)
 		{
 			currentAnimation = &move;
 		}
@@ -235,12 +246,12 @@ bool j1Player::Update(float dt)
 	}
 
 
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !inAir)
 	{
 		position.x -= speedPlayer.x;
-		if (solidGround)
+		if (!jumping)
 		{
-			currentAnimation = &dash;
+			currentAnimation = &moveLeft;
 		}
 		left = true;
 	}
@@ -261,79 +272,6 @@ bool j1Player::Update(float dt)
 		currentAnimation = &dash;
 		left = false;
 	}
-
-<<<<<<< HEAD
-=======
-	//if (hasDashed)
-	//{
-	//	speedPlayer.x = 0;
-	//	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN)
-	//	{
-	//		if (dashAgain)
-	//		{
-	//			speedPlayer.x = dashPower;
-	//			dashAgain = true;
-	//		}
-	//		currentAnimation = &dash;
-	//		hasDashed = true;
-	//	}
-	//	else
-	//	{
-	//		dashAgain = true;
-	//	}
-	//}
-
-	//if (!hasDashed)
-	//{
-	//	//speedPlayer.x;
-	//	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-	//	{
-	//		currentAnimation = &dash;
-	//		if (dash.Finished())
-	//		{
-	//			currentAnimation = &idle;
-	//		}
-
-	//	}
-	//	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-	//	{
-	//		currentAnimation = &dashLeft;
-	//		if (dashLeft.Finished())
-	//		{
-	//			currentAnimation = &idleLeft;
-	//		}
-	//	}
-	//}
-	//if (speedPlayer.x > dashLength)
-	//{
-	//	speedPlayer.x = dashLength;
-	//}
-
-	//position.x += speedPlayer.x;
-
-	//check if player is in a platform
-	Collider* c2;
-
-	for (uint k = 0; k < MAX_COLLIDERS; ++k)
-	{
-		// skip empty colliders
-		if (App->collision->colliders[k] == nullptr)
-			continue;
-
-		c2 = App->collision->colliders[k];
-
-		if (collider_player_down->CheckCollision(c2->rect) == false)
-		{
-			solidGround = false;
-		}
-	}
-
-	//colliders player
-	collider_player_up->SetPos(position.x + 2, position.y - 3);
-	collider_player_down->SetPos(position.x + 2, position.y + sizePlayer.y);
-	collider_player_left->SetPos(position.x, position.y);
-	collider_player_right->SetPos(position.x + sizePlayer.x, position.y);
->>>>>>> 19c2173996075634d93e65844e49c4e031c61c03
 
 	//Drawing the animations
 	App->render->Blit(playerTexture, position.x, position.y, &currentAnimation->GetCurrentFrame());

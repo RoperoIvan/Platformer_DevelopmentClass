@@ -1,7 +1,10 @@
 ﻿  j1Player.cpp
-c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(164): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
-c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(223): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
-c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(234): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
-c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(253): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(193): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(199): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(213): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(218): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(240): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(251): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(271): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
   Motor2D.vcxproj -> C:\Users\ivan_\OneDrive\Documentos\GitHub\Platformer_DevelopmentClass\PlatformerGame\Debug\Motor 2D.exe
   Motor2D.vcxproj -> C:\Users\ivan_\OneDrive\Documentos\GitHub\Platformer_DevelopmentClass\PlatformerGame\Debug\Motor 2D.pdb (Partial PDB)

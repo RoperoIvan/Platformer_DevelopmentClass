@@ -57,7 +57,8 @@ private:
 	Animation* currentAnimation = nullptr;
 	bool initialCamera;
 	bool left;
-	bool solidGround;
+	bool jumping;
+	bool inAir = false;
 	//bool hasDashed;
 	bool jumpAgain;
 	//bool dashAgain;

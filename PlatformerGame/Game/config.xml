@@ -47,17 +47,17 @@
     <seeCollisions value="false"/>
   </map>
   <player>
-    <gravity value="5.0f"/>
+    <gravity value="10.0f"/>
     <path value="character/adventurer-Sheet2.png"/>
     <position x="200.0f" y="180.0f"/>
     <speedplayer x="2.0f" y="5.0f"/>
     <dashSpeed x="70.0f" y="0.0f"/>
     <initialcamera value="true"/>
     <left value="false"/>
-    <solidground value="true"/>
+    <jumping value="false"/>
     <jumpagain value="false"/>
-    <jumpPower value="-8.5f"/>
-    <maxjumpHeight value="5.0f"/>
+    <jumpPower value="0.0f"/>
+    <maxjumpHeight value="0.0f"/>
     <!--<dashLength value="50.0f"/>-->
     <!--<hasDashed value="true"/>-->
     <!--<dashPower value="50.0f"/>-->
