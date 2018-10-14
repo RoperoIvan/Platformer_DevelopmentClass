@@ -6,13 +6,13 @@ https://jesse-m.itch.io/jungle-pack  (tilesets)
 
 https://rvros.itch.io/animated-pixel-hero (player)
 
+https://opengameart.org/content/platformer-game-music-pack (music)
 
 ## Controls
 
 - A = left movement
 - D = right movement
 - SPACE BAR = jump
-- Shift + A or D = dash
 
 Debug Keys:
 
@@ -21,6 +21,8 @@ Debug Keys:
 - F3 = go to the second level
 - F5 = save your progress
 - F6 = load your saved game
+- F7 = volume down
+- F8 = volume up
 - F9 = see the colliders
 - F10 = god mode
 
@@ -46,4 +48,4 @@ Or opening the LICENSE file in the game folder.
 
 ## Innovation
 
-We have decided to do a dash move for the player for our innovation grade.
+We have decided to do a doublejump for the player for our innovation grade.
