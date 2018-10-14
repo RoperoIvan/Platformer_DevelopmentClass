@@ -34,7 +34,7 @@ public:
 
 public:
 	bool godMode;
-
+	int gid;
 private:
 	iPoint sizePlayer;
 	iPoint position;
@@ -72,7 +72,7 @@ private:
 	float maxJumpHeight;
 	//float dashLength;
 	bool initialPosCamera = true;
-	int gid;
+	
 };
 
 

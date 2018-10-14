@@ -26,6 +26,8 @@
     <level2Path value="level2.tmx"/>
     <song1Path value="audio/Grasslands_Theme.ogg"/>
     <song2Path value="audio/Desert_Theme.ogg"/>
+    <firstLimit x="0" y="0"/>
+    <secondLimit x="928" y="0"/>
     <volume value="50"/>
   </scene>
   <window>

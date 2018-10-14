@@ -37,14 +37,14 @@ public:
 	bool Save(pugi::xml_node&)const;
 
 	bool Load(pugi::xml_node&);
-
+	void Limits();
 public:
 	bool controllingCamera;
 
 private:
 	int levelSelector, godSelector;
 	int counter;
-	iPoint firstLevelPosition, secondLevelPosition;
+	iPoint firstLevelPosition, secondLevelPosition, firstLimit, secondLimit;
 	iPoint Wincon1, Wincon2;
 	int Width1, Width2, Height1, Height2;
 	SDL_Rect winCondition;

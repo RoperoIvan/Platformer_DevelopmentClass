@@ -48,7 +48,10 @@ bool j1Scene::Awake(pugi::xml_node& config)
 	song1Path = config.child("song1Path").attribute("value").as_string();
 	song2Path = config.child("song2Path").attribute("value").as_string();
 	volume = config.child("volume").attribute("value").as_int();
-
+	firstLimit.x = config.child("firstLimit").attribute("x").as_int();
+	firstLimit.y = config.child("firstLimit").attribute("y").as_int();
+	secondLimit.x = config.child("secondLimit").attribute("x").as_int();
+	secondLimit.y = config.child("secondLimit").attribute("y").as_int();
 	return ret;
 }
 
@@ -72,7 +75,7 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 
-	if (App->player->GetPosition().x == winCondition.x)
+	if (App->map->data.mapLayers.end->data->data[App->player->gid] == 52)
 	{
 		if (levelSelector == 1)
 		{
@@ -86,11 +89,8 @@ bool j1Scene::Update(float dt)
 		}
 		
 	}
-
-	if (App->player->GetPosition().x == 0 || App->player->GetPosition().y == 0)
-	{
-		LevelChange();
-	}
+	Limits();
+	
 
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		App->render->camera.y -= 10;
@@ -249,6 +249,7 @@ bool j1Scene::Save(pugi::xml_node& data)const
 	data.append_child("musicvolume").append_attribute("value") = volume;
 	data.append_child("levelSelector").append_attribute("value") = levelSelector;
 	data.append_child("Logic").append_attribute("value") = App->map->seeCollisions;
+
 	return true;
 }
 bool j1Scene::Load(pugi::xml_node& data)
@@ -256,8 +257,33 @@ bool j1Scene::Load(pugi::xml_node& data)
 	volume = Mix_VolumeMusic(data.child("musicvolume").attribute("value").as_int());
 	levelSelector = data.child("levelSelector").attribute("value").as_int();
 	App->map->seeCollisions = data.child("Logic").attribute("value").as_bool();
+
+
 	LevelChange();
 	LOG("%d", volume);
 	LOG("%i", levelSelector);
 	return true;
 }
+
+void j1Scene::Limits()
+{
+	if (levelSelector == 1)
+	{
+		if (App->player->GetPosition().x == firstLimit.x || App->player->GetPosition().y == firstLimit.y)
+		{
+			LevelChange();
+			
+		}
+	}
+		
+		if (levelSelector == 2)
+		{
+
+			if (App->player->GetPosition().x == secondLimit.x || App->player->GetPosition().y == secondLimit.y)
+			{
+				LevelChange();
+			}
+		}
+		
+}
+	
