@@ -42,7 +42,7 @@ public:
 	bool controllingCamera;
 
 private:
-	int levelSelector;
+	int levelSelector, godSelector;
 	int counter;
 	iPoint firstLevelPosition, secondLevelPosition;
 	iPoint Wincon1, Wincon2;

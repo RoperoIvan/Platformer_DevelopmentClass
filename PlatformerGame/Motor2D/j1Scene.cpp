@@ -29,6 +29,7 @@ bool j1Scene::Awake(pugi::xml_node& config)
 	controllingCamera = config.child("controllingCamera").attribute("value").as_bool();
 	counter = config.child("counter").attribute("value").as_int();
 	levelSelector = config.child("levelSelector").attribute("value").as_int();
+	godSelector = config.child("godSelector").attribute("value").as_int();
 	firstLevelPosition.x = config.child("firstLevelPosition").attribute("x").as_float();
 	firstLevelPosition.y = config.child("firstLevelPosition").attribute("y").as_float();
 	secondLevelPosition.x = config.child("secondLevelPosition").attribute("x").as_float();
@@ -84,6 +85,11 @@ bool j1Scene::Update(float dt)
 			LevelChange();
 		}
 		
+	}
+
+	if (App->player->GetPosition().x == 0 || App->player->GetPosition().y == 0)
+	{
+		LevelChange();
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
@@ -161,7 +167,20 @@ bool j1Scene::Update(float dt)
 	   }
 
    }
+   if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+   {
+	   godSelector++;
+	   if (godSelector == 1)
+	   {
+		   App->player->godMode = true;
+	   }
+	   if (godSelector == 2)
+	   {
+		   App->player->godMode = false;
+		   godSelector = 0;
+	   }
 
+   }
    //////////
 
 	App->map->Draw();

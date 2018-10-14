@@ -42,6 +42,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 	jumpAgain = config.child("jumpagain").attribute("value").as_bool();
 	sizePlayer.x = config.child("idle").attribute("w").as_int();
 	sizePlayer.y = config.child("idle").attribute("h").as_int();
+	godMode = config.child("godMode").attribute("value").as_bool();
 	//hasDashed = config.child("hasDashed").attribute("value").as_bool();
 	//dashAgain = config.child("dashagain").attribute("value").as_bool();
 	//dashLength = config.child("dashLength").attribute("value").as_float();
@@ -165,7 +166,7 @@ bool j1Player::Update(float dt)
 	gid = App->map->GetGidPosition(position.x, position.y+30);
 	App->render->DrawQuad({ position.x, position.y + 30,16,16 }, 0, 255, 0, 255);
 
-	if (App->map->data.mapLayers.end->data->data[gid+1] != 50 && App->map->data.mapLayers.end->data->data[gid] != 50)
+	if (App->map->data.mapLayers.end->data->data[gid] != 50 && !godMode)
 	{
 		position.y += 3;
 		inAir = true;

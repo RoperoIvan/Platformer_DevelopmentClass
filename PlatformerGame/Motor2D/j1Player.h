@@ -32,6 +32,9 @@ public:
 	bool Load(pugi::xml_node&);
 	void ChargingAnimations(pugi::xml_node&, Animation*);
 
+public:
+	bool godMode;
+
 private:
 	iPoint sizePlayer;
 	iPoint position;
@@ -59,6 +62,7 @@ private:
 	bool left;
 	bool jumping;
 	bool inAir = false;
+	
 	//bool hasDashed;
 	bool jumpAgain;
 	//bool dashAgain;
