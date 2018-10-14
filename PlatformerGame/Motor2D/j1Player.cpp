@@ -26,14 +26,22 @@ bool j1Player::Awake(pugi::xml_node& config)
 
 	//Importing the values of the variables from the player in the XML config file
 
+	///// string
+	path = config.child("path").attribute("value").as_string();
+
+	///// int
 	position.x = config.child("position").attribute("x").as_int();
 	position.y = config.child("position").attribute("y").as_int();
+	doubleJump = config.child("doubleJump").attribute("value").as_int();
+
+	///// float
 	jumpPower = config.child("jumpPower").attribute("value").as_float();
 	maxJumpHeight = config.child("maxjumpHeight").attribute("value").as_float();
 	speedPlayer.x = config.child("speedplayer").attribute("x").as_float();
 	speedPlayer.y = config.child("speedplayer").attribute("y").as_float();
 	gravity = config.child("gravity").attribute("value").as_float();
-	path = config.child("path").attribute("value").as_string();
+
+	///// bool
 	left = config.child("left").attribute("value").as_bool();
 	jumping = config.child("solidground").attribute("value").as_bool();
 	jumpAgain = config.child("jumpagain").attribute("value").as_bool();
@@ -43,8 +51,8 @@ bool j1Player::Awake(pugi::xml_node& config)
 	cantGoRight = config.child("cantGoRight").attribute("value").as_bool();
 	dontFly = config.child("dontFly").attribute("value").as_bool();
 	cantJump = config.child("cantJump").attribute("value").as_bool();
-	doubleJump = config.child("doubleJump").attribute("value").as_int();
 	jumpAgain = config.child("jumpAgain").attribute("value").as_bool();
+
 	//Loading of the animations
 
 	//Idle animations
@@ -168,13 +176,17 @@ bool j1Player::Update(float dt)
 	//Collision between player's colliders and the ground
 
 	feetCollider = App->map->GetGidPosition(position.x, position.y + 30);
-	App->render->DrawQuad({ position.x, position.y + 30,16,16 }, 0, 255, 0, 255);
 	leftCollider = App->map->GetGidPosition(position.x - 10, position.y + 5);
-	App->render->DrawQuad({ position.x - 10, position.y + 5,16,16 }, 0, 255, 0, 255);
 	rightCollider = App->map->GetGidPosition(position.x + 10, position.y + 5);
-	App->render->DrawQuad({ position.x + 10, position.y + 5,16,16 }, 0, 255, 0, 255);
 	headCollider = App->map->GetGidPosition(position.x, position.y - 5);
-	App->render->DrawQuad({ position.x, position.y - 5,16,16 }, 0, 255, 0, 255);
+
+	if (App->map->seeCollisions)
+	{
+		App->render->DrawQuad({ position.x, position.y + 30,16,16 }, 0, 255, 0, 255);
+		App->render->DrawQuad({ position.x - 10, position.y + 5,16,16 }, 0, 255, 0, 255);
+		App->render->DrawQuad({ position.x + 10, position.y + 5,16,16 }, 0, 255, 0, 255);
+		App->render->DrawQuad({ position.x, position.y - 5,16,16 }, 0, 255, 0, 255);
+	}
 
 	if (App->map->data.mapLayers.end->data->data[feetCollider] != 50 && !godMode)
 	{
@@ -208,7 +220,6 @@ bool j1Player::Update(float dt)
 	{
 		cantGoRight = false;
 	}
-
 
 	//Logic of the jump movement of the player
 	if (App->map->data.mapLayers.end->data->data[headCollider] == 89)
