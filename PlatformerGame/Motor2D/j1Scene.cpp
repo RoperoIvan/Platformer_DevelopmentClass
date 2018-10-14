@@ -75,7 +75,7 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 
-	if (App->map->data.mapLayers.end->data->data[App->player->gid] == 52)
+	if (App->map->data.mapLayers.end->data->data[App->player->feetCollider] == 52)
 	{
 		if (levelSelector == 1)
 		{

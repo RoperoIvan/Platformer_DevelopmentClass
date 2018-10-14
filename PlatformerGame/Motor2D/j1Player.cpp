@@ -163,13 +163,15 @@ bool j1Player::Update(float dt)
 	}
 	///////////////////
 
-	gid = App->map->GetGidPosition(position.x, position.y+30);
+	feetCollider = App->map->GetGidPosition(position.x, position.y+30);
 	App->render->DrawQuad({ position.x, position.y + 30,16,16 }, 0, 255, 0, 255);
-	gid2 = App->map->GetGidPosition(position.x - 10, position.y);
-	App->render->DrawQuad({ position.x - 10, position.y,16,16 }, 0, 255, 0, 255);
-	gid3 = App->map->GetGidPosition(position.x + 10, position.y);
-	App->render->DrawQuad({ position.x + 10, position.y,16,16 }, 0, 255, 0, 255);
-	if (App->map->data.mapLayers.end->data->data[gid] != 50 && !godMode)
+	leftCollider = App->map->GetGidPosition(position.x - 10, position.y+5);
+	App->render->DrawQuad({ position.x - 10, position.y+5,16,16 }, 0, 255, 0, 255);
+	rightCollider = App->map->GetGidPosition(position.x + 10, position.y+5);
+	App->render->DrawQuad({ position.x + 10, position.y+5,16,16 }, 0, 255, 0, 255);
+	headCollider = App->map->GetGidPosition(position.x, position.y - 5);
+	App->render->DrawQuad({ position.x, position.y - 5,16,16 }, 0, 255, 0, 255);
+	if (App->map->data.mapLayers.end->data->data[feetCollider] != 50 && !godMode)
 	{
 		position.y += 3;
 		inAir = true;
@@ -178,7 +180,7 @@ bool j1Player::Update(float dt)
 	{
 		inAir = false;
 	}
-	if (App->map->data.mapLayers.end->data->data[gid2] == 51)
+	if (App->map->data.mapLayers.end->data->data[leftCollider] == 51)
 	{
 		cantgoleft = true;
 	}
@@ -186,7 +188,7 @@ bool j1Player::Update(float dt)
 	{
 		cantgoleft = false;
 	}
-	if (App->map->data.mapLayers.end->data->data[gid3] == 54)
+	if (App->map->data.mapLayers.end->data->data[rightCollider] == 54)
 	{
 		cantgoright = true;
 	}
@@ -195,7 +197,14 @@ bool j1Player::Update(float dt)
 		cantgoright = false;
 	}
 	//Logic of the jump movement of the player
-
+	if (App->map->data.mapLayers.end->data->data[headCollider] == 89)
+	{
+		dontFly = true;
+	}
+	else
+	{
+		dontFly = false;
+	}
 	if (!jumping)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
@@ -207,7 +216,7 @@ bool j1Player::Update(float dt)
 	}
 	
 	//Player death
-	if (App->map->data.mapLayers.end->data->data[gid + 1] == 53)
+	if (App->map->data.mapLayers.end->data->data[feetCollider] == 53)
 	{
 
 		App->scene->LevelChange();
@@ -218,7 +227,7 @@ bool j1Player::Update(float dt)
 	{
 		jumpPower = -1 * position.y;
 	}
-	if (jumping)
+	if (jumping && !dontFly)
 	{
 		maxJumpHeight += 0.1f;
 
