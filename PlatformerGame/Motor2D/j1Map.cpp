@@ -90,53 +90,6 @@ void j1Map::Draw()
 		}
 		tilesets_items = tilesets_items->next;
 	}
-
-	//p2List_item<MapLayer*>* layers_list = this->data.mapLayers.start;
-
-	//while (layers_list != NULL)
-	//{
-	//	for (int i = 0; i < layers_list->data->width; i++)
-	//	{
-	//		for (int j = 0; j < layers_list->data->height; j++)
-	//		{
-	//			int tile_id = layers_list->data->GetPosition(i, j);
-	//			if (tile_id > 0)
-	//			{
-
-	//				TileSet* tileset = GetTilesetFromTileId(tile_id);
-	//				if (tileset != nullptr)
-	//				{
-
-	//					if (layers_list->data->GetPosition(i, j) != 0)
-	//					{
-	//						SDL_Rect tile = tileset->GetTileRect(tile_id);
-	//						iPoint coords = MapToWorld(i, j);
-	//						uint gid = GetGidPosition(coords.x, coords.y);
-
-
-	//						/*if (layers_list->data->name != "Logic")
-	//							App->render->Blit(tileset->texture, coords.x, coords.y, &tile, 1.0f);*/
-
-	//						/*else if (App->scene->collision_debug)
-	//						{*/
-	//							App->render->Blit(tileset->texture, coords.x, coords.y, &tile, 1.0f);
-	//						/*}*/
-	//						if (App->map->data.mapLayers.end->data->data[gid] == 49) {
-	//							spawn.x = coords.x;
-	//							spawn.y = coords.y;
-
-	//						}
-
-	//					}
-
-	//				}
-	//			}
-	//		}
-	//	}
-	//	layers_list = layers_list->next;
-	//}
-	// TODO 5: Prepare the loop to draw all tilesets + Blit
-		// TODO 9: Complete the draw function
 }
 
 
@@ -190,7 +143,6 @@ bool j1Map::CleanUp()
 	}
 	data.tileSets.clear();
 
-	// TODO 2: clean up all layer data
 	// Remove all layers
 	p2List_item<MapLayer*>* item2;
 	item2 = data.mapLayers.start;
@@ -248,7 +200,7 @@ bool j1Map::Load(const char* file_name)
 		data.tileSets.add(set);
 	}
 
-	// TODO 4: Iterate all layers and load each of them
+
 	// Load layer info ----------------------------------------------
 	pugi::xml_node layer;
 	for (layer = map_file.child("map").child("layer"); layer && ret; layer = layer.next_sibling("layer"))
