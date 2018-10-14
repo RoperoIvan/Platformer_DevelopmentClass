@@ -34,7 +34,8 @@ public:
 
 public:
 	bool godMode;
-	int feetCollider, leftCollider, rightCollider,headCollider;
+	int feetCollider, leftCollider, rightCollider, headCollider, doublejump = 0;
+
 private:
 	iPoint sizePlayer;
 	iPoint position;
@@ -65,6 +66,8 @@ private:
 	bool cantgoleft = false;
 	bool cantgoright = false;
 	bool dontFly = false;
+	bool cantjump = false;
+	bool hasJumped = false;
 	//bool hasDashed;
 	bool jumpAgain;
 	//bool dashAgain;

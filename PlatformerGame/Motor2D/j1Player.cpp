@@ -42,6 +42,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 	jumpAgain = config.child("jumpagain").attribute("value").as_bool();
 	sizePlayer.x = config.child("idle").attribute("w").as_int();
 	sizePlayer.y = config.child("idle").attribute("h").as_int();
+	cantjump = config.child("cantjump").attribute("value").as_bool();
 	godMode = config.child("godMode").attribute("value").as_bool();
 	//hasDashed = config.child("hasDashed").attribute("value").as_bool();
 	//dashAgain = config.child("dashagain").attribute("value").as_bool();
@@ -171,13 +172,22 @@ bool j1Player::Update(float dt)
 	App->render->DrawQuad({ position.x + 10, position.y+5,16,16 }, 0, 255, 0, 255);
 	headCollider = App->map->GetGidPosition(position.x, position.y - 5);
 	App->render->DrawQuad({ position.x, position.y - 5,16,16 }, 0, 255, 0, 255);
+	
 	if (App->map->data.mapLayers.end->data->data[feetCollider] != 50 && !godMode)
 	{
+		//cantjump = true;
 		position.y += 3;
 		inAir = true;
+
+		if (doublejump == 2)
+		{
+			cantjump = true;
+			doublejump = 0;
+		}
 	}
 	else
 	{
+		cantjump = false;
 		inAir = false;
 	}
 	if (App->map->data.mapLayers.end->data->data[leftCollider] == 51)
@@ -207,12 +217,19 @@ bool j1Player::Update(float dt)
 	}
 	if (!jumping)
 	{
-		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !cantjump)
 		{
-				jumping = true;
-				currentAnimation = &jump;
+
+			doublejump++;
+
+			if (doublejump == 2)
+			{
+				cantjump = true;
+				doublejump = 0;
+			}
+			jumping = true;
+			currentAnimation = &jump;
 		}
-		
 	}
 	
 	//Player death
@@ -233,7 +250,7 @@ bool j1Player::Update(float dt)
 
 		position.y -= gravity;
 
-		if (position.y > jumpPower && maxJumpHeight >= 1.0f)
+		if (position.y > jumpPower && maxJumpHeight >= 1.3f)
 		{
 			position.y += 10;
 			maxJumpHeight = 0.0f;

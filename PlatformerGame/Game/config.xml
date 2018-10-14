@@ -50,7 +50,7 @@
     <seeCollisions value="false"/>
   </map>
   <player>
-    <gravity value="10.0f"/>
+    <gravity value="9.0f"/>
     <path value="character/adventurer-Sheet2.png"/>
     <position x="200.0f" y="180.0f"/>
     <speedplayer x="2.0f" y="5.0f"/>
@@ -62,12 +62,13 @@
     <jumpPower value="0.0f"/>
     <maxjumpHeight value="0.0f"/>
     <godMode value="false"/>
+    <cantjump value="false"/>
     <!--<dashLength value="50.0f"/>-->
     <!--<hasDashed value="true"/>-->
     <!--<dashPower value="50.0f"/>-->
     <!--<dashagain value="false"/>-->
 
-    <animation type ="idle" speed="0.01f" loop="true">
+    <animation type ="idle" speed="0.1f" loop="true">
       <frame x="15" y="7" w="19" h="30"/>
       <frame x="66" y="6" w="19" h="30"/>
       <frame x="116" y="6" w="19" h="30"/>
