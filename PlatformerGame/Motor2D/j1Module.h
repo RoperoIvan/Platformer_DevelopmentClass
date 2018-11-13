@@ -8,9 +8,9 @@
 
 #include "p2SString.h"
 #include "PugiXml\src\pugixml.hpp"
-struct Collider;
-class j1App;
 
+class j1App;
+struct Collider;
 class j1Module
 {
 private:
@@ -91,7 +91,7 @@ public:
 		}
 	}
 
-	// Callbacks
+	// Callbacks ---
 	virtual void OnCollision(Collider*, Collider*) {}
 
 public:
