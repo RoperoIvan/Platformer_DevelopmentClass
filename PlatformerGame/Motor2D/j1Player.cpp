@@ -136,6 +136,10 @@ bool j1Player::Awake(pugi::xml_node& config)
 
 	currentAnimation = &idle;
 
+	feetCollider = App->collision->AddCollider({ position.x, position.y + 30,16,2 }, COLLIDER_PLAYER_DOWN,this);
+	leftCollider = App->collision->AddCollider({ position.x - 10, position.y + 5,2,16 }, COLLIDER_PLAYER_LEFT, this);
+	rightCollider = App->collision->AddCollider({ position.x + 10, position.y + 5,2,16 }, COLLIDER_PLAYER_RIGHT, this);
+
 	return true;
 }
 
@@ -155,28 +159,29 @@ bool j1Player::PreUpdate()
 bool j1Player::Update(float dt)
 {
 	//Control of the orientation of the player animations
+	currentAnimation = &fall;
 
-	if (!left && !jumping)
+	if (!left && solidGround)
 	{
 		currentAnimation = &idle;
 	}
 
-	if (left && !jumping)
+	if (left && solidGround)
 	{
 		currentAnimation = &idleLeft;
 	}
 	///////////////////
 
 	//Player death
-	if (App->map->data.mapLayers.end->data->data[feetCollider] == 53)
+	/*if (App->map->data.mapLayers.end->data->data[feetCollider] == 53)
 	{
 
 		App->scene->LevelChange();
-	}
+	}*/
 
 	//Collision between player's colliders and the ground
 
-	feetCollider = App->map->GetGidPosition(position.x, position.y + 30);
+	/*feetCollider = App->map->GetGidPosition(position.x, position.y + 30);
 	leftCollider = App->map->GetGidPosition(position.x - 10, position.y + 5);
 	rightCollider = App->map->GetGidPosition(position.x + 10, position.y + 5);
 	headCollider = App->map->GetGidPosition(position.x, position.y - 5);
@@ -221,17 +226,17 @@ bool j1Player::Update(float dt)
 	{
 		cantGoRight = false;
 	}
-
+*/
 	//Logic of the jump movement of the player
-	if (App->map->data.mapLayers.end->data->data[headCollider] == 89)
+	/*if (App->map->data.mapLayers.end->data->data[headCollider] == 89)
 	{
 		dontFly = true;
-	}
-	else
+	}*/
+	/*else
 	{
 		dontFly = false;
-	}
-	if (!jumping)
+	}*/
+	/*if (!jumping)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !cantJump)
 		{
@@ -266,28 +271,65 @@ bool j1Player::Update(float dt)
 			inAir = true;
 		}
 
-	}
+	}*/
+	
 
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && inAir && !cantGoRight)
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !solidGround)
 	{
 		position.x += speedPlayer.x;
 		currentAnimation = &fall;
 		left = false;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && inAir && !cantGoLeft)
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !solidGround)
 	{
 		position.x -= speedPlayer.x;
 		currentAnimation = &fallLeft;
 		left = true;
 	}
-	if (inAir && !left)
+	if (!solidGround && !left)
 	{
 		currentAnimation = &fall;
 	}
-	if (inAir && left)
+	if (!solidGround && left)
 	{
 		currentAnimation = &fallLeft;
 	}
+
+	if (solidGround)
+	{
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		{
+			if (jumpAgain)
+			{
+				speedPlayer.y = jumpPower;
+				jumpAgain = false;
+			}
+			solidGround = false;
+			jumping = false;
+		}
+		else
+		{
+ 			jumpAgain = true;
+
+		}
+	}
+	if (!solidGround)
+	{
+		if (speedPlayer.y > maxJumpHeight)
+		{
+			jumping = true;
+			
+		}
+		else
+			speedPlayer.y += gravity;
+		if(jumping)
+			position.y += gravity;
+		else
+			position.y -= 4*gravity;
+		
+	}
+	
+	position.y += gravity;
 
 	//Camera Movement
 
@@ -297,10 +339,10 @@ bool j1Player::Update(float dt)
 
 	// Right and left player's movement logic
 
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !inAir && !cantGoRight)
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && solidGround)
 	{
 		position.x += speedPlayer.x;
-		if (!jumping)
+		if (solidGround)
 		{
 			currentAnimation = &move;
 		}
@@ -308,10 +350,10 @@ bool j1Player::Update(float dt)
 	}
 
 
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !inAir && !cantGoLeft)
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && solidGround)
 	{
 		position.x -= speedPlayer.x;
-		if (!jumping)
+		if (solidGround)
 		{
 			currentAnimation = &moveLeft;
 		}
@@ -329,7 +371,12 @@ bool j1Player::Update(float dt)
 		}
 
 	}
-
+	
+	feetCollider->SetPos(position.x, position.y + 30);
+	leftCollider->SetPos(position.x, position.y + 5);
+	rightCollider->SetPos(position.x + 20, position.y + 5);
+	
+	
 	//Drawing the animations
 	App->render->Blit(playerTexture, position.x, position.y, &currentAnimation->GetCurrentFrame());
 
@@ -383,9 +430,18 @@ bool j1Player::Load(pugi::xml_node& data)
 
 void j1Player::OnCollision(Collider* c1, Collider* c2)
 {
-	if (c1->type == COLLIDER_PLAYER_LEFT && c2->type)
+	if (c1->type == COLLIDER_PLAYER_LEFT && c2->type == COLLIDER_WALL)
 	{
-
+		position.x += speedPlayer.x;
+	}
+	else if (c1->type == COLLIDER_PLAYER_RIGHT && c2->type == COLLIDER_WALL)
+	{
+		position.x -= speedPlayer.x;
+	}
+	else if (c1->type == COLLIDER_PLAYER_DOWN && c2->type == COLLIDER_WALL)
+	{
+		position.y -= gravity;
+		solidGround = true;
 	}
 }
 

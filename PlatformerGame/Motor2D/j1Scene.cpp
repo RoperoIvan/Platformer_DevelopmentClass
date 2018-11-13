@@ -7,6 +7,7 @@
 #include "j1Render.h"
 #include "j1Window.h"
 #include "j1Map.h"
+#include "j1Collisions.h"
 #include "j1FadeToBlack.h"
 #include "j1Player.h"
 #include "j1Scene.h"
@@ -81,7 +82,7 @@ bool j1Scene::PreUpdate()
 
 // Called each loop iteration
 bool j1Scene::Update(float dt)
-{
+{/*
 	if (App->map->data.mapLayers.end->data->data[App->player->feetCollider] == 52)
 	{
 		if (levelSelector == 1)
@@ -94,7 +95,7 @@ bool j1Scene::Update(float dt)
 			levelSelector = 1;
 			LevelChange();
 		}	
-	}
+	}*/
 	Limits();
 	
    //Debug Functionalities
@@ -215,9 +216,11 @@ void j1Scene::LevelChange()
 	{
 		App->player->CleanUp();
 		App->map->CleanUp();
+		App->collision->CleanUp();
 		App->fade->FadeTo();
 		App->player->SetPosition(secondLevelPosition);
 		App->player->Start();
+		App->collision->Start();
 		winCondition = { Wincon2.x,Wincon2.y,Width2,Height2 };
 		App->audio->PlayMusic(song2Path.GetString());
 		App->map->Load(level2Path.GetString());
@@ -227,6 +230,7 @@ void j1Scene::LevelChange()
 	{
 		App->player->CleanUp();
 		App->map->CleanUp();
+		App->collision->CleanUp();
 		App->fade->FadeTo();
 		App->player->SetPosition(firstLevelPosition);
 		App->player->Start();

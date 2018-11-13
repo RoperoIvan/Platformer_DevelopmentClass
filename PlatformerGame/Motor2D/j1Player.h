@@ -31,9 +31,13 @@ public:
 
 	bool Load(pugi::xml_node&);
 	void OnCollision(Collider*, Collider*);
+
 public:
 	bool godMode;
-	int feetCollider, leftCollider, rightCollider, headCollider, doubleJump;
+	Collider* feetCollider = nullptr;
+	Collider* leftCollider = nullptr;
+	Collider* rightCollider = nullptr;
+	Collider* headCollider = nullptr;
 
 private:
 	iPoint position;
@@ -62,6 +66,9 @@ private:
 	float gravity;
 	float jumpPower;
 	float maxJumpHeight;
+	int doubleJump;
+	bool solidGround = false;
+
 };
 
 
