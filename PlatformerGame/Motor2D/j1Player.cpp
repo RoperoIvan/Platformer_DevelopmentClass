@@ -136,9 +136,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 
 	currentAnimation = &idle;
 
-	feetCollider = App->collision->AddCollider({ position.x, position.y + 30,16,2 }, COLLIDER_PLAYER_DOWN, this);
-	leftCollider = App->collision->AddCollider({ position.x - 10, position.y + 5,2,16 }, COLLIDER_PLAYER_LEFT, this);
-	rightCollider = App->collision->AddCollider({ position.x + 10, position.y + 5,2,16 }, COLLIDER_PLAYER_RIGHT, this);
+	
 
 	return true;
 }
@@ -146,6 +144,9 @@ bool j1Player::Awake(pugi::xml_node& config)
 bool j1Player::Start()
 {
 	playerTexture = App->tex->Load(path.GetString());
+	feetCollider = App->collision->AddCollider({ position.x, position.y + 30,16,2 }, COLLIDER_PLAYER_DOWN, this);
+	leftCollider = App->collision->AddCollider({ position.x - 10, position.y + 5,2,16 }, COLLIDER_PLAYER_LEFT, this);
+	rightCollider = App->collision->AddCollider({ position.x + 10, position.y + 5,2,16 }, COLLIDER_PLAYER_RIGHT, this);
 	return true;
 }
 
@@ -178,113 +179,7 @@ bool j1Player::Update(float dt)
 	App->scene->LevelChange();
 	}*/
 
-	//Collision between player's colliders and the ground
-
-	/*feetCollider = App->map->GetGidPosition(position.x, position.y + 30);
-	leftCollider = App->map->GetGidPosition(position.x - 10, position.y + 5);
-	rightCollider = App->map->GetGidPosition(position.x + 10, position.y + 5);
-	headCollider = App->map->GetGidPosition(position.x, position.y - 5);
-	if (App->map->seeCollisions)
-	{
-	App->render->DrawQuad({ position.x, position.y + 30,16,16 }, 0, 255, 0, 255);
-	App->render->DrawQuad({ position.x - 10, position.y + 5,16,16 }, 0, 255, 0, 255);
-	App->render->DrawQuad({ position.x + 10, position.y + 5,16,16 }, 0, 255, 0, 255);
-	App->render->DrawQuad({ position.x, position.y - 5,16,16 }, 0, 255, 0, 255);
-	}
-	if (App->map->data.mapLayers.end->data->data[feetCollider] != 50 && !godMode)
-	{
-	position.y += 3;
-	inAir = true;
-	if (doubleJump == 2)
-	{
-	cantJump = true;
-	doubleJump = 0;
-	}
-	}
-	else
-	{
-	cantJump = false;
-	inAir = false;
-	}
-	if (App->map->data.mapLayers.end->data->data[leftCollider] == 51)
-	{
-	cantGoLeft = true;
-	}
-	else
-	{
-	cantGoLeft = false;
-	}
-	if (App->map->data.mapLayers.end->data->data[rightCollider] == 54)
-	{
-	cantGoRight = true;
-	}
-	else
-	{
-	cantGoRight = false;
-	}
-	*/
-	//Logic of the jump movement of the player
-	/*if (App->map->data.mapLayers.end->data->data[headCollider] == 89)
-	{
-	dontFly = true;
-	}*/
-	/*else
-	{
-	dontFly = false;
-	}*/
-	/*if (!jumping)
-	{
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !cantJump)
-	{
-	doubleJump++;
-	if (doubleJump == 2)
-	{
-	cantJump = true;
-	doubleJump = 0;
-	}
-	jumping = true;
-	currentAnimation = &jump;
-	}
-	}
-	if (maxJumpHeight == 0.0f)
-	{
-	jumpPower = -1 * position.y;
-	}
-	if (jumping && !dontFly)
-	{
-	maxJumpHeight += 0.1f;
-	position.y -= gravity;
-	if (position.y > jumpPower && maxJumpHeight >= 1.3f)
-	{
-	position.y += 10;
-	maxJumpHeight = 0.0f;
-	jumping = false;
-	inAir = true;
-	}
-	}*/
-
-
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !solidGround)
-	{
-		position.x += speedPlayer.x;
-		currentAnimation = &fall;
-		left = false;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !solidGround)
-	{
-		position.x -= speedPlayer.x;
-		currentAnimation = &fallLeft;
-		left = true;
-	}
-	if (!solidGround && !left)
-	{
-		currentAnimation = &fall;
-	}
-	if (!solidGround && left)
-	{
-		currentAnimation = &fallLeft;
-	}
-
+	
 	if (solidGround)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
@@ -349,6 +244,28 @@ bool j1Player::Update(float dt)
 		}
 		left = true;
 	}
+
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !solidGround)
+	{
+		position.x += speedPlayer.x;
+		currentAnimation = &fall;
+		left = false;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !solidGround)
+	{
+		position.x -= speedPlayer.x;
+		currentAnimation = &fallLeft;
+		left = true;
+	}
+	if (!solidGround && !left)
+	{
+		currentAnimation = &fall;
+	}
+	if (!solidGround && left)
+	{
+		currentAnimation = &fallLeft;
+	}
+
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		if (left)
@@ -361,6 +278,8 @@ bool j1Player::Update(float dt)
 		}
 
 	}
+
+	//Tracing of the player's position by its colliders
 
 	feetCollider->SetPos(position.x, position.y + 30);
 	leftCollider->SetPos(position.x, position.y + 5);
@@ -429,6 +348,11 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		position.x -= speedPlayer.x;
 	}
 	else if (c1->type == COLLIDER_PLAYER_DOWN && c2->type == COLLIDER_WALL)
+	{
+		position.y -= gravity;
+		solidGround = true;
+	}
+	if (c1->type == COLLIDER_PLAYER_DOWN && c2->type == COLLIDER_PLATFORM)
 	{
 		position.y -= gravity;
 		solidGround = true;

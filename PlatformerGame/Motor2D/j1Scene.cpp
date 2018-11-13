@@ -234,6 +234,7 @@ void j1Scene::LevelChange()
 		App->fade->FadeTo();
 		App->player->SetPosition(firstLevelPosition);
 		App->player->Start();
+		App->collision->Start();
 		winCondition = { Wincon1.x,Wincon1.y,Width1,Height1 };
 		App->audio->PlayMusic(song1Path.GetString());
 		App->map->Load(level1Path.GetString());
