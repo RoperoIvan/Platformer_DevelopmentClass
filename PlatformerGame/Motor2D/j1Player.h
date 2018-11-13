@@ -30,7 +30,7 @@ public:
 	bool Save(pugi::xml_node&)const;
 
 	bool Load(pugi::xml_node&);
-
+	void OnCollision(Collider*, Collider*);
 public:
 	bool godMode;
 	int feetCollider, leftCollider, rightCollider, headCollider, doubleJump;

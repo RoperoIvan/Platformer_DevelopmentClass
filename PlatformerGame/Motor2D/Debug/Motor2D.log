@@ -1,18 +1,2 @@
-﻿  j1Scene.cpp
-c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1scene.cpp(33): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
-c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1scene.cpp(34): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
-c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1scene.cpp(35): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
-c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1scene.cpp(36): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
-  j1Render.cpp
-  j1Player.cpp
-c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(241): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(247): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
-c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(261): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
-c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(267): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
-c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(290): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
-c:\users\ivan_\onedrive\documentos\github\platformer_developmentclass\platformergame\motor2d\j1player.cpp(301): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
-  j1App.cpp
-  Generando código...
-  LINK : no se encontró C:\Users\ivan_\OneDrive\Documentos\GitHub\Platformer_DevelopmentClass\PlatformerGame\Debug\Motor 2D.exe o no lo generó el último vínculo incremental; ejecutando vínculo completo
-  Motor2D.vcxproj -> C:\Users\ivan_\OneDrive\Documentos\GitHub\Platformer_DevelopmentClass\PlatformerGame\Debug\Motor 2D.exe
-  Motor2D.vcxproj -> C:\Users\ivan_\OneDrive\Documentos\GitHub\Platformer_DevelopmentClass\PlatformerGame\Debug\Motor 2D.pdb (Partial PDB)
+﻿  j1Collisions.cpp
+  Motor2D.vcxproj -> C:\Users\ivanrg1\Documents\GitHub\Platformer_DevelopmentClass\PlatformerGame\Debug\Motor 2D.exe

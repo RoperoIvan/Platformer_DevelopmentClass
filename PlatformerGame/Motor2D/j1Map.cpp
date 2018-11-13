@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "j1Render.h"
 #include "j1Textures.h"
+#include "j1Collisions.h"
 #include "j1Map.h"
 #include <math.h>
 
@@ -46,7 +47,7 @@ void j1Map::Draw()
 						SDL_Rect pattern1 = tilesets_items->data->GetTileRect(layers_items->data->GetPosition(i, j));
 						SDL_Rect pattern2 = tilesets_items->next->data->GetTileRect(layers_items->data->GetPosition(i, j));
 						iPoint pos = MapToWorld(i, j);
-						/*uint gid = */GetGidPosition(pos.x, pos.y);
+						GetGidPosition(pos.x, pos.y);
 
 						if (layers_items->data->name == "Background1" )
 						{
@@ -78,10 +79,10 @@ void j1Map::Draw()
 						{
 							App->render->Blit(tilesets_items->data->texture, pos.x, pos.y, &pattern1, 1.0f);
 						}
-						if (layers_items->data->name == "Collision" && seeCollisions)
+						/*if (layers_items->data->name == "Collision" && seeCollisions)
 						{
 							App->render->Blit(tilesets_items->data->texture, pos.x, pos.y, &pattern1, 1.0f);
-						}
+						}*/
 					}
 					
 				}
@@ -180,7 +181,6 @@ bool j1Map::Load(const char* file_name)
 	{
 		ret = LoadMap();
 	}
-
 	// Load all tilesets info ----------------------------------------------
 	pugi::xml_node tileset;
 	for(tileset = map_file.child("map").child("tileset"); tileset && ret; tileset = tileset.next_sibling("tileset"))
@@ -200,6 +200,16 @@ bool j1Map::Load(const char* file_name)
 		data.tileSets.add(set);
 	}
 
+	pugi::xml_node object_iterator;
+	for (object_iterator = map_file.child("map").child("objectgroup"); object_iterator && ret; object_iterator = object_iterator.next_sibling("objectgroup"))
+	{
+
+		if (ret == true)
+		{
+			LoadObject(object_iterator);
+		}
+
+	}
 
 	// Load layer info ----------------------------------------------
 	pugi::xml_node layer;
@@ -396,6 +406,31 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	}
 	return true;
 }
+
+bool j1Map::LoadObject(pugi::xml_node& node)
+{
+	bool ret = true;
+
+	pugi::xml_node col_object = node.child("object");
+	if (node == NULL)
+	{
+		LOG("Error parsing map xml file: Cannot find 'layer/data' tag.");
+		ret = false;
+	}
+	else
+	{
+		int i = 0;
+			for (col_object; col_object; col_object = col_object.next_sibling("object"))
+			{
+				if (strcmp(node.attribute("name").as_string(), "Colliders") == 0)
+					App->collision->AddCollider({ col_object.attribute("x").as_int(0),col_object.attribute("y").as_int(0),col_object.attribute("width").as_int(0),col_object.attribute("height").as_int(0) }, COLLIDER_WALL);
+				i++;
+			}
+	}
+
+	return ret;
+}
+
 
 uint j1Map::GetGidPosition(int x, int y) 
 {

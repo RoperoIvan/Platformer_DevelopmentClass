@@ -4,6 +4,7 @@
 #include "j1Input.h"
 #include "j1Render.h"
 #include "j1Scene.h"
+#include "j1Collisions.h"
 #include "j1Map.h"
 #include "j1FadeToBlack.h"
 #include "j1Audio.h"
@@ -380,6 +381,13 @@ bool j1Player::Load(pugi::xml_node& data)
 	return true;
 }
 
+void j1Player::OnCollision(Collider* c1, Collider* c2)
+{
+	if (c1->type == COLLIDER_PLAYER_LEFT && c2->type)
+	{
+
+	}
+}
 
 
 
