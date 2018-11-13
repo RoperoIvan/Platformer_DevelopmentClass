@@ -28,7 +28,7 @@
     <song2Path value="audio/Desert_Theme.ogg"/>
     <firstLimit x="0" y="0"/>
     <secondLimit x="928" y="0"/>
-    <volume value="50"/>
+    <volume value="0"/>
   </scene>
   <window>
     <resolution width="1024" height="768" scale="1"/>
@@ -50,16 +50,15 @@
     <seeCollisions value="false"/>
   </map>
   <player>
-    <gravity value="2.0f"/>
+    <gravity value="0.7f"/>
     <path value="character/adventurer-Sheet2.png"/>
-    <position x="200" y="180"/>
+    <position x="200.0f" y="180.0f"/>
     <speedplayer x="2.0f" y="0.0f"/>
-    <dashSpeed x="70.0f" y="0.0f"/>
     <initialcamera value="true"/>
     <left value="false"/>
     <jumping value="true"/>
     <jumpagain value="false"/>
-    <jumpPower value="-20.0f"/>
+    <jumpPower value="-10.0f"/>
     <maxjumpHeight value="5.0f"/>
     <godMode value="false"/>
     <cantjump value="false"/>

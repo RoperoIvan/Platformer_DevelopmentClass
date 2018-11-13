@@ -70,7 +70,7 @@ bool j1Scene::Start()
 
 	App->map->Load(level1Path.GetString());
 	App->audio->PlayMusic(song1Path.GetString());
-
+	Mix_VolumeMusic(volume);
 	return true;
 }
 

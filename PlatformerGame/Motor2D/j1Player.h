@@ -66,7 +66,7 @@ private:
 	float gravity;
 	float jumpPower;
 	float maxJumpHeight;
-	int doubleJump;
+	bool doubleJump;
 	bool solidGround = false;
 
 };
