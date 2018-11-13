@@ -7,6 +7,7 @@
 #include "j1Render.h"
 #include "j1Window.h"
 #include "j1Map.h"
+#include "j1Collisions.h"
 #include "j1FadeToBlack.h"
 #include "j1Player.h"
 #include "j1Scene.h"
@@ -66,10 +67,10 @@ bool j1Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Scene::Start()
 {
-	
+
 	App->map->Load(level1Path.GetString());
 	App->audio->PlayMusic(song1Path.GetString());
-	App->map->AddCollidersMap();
+
 	return true;
 }
 
@@ -81,99 +82,99 @@ bool j1Scene::PreUpdate()
 
 // Called each loop iteration
 bool j1Scene::Update(float dt)
-{
-	if (App->map->data.mapLayers.end->data->data[App->player->feetCollider] == 52)
-	{
-		if (levelSelector == 1)
-		{
-			levelSelector = 2;
-			LevelChange();
-		}
-		else if (levelSelector == 2)
-		{
-			levelSelector = 1;
-			LevelChange();
-		}	
-	}
+{/*
+ if (App->map->data.mapLayers.end->data->data[App->player->feetCollider] == 52)
+ {
+ if (levelSelector == 1)
+ {
+ levelSelector = 2;
+ LevelChange();
+ }
+ else if (levelSelector == 2)
+ {
+ levelSelector = 1;
+ LevelChange();
+ }
+ }*/
 	Limits();
-	
-   //Debug Functionalities
 
-   if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-   {
-	   levelSelector = 1;
-	   LevelChange();	  
-   }
+	//Debug Functionalities
 
-   if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-   {
-	   LevelChange();	  
-   }
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
+		levelSelector = 1;
+		LevelChange();
+	}
 
-   if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
-   {
-	   levelSelector = 2;
-	   LevelChange();
-   }
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	{
+		LevelChange();
+	}
 
-   if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
-   {
-	   App->LoadGame();
-   }
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	{
+		levelSelector = 2;
+		LevelChange();
+	}
 
-   if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
-   {
-	   App->SaveGame();
-   }
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+	{
+		App->LoadGame();
+	}
 
-   if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
-   {
-	   collisionCounter++;
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+	{
+		App->SaveGame();
+	}
 
-	   if (collisionCounter == 1)
-	   {
-		   App->map->seeCollisions = true;
-	   }
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+	{
+		collisionCounter++;
 
-	   if (collisionCounter == 2)
-	   {
-		   App->map->seeCollisions = false;
-		   collisionCounter = 0;
-	   }
-   }
+		if (collisionCounter == 1)
+		{
+			App->map->seeCollisions = true;
+		}
 
-   if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
-   {
-	   godSelector++;
+		if (collisionCounter == 2)
+		{
+			App->map->seeCollisions = false;
+			collisionCounter = 0;
+		}
+	}
 
-	   if (godSelector == 1)
-	   {
-		   App->player->godMode = true;
-	   }
+	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+	{
+		godSelector++;
 
-	   if (godSelector == 2)
-	   {
-		   App->player->godMode = false;
-		   godSelector = 0;
-	   }
-   }
+		if (godSelector == 1)
+		{
+			App->player->godMode = true;
+		}
 
-   //Control of the music volume
-   if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_REPEAT)
-   {
-	   if (volume < 200)
-	   {
-		   Mix_VolumeMusic(volume += 5);
-	   }
-   }
+		if (godSelector == 2)
+		{
+			App->player->godMode = false;
+			godSelector = 0;
+		}
+	}
 
-   if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_REPEAT)
-   {
-	   if (volume > 0)
-	   {
-		   Mix_VolumeMusic(volume -= 5);
-	   }
-   }
+	//Control of the music volume
+	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_REPEAT)
+	{
+		if (volume < 200)
+		{
+			Mix_VolumeMusic(volume += 5);
+		}
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_REPEAT)
+	{
+		if (volume > 0)
+		{
+			Mix_VolumeMusic(volume -= 5);
+		}
+	}
 
 
 	///// Map drawing
@@ -195,7 +196,7 @@ bool j1Scene::PostUpdate()
 {
 	bool ret = true;
 
-	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
 	return ret;
@@ -215,9 +216,11 @@ void j1Scene::LevelChange()
 	{
 		App->player->CleanUp();
 		App->map->CleanUp();
+		App->collision->CleanUp();
 		App->fade->FadeTo();
 		App->player->SetPosition(secondLevelPosition);
 		App->player->Start();
+		App->collision->Start();
 		winCondition = { Wincon2.x,Wincon2.y,Width2,Height2 };
 		App->audio->PlayMusic(song2Path.GetString());
 		App->map->Load(level2Path.GetString());
@@ -227,6 +230,7 @@ void j1Scene::LevelChange()
 	{
 		App->player->CleanUp();
 		App->map->CleanUp();
+		App->collision->CleanUp();
 		App->fade->FadeTo();
 		App->player->SetPosition(firstLevelPosition);
 		App->player->Start();
@@ -264,18 +268,18 @@ void j1Scene::Limits()
 {
 	if (levelSelector == 1)
 	{
-		
+
 		if (App->player->GetPosition().x == firstLimit.x || App->player->GetPosition().y == firstLimit.y)
 		{
-			LevelChange();	
+			LevelChange();
 		}
 	}
-		
+
 	if (levelSelector == 2)
 	{
 		if (App->player->GetPosition().x == secondLimit.x || App->player->GetPosition().y == secondLimit.y)
 		{
 			LevelChange();
-			}
+		}
 	}
 }
