@@ -200,6 +200,7 @@ bool j1Map::Load(const char* file_name)
 		data.tileSets.add(set);
 	}
 
+	//Load Objects (Colliders) info
 	pugi::xml_node object_iterator;
 	for (object_iterator = map_file.child("map").child("objectgroup"); object_iterator && ret; object_iterator = object_iterator.next_sibling("objectgroup"))
 	{
@@ -211,6 +212,16 @@ bool j1Map::Load(const char* file_name)
 
 	}
 
+	//Load Attributes of the player info
+	pugi::xml_node attributes;
+	for (attributes = map_file.child("map").child("properties"); attributes && ret; attributes = attributes.next_sibling("properties"))
+	{
+
+		if (ret == true)
+		{
+			ret = LoadAttributes(attributes, att);
+		}
+	}
 	// Load layer info ----------------------------------------------
 	pugi::xml_node layer;
 	for (layer = map_file.child("map").child("layer"); layer && ret; layer = layer.next_sibling("layer"))
@@ -433,6 +444,23 @@ bool j1Map::LoadObject(pugi::xml_node& node)
 	return ret;
 }
 
+bool j1Map::LoadAttributes(pugi::xml_node& node, Attributes* att)
+{
+	for (pugi::xml_node& gids = node.child("property"); gids; gids = gids.next_sibling("property"))
+	{
+		att->name = gids.attribute("name").as_string();
+
+		if (att->name == "gravity")
+			att->gravity = gids.attribute("value").as_float();
+
+		if (att->name == "jumpPower")
+			att->jumpPower = gids.attribute("value").as_float();
+
+		if (att->name == "maxJumpHeight")
+			att->maxJumpHeight = gids.attribute("value").as_float();
+	}
+	return true;
+}
 
 uint j1Map::GetGidPosition(int x, int y)
 {

@@ -61,12 +61,6 @@
     <jumpPower value="-10.0f"/>
     <maxjumpHeight value="5.0f"/>
     <godMode value="false"/>
-    <cantjump value="false"/>
-    <inAir value="false"/>
-    <cantGoLeft value="false"/>
-    <cantGoLeft value="false"/>
-    <dontFly value="false"/>
-    <cantJump value="false"/>
     <doubleJump value="0"/>
   </player>
 </config>

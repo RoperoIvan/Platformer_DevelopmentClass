@@ -22,7 +22,11 @@ const Collider* Entity::GetCollider() const
 
 void Entity::Draw(SDL_Texture* sprites)
 {
-
+	SDL_Rect r = animation->GetCurrentFrame();
+	if (this->entity_type == PLAYER) {
+		App->render->Blit(sprites, position.x, position.y, &(animation->GetCurrentFrame()));
+		collider->SetPos(position.x, position.y);
+	}
 }
 
 void Entity::OnCollision(Collider* collider)

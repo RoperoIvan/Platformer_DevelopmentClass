@@ -22,11 +22,6 @@ struct MapLayer
 	inline uint GetPosition(int x, int y)const;
 };
 
-// TODO 6: Short function to get the value of x,y
-
-
-
-// ----------------------------------------------------
 struct TileSet
 {
 	// TODO 7: Create a method that receives a tile id and returns it's Rectfind the Rect associated with a specific tile id
@@ -69,6 +64,15 @@ struct MapData
 };
 
 // ----------------------------------------------------
+
+struct Attributes
+{
+	p2SString name;
+	float gravity = 0.0f;
+	float jumpPower = 0.0f;
+	float maxJumpHeight = 0.0f;
+};
+
 class j1Map : public j1Module
 {
 public:
@@ -101,13 +105,14 @@ private:
 	// TODO 3: Create a method that loads a single laye
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	bool LoadObject(pugi::xml_node& node);
+	bool LoadAttributes(pugi::xml_node& node, Attributes* att);
 	TileSet* GetTilesetFromTileId(int id) const;
 public:
-
 	MapData data;
 	uint GetGidPosition(int x, int y);
-	bool                seeCollisions;
+	bool seeCollisions;
 	iPoint spawn;
+	Attributes * att = new Attributes();
 private:
 
 	pugi::xml_document	map_file;
