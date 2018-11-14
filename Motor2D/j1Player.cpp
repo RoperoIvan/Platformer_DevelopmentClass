@@ -45,14 +45,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 	///// bool
 	left = config.child("left").attribute("value").as_bool();
 	jumping = config.child("solidground").attribute("value").as_bool();
-	jumpAgain = config.child("jumpagain").attribute("value").as_bool();
 	godMode = config.child("godMode").attribute("value").as_bool();
-	inAir = config.child("inAir").attribute("value").as_bool();
-	cantGoLeft = config.child("cantGoLeft").attribute("value").as_bool();
-	cantGoRight = config.child("cantGoRight").attribute("value").as_bool();
-	dontFly = config.child("dontFly").attribute("value").as_bool();
-	cantJump = config.child("cantJump").attribute("value").as_bool();
-	jumpAgain = config.child("jumpAgain").attribute("value").as_bool();
 
 	//Loading of the animations
 
@@ -187,14 +180,29 @@ bool j1Player::Update(float dt)
 		{
 			speedPlayer.y = jumpPower;
 			solidGround = false;
+			doubleJump = true;
 		}
-
 	}
 	if (speedPlayer.y < maxJumpHeight)
 	{
 		speedPlayer.y += gravity;
 	}
 
+	if (doubleJump && !solidGround)
+	{
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		{
+			speedPlayer.y = jumpPower;
+		}
+		if (speedPlayer.y < maxJumpHeight2 && doubleJump)
+		{
+			speedPlayer.y += gravity;
+		}
+		else if (speedPlayer.y > maxJumpHeight2 && doubleJump)
+		{
+			doubleJump = false;
+		}
+	}
 	position.y += speedPlayer.y;
 	
 
@@ -337,7 +345,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		position.y -= speedPlayer.y;
 		solidGround = true;
 	}
-	else
+	else 
 	{
 		solidGround = false;
 	}

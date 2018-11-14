@@ -57,15 +57,10 @@ private:
 	Animation* currentAnimation = nullptr;
 	bool left;
 	bool jumping;
-	bool inAir;
-	bool cantGoLeft;
-	bool cantGoRight;
-	bool dontFly;
-	bool cantJump;
-	bool jumpAgain;
 	float gravity;
 	float jumpPower;
 	float maxJumpHeight;
+	float maxJumpHeight2 = 10.0f;
 	bool doubleJump;
 	bool solidGround = false;
 

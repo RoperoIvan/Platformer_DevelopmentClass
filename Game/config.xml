@@ -58,7 +58,7 @@
     <left value="false"/>
     <jumping value="true"/>
     <jumpagain value="false"/>
-    <jumpPower value="-10.0f"/>
+    <jumpPower value="-14.0f"/>
     <maxjumpHeight value="5.0f"/>
     <godMode value="false"/>
     <cantjump value="false"/>
