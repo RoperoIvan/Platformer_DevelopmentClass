@@ -8,13 +8,16 @@
 
 // TODO 1: Create a struct for the map layer
 // ----------------------------------------------------
-struct MapLayer {
+struct MapLayer 
+{
 	p2SString name = nullptr;
 	uint width = 0;
 	uint height = 0;
 	uint* data = 0;
-	~MapLayer() {
+	~MapLayer() 
+	{
 		delete[]data;
+		data = nullptr;
 	}
 	inline uint GetPosition(int x, int y)const;
 };

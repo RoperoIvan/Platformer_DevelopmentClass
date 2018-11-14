@@ -56,9 +56,9 @@
     <speedplayer x="2.0f" y="0.0f"/>
     <initialcamera value="true"/>
     <left value="false"/>
-    <jumping value="true"/>
+    <jumping value="false"/>
     <jumpagain value="false"/>
-    <jumpPower value="-14.0f"/>
+    <jumpPower value="-10.0f"/>
     <maxjumpHeight value="5.0f"/>
     <godMode value="false"/>
     <cantjump value="false"/>

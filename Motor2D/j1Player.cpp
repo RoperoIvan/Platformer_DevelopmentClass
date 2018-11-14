@@ -33,7 +33,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 	///// int
 	position.x = config.child("position").attribute("x").as_int();
 	position.y = config.child("position").attribute("y").as_int();
-	doubleJump = config.child("doubleJump").attribute("value").as_bool();
+	doubleJump = config.child("doubleJump").attribute("value").as_int();
 
 	///// float
 	jumpPower = config.child("jumpPower").attribute("value").as_float();
@@ -152,6 +152,7 @@ bool j1Player::PreUpdate()
 
 bool j1Player::Update(float dt)
 {
+	LOG("%i", solidGround);
 	//Control of the orientation of the player animations
 	currentAnimation = &fall;
 	
@@ -180,28 +181,12 @@ bool j1Player::Update(float dt)
 		{
 			speedPlayer.y = jumpPower;
 			solidGround = false;
-			doubleJump = true;
 		}
+
 	}
 	if (speedPlayer.y < maxJumpHeight)
 	{
 		speedPlayer.y += gravity;
-	}
-
-	if (doubleJump && !solidGround)
-	{
-		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-		{
-			speedPlayer.y = jumpPower;
-		}
-		if (speedPlayer.y < maxJumpHeight2 && doubleJump)
-		{
-			speedPlayer.y += gravity;
-		}
-		else if (speedPlayer.y > maxJumpHeight2 && doubleJump)
-		{
-			doubleJump = false;
-		}
 	}
 	position.y += speedPlayer.y;
 	
@@ -278,7 +263,7 @@ bool j1Player::Update(float dt)
 	//Drawing the animations
 	App->render->Blit(playerTexture, position.x, position.y, &currentAnimation->GetCurrentFrame());
 
-	LOG("%i", solidGround);
+
 
 	return true;
 }

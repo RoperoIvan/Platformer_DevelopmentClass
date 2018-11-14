@@ -60,8 +60,8 @@ private:
 	float gravity;
 	float jumpPower;
 	float maxJumpHeight;
-	float maxJumpHeight2 = 10.0f;
-	bool doubleJump;
+	float maxJumpHeight2 = 2.5f;
+	int doubleJump;
 	bool solidGround = false;
 
 };
