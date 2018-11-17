@@ -2,6 +2,7 @@
 
 <config>
   <app>
+    <app framerate_Cap="16"/>
     <title>Game Development Testbed</title>
     <organization>UPC</organization>
   </app>

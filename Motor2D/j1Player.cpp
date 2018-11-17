@@ -153,7 +153,7 @@ bool j1Player::PreUpdate()
 
 bool j1Player::Update(float dt)
 {
-	LOG("%i", position.x);
+	//LOG("%i", position.x);
 	//Control of the orientation of the player animations
 	currentAnimation = &fall;
 

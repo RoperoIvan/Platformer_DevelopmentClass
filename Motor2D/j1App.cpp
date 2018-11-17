@@ -111,12 +111,14 @@ bool j1App::Awake()
 		}
 	}
 
+	PERF_PEEK(ptimer);
 	return ret;
 }
 
 // Called before the first frame
 bool j1App::Start()
 {
+	PERF_START(ptimer);
 	bool ret = true;
 	p2List_item<j1Module*>* item;
 	item = modules.start;
@@ -127,6 +129,7 @@ bool j1App::Start()
 		item = item->next;
 	}
 
+	PERF_PEEK(ptimer);
 	return ret;
 }
 
@@ -169,6 +172,10 @@ pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file) const
 // ---------------------------------------------
 void j1App::PrepareUpdate()
 {
+	frame_count++;
+	last_sec_frame_count++;
+	dt = frame_time.ReadSec();
+	frame_time.Start();
 }
 
 // ---------------------------------------------
@@ -179,6 +186,28 @@ void j1App::FinishUpdate()
 
 	if(want_to_load == true)
 		LoadGameNow();
+
+	//Framerate calculations
+	if (last_sec_frame_time.Read() > 1000)
+	{
+		last_sec_frame_time.Start();
+		prev_last_sec_frame_count = last_sec_frame_count;
+		last_sec_frame_count = 0;
+	}
+	float avg_fps = float(frame_count) / startup_time.ReadSec();
+	float seconds_since_startup = startup_time.ReadSec();
+	uint32 last_frame_ms = frame_time.Read();
+	uint32 frames_on_last_update = prev_last_sec_frame_count;
+	if (last_frame_ms < frame_cap)
+	{
+		j1PerfTimer delay_timer;
+		SDL_Delay(frame_cap - last_frame_ms);
+		LOG("waited for: %.2f ms expected time: %u ms", delay_timer.ReadMs(), frame_cap - last_frame_ms);
+	}
+	static char title[256];
+	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu ",
+		avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
+	App->win->SetTitle(title);
 }
 
 // Call modules before each loop iteration
