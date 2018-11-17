@@ -38,7 +38,7 @@ bool j1Render::Awake(pugi::xml_node& config)
 
 	if(renderer == NULL)
 	{
-		LOG("Could not create the renderer! SDL_Error: %s\n", SDL_GetError());
+		LOG("Could not create the renderer! SDL_Error: %s/n", SDL_GetError());
 		ret = false;
 	}
 	else
