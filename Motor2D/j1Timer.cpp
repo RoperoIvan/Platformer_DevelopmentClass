@@ -1,5 +1,5 @@
 #include "j1Timer.h"
-#include "SDL\include\SDL_timer.h"
+#include "SDL/include/SDL_timer.h"
 
 j1Timer::j1Timer()
 {

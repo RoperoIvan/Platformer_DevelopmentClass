@@ -1,5 +1,5 @@
 #include "j1PerfTimer.h"
-#include "SDL\include\SDL_timer.h"
+#include "SDL/include/SDL_timer.h"
 
 uint64 j1PerfTimer::frequency = 0;
 
