@@ -49,14 +49,11 @@
     <ClCompile Include="j1Player.cpp">
       <Filter>Desenvolupament  ========\Modules\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="EntityPlayer.cpp">
+    <ClCompile Include="EntityGhost.cpp">
       <Filter>Desenvolupament  ========\Modules\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="j1PerfTimer.cpp">
-      <Filter>Desenvolupament  ========\Tools</Filter>
-    </ClCompile>
-    <ClCompile Include="j1Timer.cpp">
-      <Filter>Desenvolupament  ========\Tools</Filter>
+    <ClCompile Include="j1Pathfinding.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -129,14 +126,11 @@
     <ClInclude Include="j1Player.h">
       <Filter>Desenvolupament  ========\Modules\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="EntityPlayer.h">
+    <ClInclude Include="EntityGhost.h">
       <Filter>Desenvolupament  ========\Modules\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="j1Timer.h">
-      <Filter>Desenvolupament  ========\Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="j1PerfTimer.h">
-      <Filter>Desenvolupament  ========\Tools</Filter>
+    <ClInclude Include="j1Pathfinding.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -165,9 +159,6 @@
   <ItemGroup>
     <Xml Include="..\Game\config.xml">
       <Filter>Desenvolupament  ========</Filter>
-    </Xml>
-    <Xml Include="entities.xml">
-      <Filter>Desenvolupament  ========\Modules\Entities</Filter>
     </Xml>
   </ItemGroup>
   <ItemGroup>

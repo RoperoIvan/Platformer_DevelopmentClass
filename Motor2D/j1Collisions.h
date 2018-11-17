@@ -15,6 +15,7 @@ enum COLLIDER_TYPE
 	COLLIDER_PLAYER_RIGHT,
 	COLLIDER_PLAYER,
 	COLLIDER_PLATFORM,
+	COLLIDER_ENEMY,
 	COLLIDER_MAX
 };
 
@@ -32,11 +33,11 @@ struct Collider
 		callback(callback)
 	{}
 
-	/*void SetPos(int x, int y)
+	void SetPos(int x, int y)
 	{
 		rect.x = x;
 		rect.y = y;
-	}*/
+	}
 
 	bool CheckCollision(const SDL_Rect& r) const;
 };

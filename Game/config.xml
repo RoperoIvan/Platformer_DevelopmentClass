@@ -2,15 +2,13 @@
 
 <config>
   <app>
-    <app framerate_Cap="16"/>
     <title>Game Development Testbed</title>
     <organization>UPC</organization>
   </app>
 	
   <renderer>
-    <vsync value="false"/>
+    <vsync value="true"/>
   </renderer>
- 
   <scene>
     <controllingCamera value="false"/>
     <levelSelector value="1"/>
@@ -32,7 +30,6 @@
     <secondLimit x="928" y="0"/>
     <volume value="0"/>
   </scene>
-  
   <window>
     <resolution width="1024" height="768" scale="1"/>
     <fullscreen value="false"/>
@@ -40,13 +37,10 @@
     <resizable value="false"/>
     <fullscreen_window value="false"/>
   </window>
- 
   <audio>
     <path value ="audio/Grasslands_Theme.ogg"/>
     <path value ="audio/Desert_Theme.ogg"/>
-  
   </audio>
-  
   <file_system>
     <path>data.zip</path>
   </file_system>
@@ -55,7 +49,6 @@
     <folder>maps/</folder>
     <seeCollisions value="false"/>
   </map>
-  
   <player>
     <gravity value="0.7f"/>
     <path value="character/adventurer-Sheet2.png"/>

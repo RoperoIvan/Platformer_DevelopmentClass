@@ -2,18 +2,28 @@
 #define __j1ENTITIES_H__
 
 #include "j1Module.h"
-#include "p2DynArray.h"
+#include "j1Player.h"
+#include "EntityGhost.h"
+#define MAX_ENTITY 100
 
-class EntityPlayer;
 
-enum Entities_Type
+enum EntitiesType
 {
 	PLAYER,
-	NONE,
+	GHOST,
+	NOTYPE,
 };
 
 class Entity;
-class Player;
+class EntityPlayer;
+
+struct EntityInfo
+{
+	EntitiesType type = EntitiesType::NOTYPE;
+	int x, y;
+	float  entityLife;
+
+};
 
 class j1Entities : public j1Module
 {
@@ -28,18 +38,23 @@ public:
 	bool PreUpdate();
 	bool Update(float dt);
 	bool PostUpdate();
-	bool SpawnEntities(int x, int y, Entities_Type type);
+	bool AddEntity(EntitiesType type, int x, int y);
 	void OnCollision(Collider* c1, Collider* c2);
-
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
+	EntityInfo queue[MAX_ENTITY];
+	Entity* entities[MAX_ENTITY];
+	EntitiesType type = EntitiesType::NOTYPE;
 
-	p2DynArray<Entity*> entities;
+private:
+	void SpawnEntity(const EntityInfo& info);
 
+public:
+	SDL_Texture* textures;
+	p2SString path;
 	EntityPlayer* player;
-
-	p2SString textures;
 };
 
 
 #endif // __j1ENTITIES_H__
+

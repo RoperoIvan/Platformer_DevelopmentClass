@@ -11,9 +11,10 @@
 #include "j1Scene.h"
 #include "j1Entities.h"
 #include "Entity.h"
-#include "EntityPlayer.h"
 #include "j1FadeToBlack.h"
 
+#define SPAWN_MARGIN 50
+#define SCREEN_SIZE 1
 
 j1Entities::j1Entities() : j1Module()
 {
@@ -27,22 +28,35 @@ j1Entities::~j1Entities()
 
 bool j1Entities::Awake(pugi::xml_node& config)
 {
-	textures = config.child("folder").attribute("path").as_string();
 	bool ret = true;
+	path = config.child("folder").attribute("path").as_string();
 	return ret;
 }
 
 bool j1Entities::Start()
 {
 	bool ret = true;
-	SpawnEntities(0, 0, PLAYER);
+	textures = App->tex->Load("enemies/ghost.png");
+
 	return ret;
 }
 
 bool j1Entities::PreUpdate()
 {
 	bool ret = true;
-
+	// check camera position to decide what to spawn
+	for (uint i = 0; i < MAX_ENTITY; ++i)
+	{
+		if (queue[i].type != EntitiesType::NOTYPE)
+		{
+			if (queue[i].x * SCREEN_SIZE < App->render->camera.x + (App->render->camera.w * SCREEN_SIZE) + SPAWN_MARGIN)
+			{
+				SpawnEntity(queue[i]);
+				queue[i].type = EntitiesType::NOTYPE;
+				LOG("Spawning entity at %d", queue[i].x* SCREEN_SIZE);
+			}
+		}
+	}
 	return ret;
 }
 
@@ -50,70 +64,124 @@ bool j1Entities::Update(float dt)
 {
 	bool ret = true;
 
-	for (uint i = 0; i < entities.Count(); i++)
-	{
-		if (entities.At(i) != nullptr)
-			entities[i]->Update(dt);
-	}
-	for (uint i = 0; i < entities.Count(); i++)
-	{
+	for (uint i = 0; i < MAX_ENTITY; ++i)
 		if (entities[i] != nullptr)
-			entities[i]->Draw(entities[i]->sprites);
-	}
+			entities[i]->Update(dt);
+
+	for (uint i = 0; i < MAX_ENTITY; ++i)
+		if (entities[i] != nullptr) entities[i]->Draw(textures);
 	return ret;
 }
 
 bool j1Entities::PostUpdate()
 {
 	bool ret = true;
+
+	// check camera position to decide what to despawn
+	for (uint i = 0; i < MAX_ENTITY; ++i)
+	{
+		if (entities[i] != nullptr)
+		{
+			if (entities[i]->position.x * SCREEN_SIZE < (App->render->camera.x) - SPAWN_MARGIN)
+			{
+				LOG("DeSpawning entity at %d", entities[i]->position.x * SCREEN_SIZE);
+				delete entities[i];
+				entities[i] = nullptr;
+			}
+		}
+	}
+
 	return ret;
 }
 
 bool j1Entities::CleanUp()
 {
-	App->entities->player->CleanUp();
+	LOG("Freeing all entities");
+
+	for (uint i = 0; i < MAX_ENTITY; ++i)
+	{
+		if (entities[i] != nullptr)
+		{
+			delete entities[i];
+			entities[i] = nullptr;
+		}
+		if (queue[i].type != EntitiesType::NOTYPE)
+		{
+			queue[i].type = EntitiesType::NOTYPE;
+		}
+	}
+
 
 	return true;
 }
 
-bool j1Entities::SpawnEntities(int x, int y, Entities_Type type)
+bool j1Entities::AddEntity(EntitiesType type, int x, int y)
 {
 	bool ret = false;
 
-	switch (type)
+	for (uint i = 0; i < MAX_ENTITY; ++i)
 	{
-	case Entities_Type::PLAYER: 
-		player = new EntityPlayer(x, y);
-		player->entity_type = Entities_Type::PLAYER;
-		entities.PushBack(player);
-		ret = true;
-		break;
+		if (queue[i].type == EntitiesType::NOTYPE)
+		{
+			queue[i].type = type;
+			queue[i].x = x;
+			queue[i].y = y;
+			ret = true;
+			break;
+		}
 	}
 
-	return true;
+	return ret;
+}
+
+void j1Entities::SpawnEntity(const EntityInfo& info)
+{
+	// find room for the new enemy
+	uint i = 0;
+	for (; entities[i] != nullptr && i < MAX_ENTITY; ++i);
+
+	if (i != MAX_ENTITY)
+	{
+		switch (info.type)
+		{
+			/*case EntitiesType::PLAYER:
+			entities[i] = new EntityPlayer(info.x, info.y);*/
+		case EntitiesType::GHOST:
+			entities[i] = new EntityGhost(info.x, info.y);
+		}
+	}
 }
 
 
 void j1Entities::OnCollision(Collider* c1, Collider* c2)
 {
-	for (int i = 0; i < entities.Count(); i++)
+	for (int i = 0; i < MAX_ENTITY; i++)
 	{
-		if (entities[i]->GetCollider() == c1)
+		if (entities[i] != nullptr && entities[i]->GetCollider() == c1)
+		{
 			entities[i]->OnCollision(c2);
+			delete entities[i];
+			entities[i] = nullptr;
+		}
+
 	}
 }
-
 
 bool j1Entities::Load(pugi::xml_node& data)
 {
 	bool ret = true;
 
-	for (int i = 0; i < entities.Count(); i++)
+	for (int i = 0; i < MAX_ENTITY; i++)
 	{
-		if (entities[i]->entity_type == PLAYER)
+		if (i != MAX_ENTITY)
 		{
-			pugi::xml_node player_stats = data.child("player");
-			entities[i]->Load(player_stats);
+			switch (queue[i].type)
+			{
+			case EntitiesType::PLAYER:
+				pugi::xml_node player_stats = data.child("player");
+				entities[i]->Load(player_stats);
+				break;
+			}
 		}
 	}
 
@@ -124,12 +192,14 @@ bool j1Entities::Save(pugi::xml_node& data)const
 {
 	bool ret = true;
 
-	for (int i = 0; i < entities.Count(); i++)
+	for (int i = 0; i < MAX_ENTITY; i++)
 	{
-		if (entities[i]->entity_type == PLAYER)
+		switch (queue[i].type)
 		{
+		case EntitiesType::PLAYER:
 			pugi::xml_node player_stats = data.append_child("player");
 			entities[i]->Save(player_stats);
+			break;
 		}
 	}
 

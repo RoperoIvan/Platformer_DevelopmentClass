@@ -12,7 +12,9 @@ Entity::Entity(int x, int y) : position(x, y)
 
 Entity::~Entity()
 {
-
+	if (collider != nullptr)
+		collider->to_delete = true;
+	collider = nullptr;
 }
 
 const Collider* Entity::GetCollider() const
@@ -22,14 +24,10 @@ const Collider* Entity::GetCollider() const
 
 void Entity::Draw(SDL_Texture* sprites)
 {
-	SDL_Rect r = animation->GetCurrentFrame();
-	if (this->entity_type == PLAYER) {
-		App->render->Blit(sprites, position.x, position.y, &(animation->GetCurrentFrame()));
+	if (collider != nullptr)
 		collider->SetPos(position.x, position.y);
-	}
+
+	if (animation != nullptr)
+		App->render->Blit(sprites, position.x, position.y, &(animation->GetCurrentFrame()));
 }
 
-void Entity::OnCollision(Collider* collider)
-{
-
-}

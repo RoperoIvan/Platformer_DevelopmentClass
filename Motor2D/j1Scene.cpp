@@ -11,7 +11,7 @@
 #include "j1FadeToBlack.h"
 #include "j1Player.h"
 #include "j1Entities.h"
-#include "EntityPlayer.h"
+#include "j1Pathfinding.h"
 #include "j1Scene.h"
 
 j1Scene::j1Scene() : j1Module()
@@ -71,10 +71,18 @@ bool j1Scene::Start()
 {
 
 	App->map->Load(level1Path.GetString());
+	
+		int w, h;
+		uchar* data = NULL;
+		if(App->map->CreateWalkabilityMap(w, h, &data))
+		App->pathfinding->SetMap(w, h, data);
+
+		RELEASE_ARRAY(data);
+	
 	App->audio->PlayMusic(song1Path.GetString());
 	Mix_VolumeMusic(volume);
+	App->entities->AddEntity(GHOST, 600, 230);
 
-	App->entities->SpawnEntities(0, 0, PLAYER);
 
 	return true;
 }
