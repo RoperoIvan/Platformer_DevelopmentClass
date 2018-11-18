@@ -99,6 +99,11 @@ bool j1App::Awake()
 		organization.create(app_config.child("organization").child_value());
 	}
 
+	//time delay to each frame
+	/*frame_cap = 1000 / app_config.attribute("framerate_cap1").as_int();
+	frame_cap2 = 1000 / app_config.attribute("framerate_cap2").as_int();
+	frame_capAux = frame_cap;*/
+
 	if(ret == true)
 	{
 		p2List_item<j1Module*>* item;
@@ -190,7 +195,7 @@ void j1App::FinishUpdate()
 	if(want_to_load == true)
 		LoadGameNow();
 
-	//Framerate calculations
+	// Framerate calculations --
 	if (last_sec_frame_time.Read() > 1000)
 	{
 		last_sec_frame_time.Start();
@@ -201,11 +206,11 @@ void j1App::FinishUpdate()
 	float seconds_since_startup = startup_time.ReadSec();
 	uint32 last_frame_ms = frame_time.Read();
 	uint32 frames_on_last_update = prev_last_sec_frame_count;
-	if (last_frame_ms < frame_cap)
+	if (last_frame_ms < frame_rate && framerate_cap_enabled)
 	{
 		j1PerfTimer delay_timer;
-		SDL_Delay(frame_cap - last_frame_ms);
-		LOG("waited for: %.2f ms expected time: %u ms", delay_timer.ReadMs(), frame_cap - last_frame_ms);
+		SDL_Delay(frame_rate - last_frame_ms);
+		LOG("waited for: %.2f ms expected time: %u ms", delay_timer.ReadMs(), frame_rate - last_frame_ms);
 	}
 	static char title[256];
 	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu ",
@@ -241,6 +246,12 @@ bool j1App::DoUpdate()
 {
 	BROFILER_CATEGORY("DoUpdate", Profiler::Color::HotPink);
 	bool ret = true;
+
+	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
+	{
+		framerate_cap_enabled = !framerate_cap_enabled;
+	}
+
 	p2List_item<j1Module*>* item;
 	item = modules.start;
 	j1Module* pModule = NULL;
