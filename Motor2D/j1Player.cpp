@@ -137,11 +137,12 @@ bool j1Player::Awake(pugi::xml_node& config)
 bool j1Player::Start()
 {
 	playerTexture = App->tex->Load(path.GetString());
-	feetCollider = App->collision->AddCollider({ position.x, position.y + 30,22,2 }, COLLIDER_PLAYER_DOWN, this);
+	feetCollider = App->collision->AddCollider({ position.x, position.y + 30,20,2 }, COLLIDER_PLAYER_DOWN, this);
 	leftCollider = App->collision->AddCollider({ position.x - 10, position.y + 5,2,16 }, COLLIDER_PLAYER_LEFT, this);
 	rightCollider = App->collision->AddCollider({ position.x + 10, position.y + 5,2,16 }, COLLIDER_PLAYER_RIGHT, this);
 	headCollider = App->collision->AddCollider({ position.x+ 4, position.y, 8, 2 }, COLLIDER_PLAYER_UP, this);
 	body = App->collision->AddCollider({ position.x, position.y, 17, 30 }, COLLIDER_PLAYER, this);
+	damageCollider = App->collision->AddCollider({ position.x, position.y +30, 20, 2 }, COLLIDER_PLAYER_DAMAGE, this);
 	return true;
 }
 
@@ -277,6 +278,7 @@ bool j1Player::Update(float dt)
 	rightCollider->SetPos(position.x + 20, position.y + 5);
 	headCollider->SetPos(position.x+4, position.y);
 	body->SetPos(position.x, position.y);
+	damageCollider->SetPos(position.x, position.y+30);
 
 	//Drawing the animations
 	App->render->Blit(playerTexture, position.x, position.y, &currentAnimation->GetCurrentFrame());
@@ -362,10 +364,6 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 	{
 		currentAnimation = &idle;
 	}
-	if (c1->type == COLLIDER_PLAYER_DOWN && c2->type == COLLIDER_ENEMY)
-	{
-		speedPlayer.y = jumpPower;
-	}
 	if (c1->type == COLLIDER_PLAYER_UP && c2->type == COLLIDER_WALL)
 	{
 		speedPlayer.y = 2.0f;
@@ -387,5 +385,9 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_DEATHCONDITION)
 	{
 		App->scene->LevelChange();
+	}
+	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_ENEMY)
+	{
+		speedPlayer.y = jumpPower;
 	}
 }

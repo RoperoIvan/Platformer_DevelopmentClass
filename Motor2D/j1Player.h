@@ -39,6 +39,7 @@ public:
 	Collider* rightCollider = nullptr;
 	Collider* headCollider = nullptr;
 	Collider* body = nullptr;
+	Collider* damageCollider = nullptr;
 	iPoint playerPosition;
 private:
 	iPoint position;
