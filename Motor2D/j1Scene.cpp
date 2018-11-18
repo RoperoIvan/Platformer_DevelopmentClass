@@ -303,9 +303,15 @@ void j1Scene::Limits()
 
 void j1Scene::SpawnEnemies()
 {
+	if (levelSelector == 1)
+	{
+		App->entities->AddEntity(GHOST, 600, 230);
+		App->entities->AddEntity(GHOST, 400, 220);
+		App->entities->AddEntity(GHOST, 500, 200);
+	}
+	if (levelSelector == 2)
+	{
 
-
-	App->entities->AddEntity(GHOST, 600, 230);
-	App->entities->AddEntity(GHOST, 400, 220);
-	App->entities->AddEntity(GHOST, 500, 200);
+	}
+	
 }

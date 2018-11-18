@@ -358,4 +358,21 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		speedPlayer.y = 2.0f;
 		position.y += speedPlayer.y;
 	}
+	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WINCONDITION)
+	{
+		if (App->scene->levelSelector == 1)
+		{
+			App->scene->levelSelector = 2;
+			App->scene->LevelChange();
+		}
+		else if (App->scene->levelSelector == 2)
+		{
+			App->scene->levelSelector = 1;
+			App->scene->LevelChange();
+		}
+	}
+	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_DEATHCONDITION)
+	{
+		App->scene->LevelChange();
+	}
 }

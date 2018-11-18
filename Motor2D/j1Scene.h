@@ -41,8 +41,9 @@ public:
 	void SpawnEnemies();
 public:
 	bool controllingCamera;
-private:
 	int levelSelector, godSelector;
+private:
+	
 	int collisionCounter;
 	iPoint firstLevelPosition, secondLevelPosition, firstLimit, secondLimit;
 	iPoint Wincon1, Wincon2;

@@ -478,6 +478,10 @@ bool j1Map::LoadObject(pugi::xml_node& node)
 				App->collision->AddCollider({ col_object.attribute("x").as_int(0),col_object.attribute("y").as_int(0),col_object.attribute("width").as_int(0),col_object.attribute("height").as_int(0) }, COLLIDER_WALL);
 			else if(strcmp(node.attribute("name").as_string(), "Colliders2") == 0)
 				App->collision->AddCollider({ col_object.attribute("x").as_int(0),col_object.attribute("y").as_int(0),col_object.attribute("width").as_int(0),col_object.attribute("height").as_int(0) }, COLLIDER_PLATFORM);
+			else if(strcmp(node.attribute("name").as_string(), "WinCon") == 0)
+				App->collision->AddCollider({ col_object.attribute("x").as_int(0),col_object.attribute("y").as_int(0),col_object.attribute("width").as_int(0),col_object.attribute("height").as_int(0) }, COLLIDER_WINCONDITION);
+			else if (strcmp(node.attribute("name").as_string(), "DeathCon") == 0)
+				App->collision->AddCollider({ col_object.attribute("x").as_int(0),col_object.attribute("y").as_int(0),col_object.attribute("width").as_int(0),col_object.attribute("height").as_int(0) }, COLLIDER_DEATHCONDITION);
 			i++;
 		}
 	}
