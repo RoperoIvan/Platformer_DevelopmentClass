@@ -88,24 +88,25 @@ private:
 public:
 
 	// Modules
-	j1Window*			win;
-	j1Input*			input;
-	j1Render*			render;
-	j1Textures*			tex;
-	j1Audio*			audio;
-	j1Scene*			scene;
-	j1Map*				map;
-	j1FadeToBlack*      fade;
-	j1Player*           player;
-	j1Collisions*		collision;
-	j1Entities*			entities;
-	j1Pathfinding*		pathfinding;
+	j1Window*			win = nullptr;
+	j1Input*			input = nullptr;
+	j1Render*			render = nullptr;
+	j1Textures*			tex = nullptr;
+	j1Audio*			audio = nullptr;
+	j1Scene*			scene = nullptr;
+	j1Map*				map = nullptr;
+	j1FadeToBlack*      fade = nullptr;
+	j1Player*           player = nullptr;
+	j1Collisions*		collision = nullptr;
+	j1Entities*			entities = nullptr;
+	j1Pathfinding*		pathfinding = nullptr;
 
 private:
 
 	p2List<j1Module*>	modules;
-	uint				frames;
-	float				dt;
+	uint32				frame_rate;
+	uint32				frames;
+	float				dt = 0.0f;
 	int					argc;
 	char**				args;
 
@@ -118,20 +119,13 @@ private:
 	mutable p2SString	save_game;
 
 	j1PerfTimer			ptimer;
-	j1PerfTimer         delay_ptimer;
-	j1PerfTimer			perf_timer;
 	uint64				frame_count = 0;
 	j1Timer				startup_time;
 	j1Timer				frame_time;
 	j1Timer				last_sec_frame_time;
 	uint32				last_sec_frame_count = 0;
 	uint32				prev_last_sec_frame_count = 0;
-	float               frame_cap = 0;
-	p2SString			vsync_value;
-	p2SString			cap_value;
-	bool				cap = true;
-	float				frame_delay;
-	
+	bool				framerate_cap_enabled = true;
 };
 
 extern j1App* App; // No student is asking me about that ... odd :-S
