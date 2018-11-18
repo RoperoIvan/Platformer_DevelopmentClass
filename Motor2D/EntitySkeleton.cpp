@@ -114,6 +114,7 @@ EntitySkeleton::EntitySkeleton(int x, int y) : Entity(x, y)
 
 	collider = App->collision->AddCollider({ 0,0,22,32 }, COLLIDER_TYPE::COLLIDER_ENEMY, (j1Module*)App->entities);
 }
+
 void EntitySkeleton::Update(float dt)
 {
 	skeletonPosition = App->map->WorldToMap(position.x, position.y);

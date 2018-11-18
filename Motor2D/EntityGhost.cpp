@@ -40,9 +40,9 @@ EntityGhost::EntityGhost(int x, int y) : Entity(x, y)
 	chasing.speed = 0.2f;
 	chasing.loop = false;
 
-	chasingLeft.PushBack({ 1331,96,31,42 });
-	chasingLeft.PushBack({ 1265,94,46,42 });
-	chasingLeft.PushBack({ 180,93,44,43 });
+	chasingLeft.PushBack({ 1265,96,31,42 });
+	chasingLeft.PushBack({ 1193,94,46,42 });
+	chasingLeft.PushBack({ 1131,93,44,43 });
 	chasingLeft.speed = 0.2f;
 	chasingLeft.loop = false;
 
@@ -57,13 +57,13 @@ EntityGhost::EntityGhost(int x, int y) : Entity(x, y)
 	death.loop = true;
 	animation = &idle;
 
-	deathLeft.PushBack({ 0,143,24,42 });
-	deathLeft.PushBack({ 61,148,30,30 });
-	deathLeft.PushBack({ 123,146,29,26 });
-	deathLeft.PushBack({ 197,150,15,17 });
-	deathLeft.PushBack({ 264,153,10,12 });
-	deathLeft.PushBack({ 324,151,20,18 });
-	deathLeft.PushBack({ 389,149,17,18 });
+	deathLeft.PushBack({ 1331,143,24,42 });
+	deathLeft.PushBack({ 1264,148,30,30 });
+	deathLeft.PushBack({ 1203,146,29,26 });
+	deathLeft.PushBack({ 1143,150,15,17 });
+	deathLeft.PushBack({ 1081,153,10,12 });
+	deathLeft.PushBack({ 1011,151,20,18 });
+	deathLeft.PushBack({ 949,149,17,18 });
 	deathLeft.speed = 0.4f;
 	deathLeft.loop = true;
 	animation = &idle;
