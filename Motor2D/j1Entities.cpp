@@ -69,7 +69,7 @@ bool j1Entities::Update(float dt)
 
 	for (uint i = 0; i < MAX_ENTITY; ++i)
 		if (entities[i] != nullptr)
-//			entities[i]->Update(dt);
+			entities[i]->Update(dt);
 
 	for (uint i = 0; i < MAX_ENTITY; ++i)
 		if (entities[i] != nullptr) entities[i]->Draw(textures);

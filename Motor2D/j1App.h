@@ -128,6 +128,6 @@ private:
 	bool				framerate_cap_enabled = true;
 };
 
-extern j1App* App; // No student is asking me about that ... odd :-S
+extern j1App* App; // monkaS
 
 #endif
