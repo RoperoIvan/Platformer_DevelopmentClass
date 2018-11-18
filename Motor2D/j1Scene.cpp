@@ -233,7 +233,7 @@ void j1Scene::LevelChange()
 		App->player->SetPosition(secondLevelPosition);
 		App->player->Start();
 		App->entities->Start();
-		SpawnEnemies();
+		/*SpawnEnemies();*/
 		App->collision->Start();
 
 		App->audio->PlayMusic(song2Path.GetString());
@@ -250,7 +250,7 @@ void j1Scene::LevelChange()
 		App->player->SetPosition(firstLevelPosition);
 		App->player->Start();
 		App->entities->Start();
-		SpawnEnemies();
+		/*SpawnEnemies();*/
 		App->collision->Start();
 		App->audio->PlayMusic(song1Path.GetString());
 		App->map->Load(level1Path.GetString());
@@ -308,6 +308,14 @@ void j1Scene::SpawnEnemies()
 		App->entities->AddEntity(GHOST, 600, 230);
 		App->entities->AddEntity(GHOST, 400, 220);
 		App->entities->AddEntity(GHOST, 500, 200);
+		App->entities->AddEntity(SKELETON, 550, 200);
+		App->entities->AddEntity(SKELETON, 400, 200);
+		App->entities->AddEntity(SKELETON, 250, 200);
+		App->entities->AddEntity(SKELETON, 600, 150);
+		App->entities->AddEntity(SKELETON, 650, 200);
+		App->entities->AddEntity(SKELETON, 520, 200);
+		App->entities->AddEntity(SKELETON, 350, 200);
+		App->entities->AddEntity(SKELETON, 300, 200);
 	}
 	if (levelSelector == 2)
 	{

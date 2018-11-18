@@ -10,6 +10,7 @@ class EntityGhost : public Entity
 private:
 	Animation idle;
 	Animation death;
+	Animation chasing;
 	SDL_Texture* batex;
 	iPoint ghostPosition;
 	iPoint playerPosition;

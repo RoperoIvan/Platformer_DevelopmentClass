@@ -4,6 +4,7 @@
 #include "EntityGhost.h"
 #include "j1Collisions.h"
 #include "j1Player.h"
+#include "j1Entities.h"
 #include "j1Pathfinding.h"
 #include "j1Map.h"
 #include "j1Render.h"
@@ -22,8 +23,12 @@ EntityGhost::EntityGhost(int x, int y) : Entity(x, y)
 	idle.PushBack({ 383,45,25,43 });
 	idle.speed = 0.2f;
 	idle.loop = true;
-	collider = App->collision->AddCollider({ 0,0,26,21 },COLLIDER_TYPE::COLLIDER_ENEMY,(j1Module*)App->entities);
 	
+	chasing.PushBack({59,96,31,42});
+	chasing.PushBack({116,94,46,42});
+	chasing.PushBack({180,93,44,43});
+	chasing.speed = 0.2f;
+	chasing.loop = false;
 
 	death.PushBack({0,143,24,42});
 	death.PushBack({61,148,30,30 });
@@ -35,12 +40,18 @@ EntityGhost::EntityGhost(int x, int y) : Entity(x, y)
 	death.speed = 0.4f;
 	death.loop = true;
 	animation = &idle;
+
+	collider = App->collision->AddCollider({ 0,0,26,21 }, COLLIDER_TYPE::COLLIDER_ENEMY, (j1Module*)App->entities);
 }
 void EntityGhost::Update(float dt)
 {
 	if (Vision() == true)
 	{
 		Chasing();
+	}
+	else
+	{
+		animation = &idle;
 	}
 }
 
@@ -51,10 +62,11 @@ void EntityGhost::OnCollision(Collider* coll)
 
 void EntityGhost::Chasing()
 {
+	animation = &chasing;
 	ghostPosition = App->map->WorldToMap(position.x, position.y);
 	playerPosition = App->player->playerPosition;
 
-	if (App->pathfinding->CreatePath(ghostPosition, playerPosition) != -1)
+	if (App->pathfinding->CreatePath(ghostPosition, playerPosition, GHOST) != -1)
 	{
 		const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
 		if (path->Count() > 0)

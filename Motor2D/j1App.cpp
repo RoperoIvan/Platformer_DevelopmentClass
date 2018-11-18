@@ -348,7 +348,7 @@ bool j1App::LoadGameNow()
 	pugi::xml_document data;
 	pugi::xml_node root;
 
-	pugi::xml_parse_result result = data.load_file("save_game.xml");
+	pugi::xml_parse_result result = data.load_file("saveGame.xml");
 
 	if(result != NULL)
 	{
@@ -382,7 +382,7 @@ bool j1App::SavegameNow() const
 {
 	bool ret = true;
 
-	LOG("Saving Game State to %s...", "save_game.xml");
+	LOG("Saving Game State to %s...", "saveGame.xml");
 
 	// xml object were we will store all data
 	pugi::xml_document data;
@@ -400,7 +400,7 @@ bool j1App::SavegameNow() const
 
 	if(ret == true)
 	{
-		data.save_file("save_game.xml");
+		data.save_file("saveGame.xml");
 		LOG("... finished saving", );
 	}
 	else

@@ -36,7 +36,7 @@ bool j1Entities::Awake(pugi::xml_node& config)
 bool j1Entities::Start()
 {
 	bool ret = true;
-	textures = App->tex->Load("enemies/ghost.png");
+	textures = App->tex->Load("enemies/enemies.png");
 
 	return ret;
 }
@@ -148,6 +148,10 @@ void j1Entities::SpawnEntity(const EntityInfo& info)
 			entities[i] = new EntityPlayer(info.x, info.y);*/
 		case EntitiesType::GHOST:
 			entities[i] = new EntityGhost(info.x, info.y);
+			break;
+		case EntitiesType::SKELETON:
+			entities[i] = new EntitySkeleton(info.x, info.y);
+			break;
 		}
 	}
 }
@@ -175,11 +179,16 @@ bool j1Entities::Load(pugi::xml_node& data)
 	{
 		if (entities[i] != nullptr)
 		{
-			if (queue[i].type == EntitiesType::GHOST)
-			{
+			/*if (queue[i].type == EntitiesType::GHOST)
+			{*/
 				pugi::xml_node ghostData = data.child("ghost");
 				entities[i]->Load(ghostData);
-			}
+			/*}*/
+		/*	if (queue[i].type == EntitiesType::SKELETON)
+			{
+				pugi::xml_node skeletonData = data.child("skeleton");
+				entities[i]->Load(skeletonData);
+			}*/
 		}	
 	}
 
@@ -194,11 +203,17 @@ bool j1Entities::Save(pugi::xml_node& data)const
 	{
 		if (entities[i] != nullptr)
 		{
-			if (queue[i].type == EntitiesType::GHOST)
-			{
+			/*if (queue[i].type == EntitiesType::GHOST)
+			{*/
 				pugi::xml_node ghostData = data.append_child("ghost");
 				entities[i]->Save(ghostData);
-			}
+				LOG("GOLA");
+			/*}*/
+		/*	if (queue[i].type == EntitiesType::SKELETON)
+			{
+				pugi::xml_node skeletonData = data.append_child("skeleton");
+				entities[i]->Save(skeletonData);
+			}*/
 		}		
 	}
 

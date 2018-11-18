@@ -4,6 +4,7 @@
 #include "j1Module.h"
 #include "j1Player.h"
 #include "EntityGhost.h"
+#include "EntitySkeleton.h"
 #define MAX_ENTITY 100
 
 
@@ -11,11 +12,12 @@ enum EntitiesType
 {
 	PLAYER,
 	GHOST,
+	SKELETON,
 	NOTYPE,
 };
 
 class Entity;
-class EntityPlayer;
+
 
 struct EntityInfo
 {
@@ -52,7 +54,6 @@ private:
 public:
 	SDL_Texture* textures;
 	p2SString path;
-	EntityPlayer* player;
 };
 
 

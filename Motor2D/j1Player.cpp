@@ -303,7 +303,7 @@ bool j1Player::Save(pugi::xml_node& data)const
 
 	data.append_child("position").append_attribute("x") = position.x;
 	data.child("position").append_attribute("y") = position.y;
-
+	LOG("HOLA");
 	return true;
 }
 

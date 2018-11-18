@@ -9,15 +9,25 @@
 	<scene>
 		<musicvolume value="0" />
 		<levelSelector value="1" />
-		<Logic value="true" />
+		<Logic value="false" />
 	</scene>
-	<entities />
+	<entities>
+		<ghost>
+			<position x="600" y="230" />
+		</ghost>
+		<ghost>
+			<position x="336" y="254" />
+		</ghost>
+		<ghost>
+			<position x="500" y="200" />
+		</ghost>
+	</entities>
 	<player>
-		<position x="1544" y="731" />
+		<position x="280" y="310" />
 	</player>
 	<:anonymous />
 	<FadeToBlack />
 	<renderer>
-		<camera x="-4120" y="-1809" />
+		<camera x="-328" y="-546" />
 	</renderer>
 </game_state>
