@@ -11,13 +11,13 @@ private:
 	Animation idle;
 	Animation death;
 	Animation chasing;
-	Animation idleLeft;
-	Animation deathLeft;
-	Animation chasingLeft;	
+	Animation idleRight;
+	Animation deathRight;
+	Animation chasingRight;	
 	iPoint ghostPosition;
 	iPoint playerPosition;
 	iPoint chase;
-	bool left;
+	bool right;
 public:
 
 	EntityGhost(int x, int y);

@@ -158,20 +158,18 @@ void EntitySkeleton::Chasing()
 			if (chase.x < skeletonPosition.x)
 			{
 				position.x--;
+				left = true;
 			}
 			else if (chase.x > skeletonPosition.x)
 			{
 				position.x++;
 			}
-			/*if (chase.y < skeletonPosition.y)
-			{
-				position.y--;
-			}
-			if (chase.y > skeletonPosition.y)
-			{
-				position.y++;
-			}*/
 		}
+	}
+
+	if (left == true)
+	{
+		animation = &chasingLeft;
 	}
 }
 

@@ -24,15 +24,15 @@ EntityGhost::EntityGhost(int x, int y) : Entity(x, y)
 	idle.speed = 0.2f;
 	idle.loop = true;
 
-	idleLeft.PushBack({ 1331,44,24,42 });
-	idleLeft.PushBack({ 1265,46,28,41 });
-	idleLeft.PushBack({ 1202,47,26,42 });
-	idleLeft.PushBack({ 1139,48,24,42 });
-	idleLeft.PushBack({ 1075,49,24,42 });
-	idleLeft.PushBack({ 1011,46,25,44 });
-	idleLeft.PushBack({ 947,45,25,43 });
-	idleLeft.speed = 0.2f;
-	idleLeft.loop = true;
+	idleRight.PushBack({ 1331,44,24,42 });
+	idleRight.PushBack({ 1265,46,28,41 });
+	idleRight.PushBack({ 1202,47,26,42 });
+	idleRight.PushBack({ 1139,48,24,42 });
+	idleRight.PushBack({ 1075,49,24,42 });
+	idleRight.PushBack({ 1011,46,25,44 });
+	idleRight.PushBack({ 947,45,25,43 });
+	idleRight.speed = 0.2f;
+	idleRight.loop = true;
 	
 	chasing.PushBack({59,96,31,42});
 	chasing.PushBack({116,94,46,42});
@@ -40,11 +40,11 @@ EntityGhost::EntityGhost(int x, int y) : Entity(x, y)
 	chasing.speed = 0.2f;
 	chasing.loop = false;
 
-	chasingLeft.PushBack({ 1265,96,31,42 });
-	chasingLeft.PushBack({ 1193,94,46,42 });
-	chasingLeft.PushBack({ 1131,93,44,43 });
-	chasingLeft.speed = 0.2f;
-	chasingLeft.loop = false;
+	chasingRight.PushBack({ 1265,96,31,42 });
+	chasingRight.PushBack({ 1193,94,46,42 });
+	chasingRight.PushBack({ 1131,93,44,43 });
+	chasingRight.speed = 0.2f;
+	chasingRight.loop = false;
 
 	death.PushBack({0,143,24,42});
 	death.PushBack({61,148,30,30 });
@@ -57,15 +57,15 @@ EntityGhost::EntityGhost(int x, int y) : Entity(x, y)
 	death.loop = true;
 	animation = &idle;
 
-	deathLeft.PushBack({ 1331,143,24,42 });
-	deathLeft.PushBack({ 1264,148,30,30 });
-	deathLeft.PushBack({ 1203,146,29,26 });
-	deathLeft.PushBack({ 1143,150,15,17 });
-	deathLeft.PushBack({ 1081,153,10,12 });
-	deathLeft.PushBack({ 1011,151,20,18 });
-	deathLeft.PushBack({ 949,149,17,18 });
-	deathLeft.speed = 0.4f;
-	deathLeft.loop = true;
+	deathRight.PushBack({ 1331,143,24,42 });
+	deathRight.PushBack({ 1264,148,30,30 });
+	deathRight.PushBack({ 1203,146,29,26 });
+	deathRight.PushBack({ 1143,150,15,17 });
+	deathRight.PushBack({ 1081,153,10,12 });
+	deathRight.PushBack({ 1011,151,20,18 });
+	deathRight.PushBack({ 949,149,17,18 });
+	deathRight.speed = 0.4f;
+	deathRight.loop = true;
 	animation = &idle;
 
 	collider = App->collision->AddCollider({ 0,0,26,21 }, COLLIDER_TYPE::COLLIDER_ENEMY, (j1Module*)App->entities);
@@ -106,6 +106,7 @@ void EntityGhost::Chasing()
 			else if (chase.x > ghostPosition.x)
 			{
 				position.x++;
+				right = true;
 			}
 			if (chase.y < ghostPosition.y)
 			{
@@ -116,6 +117,11 @@ void EntityGhost::Chasing()
 				position.y++;
 			}
 		}
+	}
+
+	if (right == true)
+	{
+		animation = &chasingRight;
 	}
 }
 
