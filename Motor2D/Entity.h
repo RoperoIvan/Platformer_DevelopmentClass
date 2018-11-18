@@ -21,7 +21,7 @@ public:
 	virtual ~Entity();
 
 	const Collider* GetCollider() const;
-	virtual void Update(float dt) {};
+	virtual void Update(float dt) = 0;
 	virtual void Draw(SDL_Texture* sprites);
 	virtual void OnCollision(Collider* collider) = 0;
 	virtual bool Load(pugi::xml_node&) { return true; }

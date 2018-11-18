@@ -30,10 +30,21 @@ Debug Keys:
 
 We are two students in CITM center of the UPC.
 
-- Oscar Reguera Parera (https://github.com/oscarrep)
+- Oscar Reguera Parera (https://github.com/oscarrep) :
+
+Work:
+
+Framerates regulations
+
+Brofiler
 
 - Ivan Ropero García (https://github.com/RoperoIvan)
 
+Work:
+
+Pathfinding
+
+Entities
 
 ## Repository
 
