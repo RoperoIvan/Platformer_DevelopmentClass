@@ -5,6 +5,7 @@
 #include "j1Collisions.h"
 #include "j1Player.h"
 #include "j1Entities.h"
+#include "j1Textures.h"
 #include "j1Pathfinding.h"
 #include "j1Map.h"
 #include "j1Render.h"
@@ -12,7 +13,9 @@
 
 EntityGhost::EntityGhost(int x, int y) : Entity(x, y)
 {
-	
+	pugi::xml_parse_result result = entitiesXML.load_file("entities.xml");
+
+	enemypath = App->tex->Load("enemies/enemiespath.png");
 
 	idle.PushBack({ 0,44,24,42 });
 	idle.PushBack({ 62,46,28,41 });
@@ -78,7 +81,15 @@ void EntityGhost::Update(float dt)
 	}
 	else
 	{
-		animation = &idle;
+		if (left)
+		{
+			animation = &idle;
+		}
+		else
+		{
+			animation = &idleRight;
+		}
+		
 	}
 }
 
@@ -89,24 +100,35 @@ void EntityGhost::OnCollision(Collider* coll)
 
 void EntityGhost::Chasing()
 {
-	animation = &chasing;
+
 	ghostPosition = App->map->WorldToMap(position.x, position.y);
 	playerPosition = App->player->playerPosition;
 
 	if (App->pathfinding->CreatePath(ghostPosition, playerPosition, GHOST) != -1)
 	{
-		const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
-		if (path->Count() > 0)
+		const p2DynArray<iPoint>* breadcrumbs = App->pathfinding->GetLastPath();
+		if (App->map->seeCollisions)
 		{
-			chase = iPoint(path->At(0)->x, path->At(0)->y);
+			for (int i = 0; i < breadcrumbs->Count(); ++i)
+			{
+				iPoint pathPosition = App->map->MapToWorld(breadcrumbs->At(i)->x, breadcrumbs->At(i)->y);
+				App->render->Blit(enemypath, pathPosition.x, pathPosition.y);
+			}
+		}
+		if (breadcrumbs->Count() > 0)
+		{
+			chase = iPoint(breadcrumbs->At(0)->x, breadcrumbs->At(0)->y);
 			if (chase.x < ghostPosition.x)
 			{
 				position.x--;
+				animation = &chasing;
+				left = true;
 			}
 			else if (chase.x > ghostPosition.x)
 			{
 				position.x++;
-				right = true;
+				animation = &chasingRight;
+				left = false;
 			}
 			if (chase.y < ghostPosition.y)
 			{
@@ -117,11 +139,6 @@ void EntityGhost::Chasing()
 				position.y++;
 			}
 		}
-	}
-
-	if (right == true)
-	{
-		animation = &chasingRight;
 	}
 }
 

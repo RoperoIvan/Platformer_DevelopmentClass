@@ -17,7 +17,7 @@ private:
 	iPoint ghostPosition;
 	iPoint playerPosition;
 	iPoint chase;
-	bool right;
+	bool left;
 public:
 
 	EntityGhost(int x, int y);

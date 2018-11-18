@@ -15,6 +15,9 @@ public:
 
 public:
 	iPoint position;
+	pugi::xml_document entitiesXML;
+	int alpha = 80;
+	SDL_Texture* enemypath;
 
 public:
 	Entity(int x, int y);

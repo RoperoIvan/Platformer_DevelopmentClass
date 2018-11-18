@@ -4,6 +4,7 @@
 #include "EntitySkeleton.h"
 #include "j1Collisions.h"
 #include "j1Entities.h"
+#include "j1Textures.h"
 #include "j1Player.h"
 #include "j1Pathfinding.h"
 #include "j1Map.h"
@@ -12,7 +13,9 @@
 
 EntitySkeleton::EntitySkeleton(int x, int y) : Entity(x, y)
 {
+	pugi::xml_parse_result result = entitiesXML.load_file("entities.xml");
 
+	enemypath = App->tex->Load("enemies/enemiespath.png");
 
 	idle.PushBack({ 0,311,22,32 });
 	idle.PushBack({ 24,311,22,32 });
@@ -132,9 +135,16 @@ void EntitySkeleton::Update(float dt)
 	{
 		Chasing();
 	}
-	else
+	else 
 	{
-		animation = &idle;
+		if (left)
+		{
+			animation = &idleLeft;
+		}
+		else
+		{
+			animation = &idle;
+		}
 	}
 }
 
@@ -145,31 +155,33 @@ void EntitySkeleton::OnCollision(Collider* coll)
 
 void EntitySkeleton::Chasing()
 {
-	animation = &chasing;
-
-	
-
 	if (App->pathfinding->CreatePath(skeletonPosition, playerPosition, SKELETON) != -1)
 	{
-		const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
-		if (path->Count() > 0)
+		const p2DynArray<iPoint>* breadcrumbs = App->pathfinding->GetLastPath();
+		if (App->map->seeCollisions)
 		{
-			chase = iPoint(path->At(0)->x, path->At(0)->y);
+			for (int i = 0; i < breadcrumbs->Count(); ++i)
+			{
+				iPoint pathPosition = App->map->MapToWorld(breadcrumbs->At(i)->x, breadcrumbs->At(i)->y);
+				App->render->Blit(enemypath, pathPosition.x, pathPosition.y);
+			}
+		}
+		if (breadcrumbs->Count() > 0)
+		{
+			chase = iPoint(breadcrumbs->At(0)->x, breadcrumbs->At(0)->y);
 			if (chase.x < skeletonPosition.x)
 			{
 				position.x--;
+				animation = &chasingLeft;
 				left = true;
 			}
 			else if (chase.x > skeletonPosition.x)
 			{
 				position.x++;
+				animation = &chasing;
+				left = false;
 			}
 		}
-	}
-
-	if (left == true)
-	{
-		animation = &chasingLeft;
 	}
 }
 
