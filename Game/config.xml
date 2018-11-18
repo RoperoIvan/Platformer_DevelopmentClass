@@ -62,6 +62,6 @@
     <jumpPower value="-10.0f"/>
     <maxjumpHeight value="5.0f"/>
     <godMode value="false"/>
-    <doubleJump value="0"/>
+    <doubleJump value="false"/>
   </player>
 </config>

@@ -33,7 +33,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 	///// int
 	position.x = config.child("position").attribute("x").as_int();
 	position.y = config.child("position").attribute("y").as_int();
-	doubleJump = config.child("doubleJump").attribute("value").as_int();
+	doubleJump = config.child("doubleJump").attribute("value").as_bool();
 
 	///// float
 	jumpPower = config.child("jumpPower").attribute("value").as_float();
@@ -156,7 +156,6 @@ bool j1Player::Update(float dt)
 {
 	//LOG("%i", position.x);
 	//Control of the orientation of the player animations
-	currentAnimation = &fall;
 
 	playerPosition = App->map->WorldToMap(position.x, position.y);
 
@@ -178,20 +177,6 @@ bool j1Player::Update(float dt)
 	}*/
 
 	
-	if (solidGround)
-	{
-		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-		{
-			speedPlayer.y = jumpPower;
-			solidGround = false;
-		}
-
-	}
-	if (speedPlayer.y < maxJumpHeight)
-	{
-		speedPlayer.y += gravity;
-	}
-	position.y += speedPlayer.y;
 	
 
 	//Camera Movement
@@ -256,6 +241,35 @@ bool j1Player::Update(float dt)
 		}
 		
 	}
+
+	if (solidGround)
+	{
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		{
+			speedPlayer.y = jumpPower;
+			solidGround = false;
+			doubleJump = true;
+			cont++;
+		}
+
+	}
+	if (doubleJump && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	{
+		cont++;
+		if (cont == 3)
+		{
+			speedPlayer.y += -8;
+			doubleJump = false;
+			cont = 0;
+		}
+		
+	}
+	if (speedPlayer.y < maxJumpHeight)
+	{
+		speedPlayer.y += gravity;
+		solidGround = false;
+	}
+	position.y += speedPlayer.y;
 	//Tracing of the player's position by its colliders
 
 	feetCollider->SetPos(position.x, position.y + 30);
@@ -303,7 +317,6 @@ bool j1Player::Save(pugi::xml_node& data)const
 
 	data.append_child("position").append_attribute("x") = position.x;
 	data.child("position").append_attribute("y") = position.y;
-	LOG("HOLA");
 	return true;
 }
 

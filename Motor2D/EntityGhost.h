@@ -11,10 +11,10 @@ private:
 	Animation idle;
 	Animation death;
 	Animation chasing;
-	SDL_Texture* batex;
 	iPoint ghostPosition;
 	iPoint playerPosition;
 	iPoint chase;
+	bool left;
 public:
 
 	EntityGhost(int x, int y);

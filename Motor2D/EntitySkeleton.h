@@ -11,11 +11,11 @@ private:
 	Animation idle;
 	Animation death;
 	Animation chasing;
-	SDL_Texture* batex;
 	iPoint skeletonPosition;
 	iPoint playerPosition;
 	iPoint chase;
 	iPoint canwalk;
+	bool left;
 public:
 
 	EntitySkeleton(int x, int y);

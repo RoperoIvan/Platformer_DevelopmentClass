@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="125" height="55" tilewidth="16" tileheight="16" nextobjectid="256">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="125" height="55" tilewidth="16" tileheight="16" nextobjectid="259">
  <properties>
   <property name="gravity" type="float" value="0.7"/>
   <property name="jumpPower" type="float" value="-10"/>
@@ -55066,7 +55066,7 @@
   <object id="141" x="1651.67" y="265.667" width="53.6634" height="31.3333"/>
   <object id="142" x="1681.67" y="251" width="169.663" height="31.3333"/>
   <object id="143" x="1830" y="265.667" width="92.33" height="31.3333"/>
-  <object id="144" x="1909.83" y="272.333" width="18.7391" height="563"/>
+  <object id="144" x="1917.83" y="271.333" width="67.7391" height="563"/>
   <object id="145" x="-2.78623" y="148.545" width="12.9967" height="659.545"/>
   <object id="146" x="9.33498" y="421.667" width="304.997" height="33"/>
   <object id="147" x="102.502" y="437.667" width="226.497" height="197.5"/>
@@ -55132,6 +55132,13 @@
   <object id="247" x="1765.26" y="439.854" width="53.4743" height="13.292"/>
   <object id="248" x="1605.26" y="711.854" width="53.4743" height="13.292"/>
   <object id="249" x="658.5" y="356" width="91.5455" height="8"/>
+ </objectgroup>
+ <objectgroup color="#ffaa00" name="WinCon">
+  <object id="256" x="1902" y="368" width="25" height="54"/>
+ </objectgroup>
+ <objectgroup color="#ff0000" name="DeathCon">
+  <object id="257" x="605" y="781" width="535" height="17"/>
+  <object id="258" x="1582" y="786" width="325" height="19"/>
  </objectgroup>
  <layer name="Pathfinding" width="125" height="55">
   <properties>

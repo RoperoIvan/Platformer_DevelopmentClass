@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="80" height="50" tilewidth="16" tileheight="16" nextobjectid="263">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="80" height="50" tilewidth="16" tileheight="16" nextobjectid="265">
  <tileset firstgid="1" name="Jungle" tilewidth="16" tileheight="16" tilecount="741" columns="39">
   <image source="Jungle.png" width="624" height="304"/>
  </tileset>
@@ -32134,7 +32134,13 @@
   <object id="37" x="1181.82" y="117.455" width="51.8182" height="7.18182"/>
   <object id="259" x="585.636" y="547.064" width="19.0606" height="9.2045"/>
  </objectgroup>
- <layer name="Pathfinding" width="80" height="50">
+ <objectgroup color="#ffaa00" name="WinCon">
+  <object id="263" x="18" y="302" width="13" height="55"/>
+ </objectgroup>
+ <objectgroup color="#ff0000" name="DeathCon">
+  <object id="264" x="14" y="641" width="435" height="20"/>
+ </objectgroup>
+ <layer name="Pathfinding" width="80" height="50" visible="0">
   <properties>
    <property name="Navigation" type="int" value="1"/>
   </properties>
