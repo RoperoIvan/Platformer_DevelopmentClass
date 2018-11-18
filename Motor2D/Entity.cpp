@@ -4,6 +4,7 @@
 #include "j1Entities.h"
 #include "j1Render.h"
 #include "j1Scene.h"
+#include "Brofiler/Brofiler.h"
 
 
 Entity::Entity(int x, int y) : position(x, y)

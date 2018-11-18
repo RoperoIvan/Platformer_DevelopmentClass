@@ -11,6 +11,7 @@
 #include "j1Scene.h"
 #include "j1Entities.h"
 #include "Entity.h"
+#include "Brofiler/Brofiler.h"
 #include "j1FadeToBlack.h"
 
 #define SPAWN_MARGIN 50
@@ -43,6 +44,7 @@ bool j1Entities::Start()
 
 bool j1Entities::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdateEntity", Profiler::Color::Pink);
 	bool ret = true;
 	// check camera position to decide what to spawn
 	for (uint i = 0; i < MAX_ENTITY; ++i)
@@ -62,6 +64,7 @@ bool j1Entities::PreUpdate()
 
 bool j1Entities::Update(float dt)
 {
+	BROFILER_CATEGORY("UpdateEntity", Profiler::Color::LightPink);
 	bool ret = true;
 
 	for (uint i = 0; i < MAX_ENTITY; ++i)
@@ -75,6 +78,7 @@ bool j1Entities::Update(float dt)
 
 bool j1Entities::PostUpdate()
 {
+	BROFILER_CATEGORY("PostUpdateEntity", Profiler::Color::HotPink);
 	bool ret = true;
 
 	// check camera position to decide what to despawn

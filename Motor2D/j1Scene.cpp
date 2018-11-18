@@ -12,6 +12,7 @@
 #include "j1Player.h"
 #include "j1Entities.h"
 #include "j1Pathfinding.h"
+#include "Brofiler/Brofiler.h"
 #include "j1Scene.h"
 
 j1Scene::j1Scene() : j1Module()
@@ -88,25 +89,16 @@ bool j1Scene::Start()
 // Called each loop iteration
 bool j1Scene::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdateScene", Profiler::Color::Blue);
 	return true;
 }
 
 // Called each loop iteration
 bool j1Scene::Update(float dt)
-{/*
- if (App->map->data.mapLayers.end->data->data[App->player->feetCollider] == 52)
- {
- if (levelSelector == 1)
- {
- levelSelector = 2;
- LevelChange();
- }
- else if (levelSelector == 2)
- {
- levelSelector = 1;
- LevelChange();
- }
- }*/
+{
+	BROFILER_CATEGORY("UpdateScene", Profiler::Color::BlueViolet);
+
+
 	Limits();
 
 	//Debug Functionalities
@@ -205,6 +197,7 @@ bool j1Scene::Update(float dt)
 // Called each loop iteration
 bool j1Scene::PostUpdate()
 {
+	BROFILER_CATEGORY("PostUpdateScene", Profiler::Color::DarkBlue);
 	bool ret = true;
 
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
