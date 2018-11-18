@@ -173,16 +173,14 @@ bool j1Entities::Load(pugi::xml_node& data)
 
 	for (int i = 0; i < MAX_ENTITY; i++)
 	{
-		if (i != MAX_ENTITY)
+		if (entities[i] != nullptr)
 		{
-			switch (queue[i].type)
+			if (queue[i].type == EntitiesType::GHOST)
 			{
-			case EntitiesType::PLAYER:
-				pugi::xml_node player_stats = data.child("player");
-				entities[i]->Load(player_stats);
-				break;
+				pugi::xml_node ghostData = data.child("ghost");
+				entities[i]->Load(ghostData);
 			}
-		}
+		}	
 	}
 
 	return ret;
@@ -194,13 +192,14 @@ bool j1Entities::Save(pugi::xml_node& data)const
 
 	for (int i = 0; i < MAX_ENTITY; i++)
 	{
-		switch (queue[i].type)
+		if (entities[i] != nullptr)
 		{
-		case EntitiesType::PLAYER:
-			pugi::xml_node player_stats = data.append_child("player");
-			entities[i]->Save(player_stats);
-			break;
-		}
+			if (queue[i].type == EntitiesType::GHOST)
+			{
+				pugi::xml_node ghostData = data.append_child("ghost");
+				entities[i]->Save(ghostData);
+			}
+		}		
 	}
 
 	return ret;

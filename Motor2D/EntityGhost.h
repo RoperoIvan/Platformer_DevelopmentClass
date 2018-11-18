@@ -9,9 +9,10 @@ class EntityGhost : public Entity
 
 private:
 	Animation idle;
+	Animation death;
 	SDL_Texture* batex;
-	iPoint ghostPos;
-	iPoint playerPos;
+	iPoint ghostPosition;
+	iPoint playerPosition;
 	iPoint chase;
 public:
 
@@ -19,7 +20,10 @@ public:
 	~EntityGhost() {};
 	void Update(float dt);
 	void OnCollision(Collider*);
+	void Chasing();
 	bool Vision();
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&)const;
 };
 
 

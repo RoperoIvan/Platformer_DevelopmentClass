@@ -39,7 +39,7 @@ public:
 	Collider* rightCollider = nullptr;
 	Collider* headCollider = nullptr;
 	Collider* body = nullptr;
-	iPoint playerPos;
+	iPoint playerPosition;
 private:
 	iPoint position;
 	fPoint speedPlayer;

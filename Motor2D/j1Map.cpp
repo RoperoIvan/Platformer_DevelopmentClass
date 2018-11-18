@@ -446,8 +446,8 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	layer->name = node.attribute("name").as_string();
 	layer->width = node.attribute("width").as_uint();
 	layer->height = node.attribute("height").as_uint();
-	LoadProperties2(node, layer->properties);
-
+	
+	LoadProperties(node, layer->properties);
 	layer->data = new uint[layer->width*layer->height];
 	memset(layer->data, 0, layer->width * layer->height * sizeof(uint));
 	int i = 0;
@@ -503,7 +503,7 @@ bool j1Map::LoadAttributes(pugi::xml_node& node, Attributes* att)
 	return true;
 }
 
-bool j1Map::LoadProperties2(pugi::xml_node& node, Properties& properties)
+bool j1Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 {
 	bool ret = false;
 
@@ -516,10 +516,8 @@ bool j1Map::LoadProperties2(pugi::xml_node& node, Properties& properties)
 		for (prop = data.child("property"); prop; prop = prop.next_sibling("property"))
 		{
 			Properties::Property* p = new Properties::Property();
-
 			p->name = prop.attribute("name").as_string();
 			p->value = prop.attribute("value").as_int();
-
 			properties.list.add(p);
 		}
 	}

@@ -11,6 +11,8 @@
 
 EntityGhost::EntityGhost(int x, int y) : Entity(x, y)
 {
+	
+
 	idle.PushBack({ 0,44,24,42 });
 	idle.PushBack({ 62,46,28,41 });
 	idle.PushBack({ 127,47,26,42 });
@@ -21,48 +23,61 @@ EntityGhost::EntityGhost(int x, int y) : Entity(x, y)
 	idle.speed = 0.2f;
 	idle.loop = true;
 	collider = App->collision->AddCollider({ 0,0,26,21 },COLLIDER_TYPE::COLLIDER_ENEMY,(j1Module*)App->entities);
+	
+
+	death.PushBack({0,143,24,42});
+	death.PushBack({61,148,30,30 });
+	death.PushBack({ 123,146,29,26 });
+	death.PushBack({ 197,150,15,17 });
+	death.PushBack({ 264,153,10,12 });
+	death.PushBack({ 324,151,20,18 });
+	death.PushBack({ 389,149,17,18 });
+	death.speed = 0.4f;
+	death.loop = true;
 	animation = &idle;
 }
 void EntityGhost::Update(float dt)
 {
-
-	ghostPos = App->map->WorldToMap(position.x, position.y);
-	playerPos = App->player->playerPos;
-
-
 	if (Vision() == true)
 	{
-		/*position.x--;*/
-		if (App->pathfinding->CreatePath(ghostPos, playerPos) != -1)
-		{
-			const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
-			if (path->Count() > 0)
-			{
-				chase = iPoint(path->At(0)->x, path->At(0)->y);
-				if (chase.x < ghostPos.x)
-				{
-					position.x--;
-				}
-				else if (chase.x > ghostPos.x)
-				{
-					position.x++;
-				}
-				if (chase.y < ghostPos.y)
-				{
-					position.y--;
-				}
-				if (chase.y > ghostPos.y)
-				{
-					position.y++;
-				}
-			}
-		}
+		Chasing();
 	}
 }
 
 void EntityGhost::OnCollision(Collider* coll)
 {
-	
+
+}
+
+void EntityGhost::Chasing()
+{
+	ghostPosition = App->map->WorldToMap(position.x, position.y);
+	playerPosition = App->player->playerPosition;
+
+	if (App->pathfinding->CreatePath(ghostPosition, playerPosition) != -1)
+	{
+		const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
+		if (path->Count() > 0)
+		{
+			chase = iPoint(path->At(0)->x, path->At(0)->y);
+			if (chase.x < ghostPosition.x)
+			{
+				position.x--;
+			}
+			else if (chase.x > ghostPosition.x)
+			{
+				position.x++;
+			}
+			if (chase.y < ghostPosition.y)
+			{
+				position.y--;
+			}
+			if (chase.y > ghostPosition.y)
+			{
+				position.y++;
+			}
+		}
+	}
 }
 
 bool EntityGhost::Vision()
@@ -71,4 +86,19 @@ bool EntityGhost::Vision()
 		&& App->player->GetPosition().x < position.x +100 
 		&& App->player->GetPosition().y < position.y + 100 
 		&& App->player->GetPosition().y > position.y - 100);
+}
+
+bool EntityGhost::Save(pugi::xml_node& data)const
+{
+	data.append_child("position").append_attribute("x") = position.x;
+	data.child("position").append_attribute("y") = position.y;
+
+	return true;
+}
+bool EntityGhost::Load(pugi::xml_node& data)
+{
+	position.x = data.child("position").attribute("x").as_int();
+	position.y = data.child("position").attribute("y").as_int();
+	
+	return true;
 }

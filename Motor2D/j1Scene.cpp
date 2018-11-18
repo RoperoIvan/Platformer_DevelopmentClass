@@ -81,9 +81,7 @@ bool j1Scene::Start()
 	
 	App->audio->PlayMusic(song1Path.GetString());
 	Mix_VolumeMusic(volume);
-	App->entities->AddEntity(GHOST, 600, 230);
-
-
+	SpawnEnemies();
 	return true;
 }
 
@@ -228,13 +226,16 @@ void j1Scene::LevelChange()
 	if (levelSelector == 2)
 	{
 		App->player->CleanUp();
+		App->entities->CleanUp();
 		App->map->CleanUp();
 		App->collision->CleanUp();
 		App->fade->FadeTo();
 		App->player->SetPosition(secondLevelPosition);
 		App->player->Start();
+		App->entities->Start();
+		SpawnEnemies();
 		App->collision->Start();
-		winCondition = { Wincon2.x,Wincon2.y,Width2,Height2 };
+
 		App->audio->PlayMusic(song2Path.GetString());
 		App->map->Load(level2Path.GetString());
 	}
@@ -242,13 +243,15 @@ void j1Scene::LevelChange()
 	if (levelSelector == 1)
 	{
 		App->player->CleanUp();
+		App->entities->CleanUp();
 		App->map->CleanUp();
 		App->collision->CleanUp();
 		App->fade->FadeTo();
 		App->player->SetPosition(firstLevelPosition);
 		App->player->Start();
+		App->entities->Start();
+		SpawnEnemies();
 		App->collision->Start();
-		winCondition = { Wincon1.x,Wincon1.y,Width1,Height1 };
 		App->audio->PlayMusic(song1Path.GetString());
 		App->map->Load(level1Path.GetString());
 	}
@@ -296,4 +299,13 @@ void j1Scene::Limits()
 			LevelChange();
 		}
 	}
+}
+
+void j1Scene::SpawnEnemies()
+{
+
+
+	App->entities->AddEntity(GHOST, 600, 230);
+	App->entities->AddEntity(GHOST, 400, 220);
+	App->entities->AddEntity(GHOST, 500, 200);
 }

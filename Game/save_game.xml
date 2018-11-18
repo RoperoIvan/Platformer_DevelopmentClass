@@ -5,17 +5,19 @@
 	<textures />
 	<audio />
 	<map />
+	<pathfinding />
 	<scene>
 		<musicvolume value="0" />
 		<levelSelector value="1" />
 		<Logic value="false" />
 	</scene>
+	<entities />
 	<player>
-		<position x="498" y="230" />
+		<position x="266" y="293" />
 	</player>
 	<:anonymous />
 	<FadeToBlack />
 	<renderer>
-		<camera x="-982" y="-306" />
+		<camera x="-286" y="-495" />
 	</renderer>
 </game_state>

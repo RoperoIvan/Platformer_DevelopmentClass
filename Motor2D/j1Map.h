@@ -137,8 +137,8 @@ private:
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	bool LoadObject(pugi::xml_node& node);
 	bool LoadAttributes(pugi::xml_node& node, Attributes* att);
-	TileSet* GetTilesetFromTileId(int id) const;
-	bool LoadProperties2(pugi::xml_node& node, Properties& properties);
+	bool LoadProperties(pugi::xml_node& node, Properties& properties);
+	TileSet* GetTilesetFromTileId(int id) const;	
 public:
 	MapData data;
 	uint GetGidPosition(int x, int y);

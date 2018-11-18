@@ -140,6 +140,7 @@ bool j1Player::Start()
 	feetCollider = App->collision->AddCollider({ position.x, position.y + 30,22,2 }, COLLIDER_PLAYER_DOWN, this);
 	leftCollider = App->collision->AddCollider({ position.x - 10, position.y + 5,2,16 }, COLLIDER_PLAYER_LEFT, this);
 	rightCollider = App->collision->AddCollider({ position.x + 10, position.y + 5,2,16 }, COLLIDER_PLAYER_RIGHT, this);
+	headCollider = App->collision->AddCollider({ position.x+ 4, position.y, 8, 2 }, COLLIDER_PLAYER_UP, this);
 	body = App->collision->AddCollider({ position.x, position.y, 17, 30 }, COLLIDER_PLAYER, this);
 	return true;
 }
@@ -157,7 +158,7 @@ bool j1Player::Update(float dt)
 	//Control of the orientation of the player animations
 	currentAnimation = &fall;
 
-	playerPos = App->map->WorldToMap(position.x, position.y);
+	playerPosition = App->map->WorldToMap(position.x, position.y);
 
 	if (!left && solidGround)
 	{
@@ -260,6 +261,7 @@ bool j1Player::Update(float dt)
 	feetCollider->SetPos(position.x, position.y + 30);
 	leftCollider->SetPos(position.x, position.y + 5);
 	rightCollider->SetPos(position.x + 20, position.y + 5);
+	headCollider->SetPos(position.x+4, position.y);
 	body->SetPos(position.x, position.y);
 
 	//Drawing the animations
@@ -350,5 +352,10 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 	if (c1->type == COLLIDER_PLAYER_DOWN && c2->type == COLLIDER_ENEMY)
 	{
 		speedPlayer.y = jumpPower;
+	}
+	if (c1->type == COLLIDER_PLAYER_UP && c2->type == COLLIDER_WALL)
+	{
+		speedPlayer.y = 2.0f;
+		position.y += speedPlayer.y;
 	}
 }

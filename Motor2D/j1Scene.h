@@ -38,9 +38,9 @@ public:
 
 	bool Load(pugi::xml_node&);
 	void Limits();
+	void SpawnEnemies();
 public:
 	bool controllingCamera;
-
 private:
 	int levelSelector, godSelector;
 	int collisionCounter;
