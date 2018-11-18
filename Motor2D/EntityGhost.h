@@ -11,6 +11,9 @@ private:
 	Animation idle;
 	Animation death;
 	Animation chasing;
+	Animation idleLeft;
+	Animation deathLeft;
+	Animation chasingLeft;	
 	iPoint ghostPosition;
 	iPoint playerPosition;
 	iPoint chase;

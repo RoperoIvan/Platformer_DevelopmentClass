@@ -9,13 +9,17 @@ class EntitySkeleton : public Entity
 
 private:
 	Animation idle;
+	Animation idleLeft;
 	Animation death;
+	Animation deathLeft;
 	Animation chasing;
+	Animation chasingLeft;
+	bool left;
 	iPoint skeletonPosition;
 	iPoint playerPosition;
 	iPoint chase;
 	iPoint canwalk;
-	bool left;
+
 public:
 
 	EntitySkeleton(int x, int y);
