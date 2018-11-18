@@ -116,6 +116,7 @@ EntitySkeleton::EntitySkeleton(int x, int y) : Entity(x, y)
 	animation = &idle;
 
 	collider = App->collision->AddCollider({ 0,0,22,17 }, COLLIDER_TYPE::COLLIDER_ENEMY, (j1Module*)App->entities);
+	/*collider2 = App->collision->AddCollider({ 0,11,22,14 }, COLLIDER_TYPE::COLLIDER_ENEMY_BODY, (j1Module*)App->entities);*/
 }
 
 void EntitySkeleton::Update(float dt)

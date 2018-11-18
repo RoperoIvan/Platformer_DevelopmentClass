@@ -12,6 +12,7 @@ class Entity
 public:
 	Animation* animation = nullptr;
 	Collider* collider = nullptr;
+	//Collider* collider2 = nullptr;
 
 public:
 	iPoint position;

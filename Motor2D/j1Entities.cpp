@@ -14,7 +14,7 @@
 #include "Brofiler/Brofiler.h"
 #include "j1FadeToBlack.h"
 
-#define SPAWN_MARGIN 50
+#define SPAWN_MARGIN 800
 #define SCREEN_SIZE 1
 
 j1Entities::j1Entities() : j1Module()

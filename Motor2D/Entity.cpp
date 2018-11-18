@@ -16,6 +16,10 @@ Entity::~Entity()
 	if (collider != nullptr)
 		collider->to_delete = true;
 	collider = nullptr;
+
+	/*if (collider2 != nullptr)
+		collider2->to_delete = true;
+	collider2 = nullptr;*/
 }
 
 const Collider* Entity::GetCollider() const
@@ -27,6 +31,9 @@ void Entity::Draw(SDL_Texture* sprites)
 {
 	if (collider != nullptr)
 		collider->SetPos(position.x, position.y);
+
+	/*if (collider2 != nullptr)
+		collider2->SetPos(position.x, position.y);*/
 
 	if (animation != nullptr)
 		App->render->Blit(sprites, position.x, position.y, &(animation->GetCurrentFrame()));

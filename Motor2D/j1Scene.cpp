@@ -226,7 +226,7 @@ void j1Scene::LevelChange()
 		App->player->SetPosition(secondLevelPosition);
 		App->player->Start();
 		App->entities->Start();
-		/*SpawnEnemies();*/
+		SpawnEnemies();
 		App->collision->Start();
 
 		App->audio->PlayMusic(song2Path.GetString());
@@ -243,7 +243,7 @@ void j1Scene::LevelChange()
 		App->player->SetPosition(firstLevelPosition);
 		App->player->Start();
 		App->entities->Start();
-		/*SpawnEnemies();*/
+		SpawnEnemies();
 		App->collision->Start();
 		App->audio->PlayMusic(song1Path.GetString());
 		App->map->Load(level1Path.GetString());
@@ -298,21 +298,30 @@ void j1Scene::SpawnEnemies()
 {
 	if (levelSelector == 1)
 	{
-		App->entities->AddEntity(GHOST, 600, 230);
-		App->entities->AddEntity(GHOST, 400, 220);
-		App->entities->AddEntity(GHOST, 500, 200);
-		App->entities->AddEntity(SKELETON, 550, 200);
-		App->entities->AddEntity(SKELETON, 400, 200);
-		App->entities->AddEntity(SKELETON, 250, 200);
-		App->entities->AddEntity(SKELETON, 600, 150);
-		App->entities->AddEntity(SKELETON, 650, 200);
-		App->entities->AddEntity(SKELETON, 520, 200);
-		App->entities->AddEntity(SKELETON, 350, 200);
-		App->entities->AddEntity(SKELETON, 300, 200);
+		App->entities->AddEntity(GHOST, 1570, 608);
+		App->entities->AddEntity(GHOST, 1626, 417);
+		App->entities->AddEntity(GHOST, 1377, 399);
+		App->entities->AddEntity(GHOST, 899, 289);
+		App->entities->AddEntity(GHOST, 1038, 670);
+		App->entities->AddEntity(GHOST, 693, 644);
+		App->entities->AddEntity(SKELETON, 560, 257);
+		App->entities->AddEntity(SKELETON, 813, 383);
+		App->entities->AddEntity(SKELETON, 1135, 384);
+		App->entities->AddEntity(SKELETON, 543, 741);
+		App->entities->AddEntity(SKELETON, 178, 645);
+		App->entities->AddEntity(SKELETON, 1387, 501);
+		App->entities->AddEntity(SKELETON, 1390, 627);
+		App->entities->AddEntity(SKELETON, 1864, 710);
 	}
 	if (levelSelector == 2)
 	{
-
+		App->entities->AddEntity(GHOST, 595, 194);
+		App->entities->AddEntity(GHOST, 398, 456);
+		App->entities->AddEntity(GHOST, 474, 449);
+		App->entities->AddEntity(SKELETON, 414, 255);
+	
+		App->entities->AddEntity(SKELETON, 499, 503);;
+		App->entities->AddEntity(SKELETON, 657, 568);
 	}
 	
 }

@@ -72,6 +72,7 @@ EntityGhost::EntityGhost(int x, int y) : Entity(x, y)
 	animation = &idle;
 
 	collider = App->collision->AddCollider({ 0,0,26,21 }, COLLIDER_TYPE::COLLIDER_ENEMY, (j1Module*)App->entities);
+	/*collider2 = App->collision->AddCollider({ 0,13,26,21 }, COLLIDER_TYPE::COLLIDER_ENEMY_BODY, (j1Module*)App->entities);*/
 }
 void EntityGhost::Update(float dt)
 {

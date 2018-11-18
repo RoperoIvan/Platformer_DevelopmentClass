@@ -249,10 +249,10 @@ bool j1Player::Update(float dt)
 		{
 			speedPlayer.y = jumpPower;
 			solidGround = false;
-			doubleJump = true;
+			
 			cont++;
 		}
-
+		doubleJump = true;
 	}
 	if (doubleJump && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
@@ -265,7 +265,7 @@ bool j1Player::Update(float dt)
 		}
 		
 	}
-	if (speedPlayer.y < maxJumpHeight)
+	if (speedPlayer.y <= maxJumpHeight)
 	{
 		speedPlayer.y += gravity;
 		solidGround = false;
@@ -283,7 +283,7 @@ bool j1Player::Update(float dt)
 	//Drawing the animations
 	App->render->Blit(playerTexture, position.x, position.y, &currentAnimation->GetCurrentFrame());
 
-
+	LOG("%i", doubleJump);
 
 	return true;
 }
@@ -386,8 +386,12 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 	{
 		App->scene->LevelChange();
 	}
-	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_ENEMY)
+	if (c1->type == COLLIDER_PLAYER_DAMAGE && c2->type == COLLIDER_ENEMY)
 	{
 		speedPlayer.y = jumpPower;
+	}
+	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_ENEMY)
+	{
+		App->scene->LevelChange();
 	}
 }
