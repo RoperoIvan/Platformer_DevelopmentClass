@@ -9,15 +9,15 @@
 	<scene>
 		<musicvolume value="0" />
 		<levelSelector value="1" />
-		<Logic value="false" />
+		<Logic value="true" />
 	</scene>
 	<entities />
 	<player>
-		<position x="266" y="293" />
+		<position x="1544" y="731" />
 	</player>
 	<:anonymous />
 	<FadeToBlack />
 	<renderer>
-		<camera x="-286" y="-495" />
+		<camera x="-4120" y="-1809" />
 	</renderer>
 </game_state>

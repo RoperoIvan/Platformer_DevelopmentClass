@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="80" height="50" tilewidth="16" tileheight="16" nextobjectid="265">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="80" height="50" tilewidth="16" tileheight="16" nextobjectid="263">
  <tileset firstgid="1" name="Jungle" tilewidth="16" tileheight="16" tilecount="741" columns="39">
   <image source="Jungle.png" width="624" height="304"/>
  </tileset>
@@ -28034,7 +28034,7 @@
    <tile gid="120"/>
   </data>
  </layer>
- <layer name="Collision" width="80" height="50" visible="0" opacity="0.4">
+ <layer name="Collision" width="80" height="50" opacity="0.4">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -32040,9 +32040,9 @@
  </layer>
  <objectgroup color="#0000ff" name="Colliders" opacity="0.47">
   <object id="94" x="149.636" y="186" width="0.181818"/>
-  <object id="95" x="161.636" y="148" width="60.2048" height="93.6364"/>
-  <object id="98" x="289.557" y="163.932" width="19.1139" height="48.6364"/>
-  <object id="101" x="242.322" y="164.204" width="28.9435" height="82.8864"/>
+  <object id="95" x="161.636" y="148" width="58.2048" height="93.6364"/>
+  <object id="98" x="291.375" y="163.932" width="17.2957" height="48.6364"/>
+  <object id="101" x="244.867" y="164.204" width="22.7617" height="82.8864"/>
   <object id="105" x="306.275" y="133.202" width="27.131" height="59.503"/>
   <object id="107" x="326.485" y="181.185" width="53.4245" height="124.172"/>
   <object id="108" x="372.318" y="291.182" width="166.03" height="11.6364"/>
@@ -32085,7 +32085,7 @@
   <object id="159" x="627.856" y="436.917" width="119.622" height="85.8319"/>
   <object id="160" x="627.821" y="512.818" width="57.2674" height="26.9091"/>
   <object id="161" x="546.462" y="515.745" width="42.4093" height="117.063"/>
-  <object id="162" x="585.654" y="612.788" width="711.025" height="118.091"/>
+  <object id="162" x="585.654" y="612.788" width="711.025" height="11.0909"/>
   <object id="175" x="452.174" y="549.885" width="108.318" height="117.063"/>
   <object id="176" x="-3.49233" y="663.468" width="468.318" height="99.7297"/>
   <object id="187" x="-0.531436" y="-2.74549" width="12.8811" height="803.07"/>
@@ -32103,7 +32103,7 @@
   <object id="239" x="276.693" y="267.432" width="30.3639" height="31.6364"/>
   <object id="240" x="291.318" y="283.682" width="30.3639" height="31.6364"/>
   <object id="241" x="308.068" y="300.182" width="30.3639" height="31.6364"/>
-  <object id="242" x="181.568" y="241.182" width="114.364" height="41.8864"/>
+  <object id="242" x="181.568" y="240.182" width="114.364" height="42.8864"/>
   <object id="243" x="-19.932" y="181.057" width="207.114" height="86.8864"/>
   <object id="244" x="32.818" y="254.057" width="58.364" height="27.8864"/>
   <object id="245" x="-7.682" y="272.057" width="66.364" height="27.8864"/>
@@ -32111,8 +32111,9 @@
   <object id="247" x="-1.5982" y="404.542" width="13.2673" height="38.461"/>
   <object id="248" x="1.6718" y="402.997" width="25.1764" height="23.461"/>
   <object id="250" x="-25.5882" y="485.269" width="52.1764" height="69.461"/>
-  <object id="258" x="1271.89" y="-9.535" width="13.8811" height="750.07"/>
-  <object id="264" x="272" y="207" width="23" height="29"/>
+  <object id="258" x="1271.89" y="-9.535" width="13.8811" height="844.07"/>
+  <object id="260" x="-34" y="792" width="1312" height="18"/>
+  <object id="262" x="265.898" y="208.409" width="28.7502" height="48.6364"/>
  </objectgroup>
  <objectgroup color="#00ff00" name="Colliders2" opacity="0.49">
   <object id="10" x="110.818" y="339.727" width="34.7273" height="9.4545"/>
@@ -32129,13 +32130,5 @@
   <object id="21" x="382.818" y="532.091" width="34.7273" height="9.2045"/>
   <object id="37" x="1181.82" y="117.455" width="51.8182" height="7.18182"/>
   <object id="259" x="585.636" y="547.064" width="19.0606" height="9.2045"/>
- </objectgroup>
- <objectgroup color="#ffaa00" name="WinCon">
-  <object id="260" x="14" y="304" width="19" height="52"/>
- </objectgroup>
- <objectgroup color="#ff0000" name="DeathCon">
-  <object id="261" x="223" y="225" width="18" height="16"/>
-  <object id="262" x="272" y="192" width="18" height="16"/>
-  <object id="263" x="15" y="643" width="432" height="27"/>
  </objectgroup>
 </map>
