@@ -1,0 +1,18 @@
+version: 1.0.{build}
+image: Visual Studio 2017
+configuration:
+- Debug
+- Release
+build:
+  verbosity: minimal
+before_package:
+- ps: C:\projects(your-project-name)$env:CONFIGURATION(your-solution-name).exe C:\projects(your-project-name)\Game\
+artifacts:
+- path: Files/Game
+  name: release
+  type: WebDeployPackage
+deploy:
+- provider: GitHub
+  auth_token:
+    secure: xiEN70d4LfRu3GRkrqTIdB4elrxVKvdfdjTQ6OJ2qg8g7kUiBwlfP4IxC3e8gUdLzIRBbsWqehBbvabAS/LBcYSWw/ZNKvSx1N9PgTaZRPY=
+  draft: true
