@@ -4,7 +4,7 @@ configuration: Release
 build:
   verbosity: minimal
 before_package:
-- ps: C:\projects(Platformer_DevelopmentClass)$env:CONFIGURATION(Motor2D).exe C:\projects(Platformer_DevelopmentClass)\Game\
+- ps: C:\projects(upc_videojocs)$env:CONFIGURATION(Motor2D).exe C:\projects(upc_videojocs)\Game\
 artifacts:
 - path: Files/Game
   name: release
