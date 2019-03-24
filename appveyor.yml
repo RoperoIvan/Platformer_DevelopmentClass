@@ -1,12 +1,10 @@
 version: 1.0.{build}
 image: Visual Studio 2017
-configuration:
-- Debug
-- Release
+configuration: Release
 build:
   verbosity: minimal
 before_package:
-- ps: C:\projects(your-project-name)$env:CONFIGURATION(your-solution-name).exe C:\projects(your-project-name)\Game\
+- ps: C:\projects(Platformer_DevelopmentClass)$env:CONFIGURATION(Motor2D).exe C:\projects(Platformer_DevelopmentClass)\Game\
 artifacts:
 - path: Files/Game
   name: release
@@ -14,5 +12,5 @@ artifacts:
 deploy:
 - provider: GitHub
   auth_token:
-    secure: xiEN70d4LfRu3GRkrqTIdB4elrxVKvdfdjTQ6OJ2qg8g7kUiBwlfP4IxC3e8gUdLzIRBbsWqehBbvabAS/LBcYSWw/ZNKvSx1N9PgTaZRPY=
+    secure: 4m9ajWwuB9rba+rrj0zg+6RZCacOu4d+ytuF7VN58NS03B8vdBb1oZXtIE/mivAb69ZjE3CG3Leu+nX4FtvfWpPlgaFMDO2MWN8di23jWpw=
   draft: true
