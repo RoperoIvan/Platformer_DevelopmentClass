@@ -4,7 +4,7 @@ configuration: Release
 build:
   verbosity: minimal
 before_package:
-- ps: "C:\\projects(Motor2D)$env:CONFIGURATION(Motor2D).exe \nC:\\projects(Motor2D)\\Game\\"
+- ps: "C:\\projects(Platformer_DevelopmentClass)$env:CONFIGURATION(Motor2D).exe \nC:\\projects(Platformer_DevelopmentClass)\\Game\\"
 artifacts:
 - path: Files/Game
   name: release
